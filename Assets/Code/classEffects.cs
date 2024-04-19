@@ -374,7 +374,7 @@ class Averages : Effects
             {
                 prom = item.Score;
                 nomberOfcards++;
-            }
+            } player1.Pased = true;
         }
         prom = prom / nomberOfcards;
         for (int i = 0; i < player.boardPlayer.UnitCards.Length; i++)
@@ -396,7 +396,7 @@ class Averages : Effects
                     item.Score = prom;
                 }
             }
-        }
+        } player1.Pased = true;
     }
 }
 //--------------------------------------------------------------------------------------------------------

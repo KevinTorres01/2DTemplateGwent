@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class DropRow : MonoBehaviour, IDropHandler
 {
     public string NameOfRow;
-   
+
     public void OnDrop(PointerEventData eventData)
     {
         if (this.transform.childCount < 6 && Drag.DraggedCard.GetComponent<CardVisual>().Card is UnitCard unitCard && unitCard.Possition.Contains(NameOfRow) && Drag.OriginalParent.parent.name == this.transform.parent.name)
@@ -57,13 +57,19 @@ public class DropRow : MonoBehaviour, IDropHandler
                 Board.UpdatePointsM(GameManager.player2.boardPlayer);
 
             }
-            if (this.transform.parent.name == "Player1")
+
+
+            if (this.transform.parent.name == "Player1" && GameManager.player2.Pased == false)
             {
+                Debug.Log(GameManager.player2.Pased);
+                Debug.Log("turno del jugador 2 desde el drop");
                 GameManager.player1.IsMyturn = false;
                 GameManager.player2.IsMyturn = true;
             }
-            else 
+            if (this.transform.parent.name == "Player2" && GameManager.player1.Pased == false)
             {
+                Debug.Log("turno del jugador 1 desde el drop");
+                Debug.Log(GameManager.player1.Pased);
                 GameManager.player1.IsMyturn = true;
                 GameManager.player2.IsMyturn = false;
             }
