@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     public HorizontalLayoutGroup WeatherM;
     public HorizontalLayoutGroup WeatherR;
     public HorizontalLayoutGroup WeatherS;
+    public GameObject Hand1;
+    public GameObject Hand2;
     public static Player player1;
     public static Player player2;
     void Awake()
@@ -43,7 +45,7 @@ public class GameManager : MonoBehaviour
         Hand hand1 = new Hand(deck1.DeckList);
         Board board2 = new Board();
         Deck deck2 = new Deck(GameData.Player2Faction);
-        Hand hand2 = new Hand(deck2.DeckList);
+        Hand hand2 = new Hand(deck2.DeckList);      
         player1 = new Player(GameData.Player1Name, board1, deck1, hand1);
         player2 = new Player(GameData.Player2Name, board2, deck2, hand2);
         WhoStart(player1, player2);
@@ -119,7 +121,7 @@ public class GameManager : MonoBehaviour
         FirstWin2.gameObject.SetActive(false);
         SecondWin2.gameObject.SetActive(false);
     }
-    async public void SetVictory(Player player1, Player player2)
+    async public void SetVictory()
     {
         if (player1.IsMyturn == false && player2.IsMyturn == false && player1.boardPlayer.score > player2.boardPlayer.score)
         {
@@ -127,7 +129,9 @@ public class GameManager : MonoBehaviour
             UIMessage.text = $"{player1.Name} ha ganado la ronda";
             await Task.Delay(2000);
             player1.IsMyturn = true;
-            UIMessage.text = $"Turno de {player1.Name}";
+            UIMessage.text = $"Turno de {player1.Name}";            
+            Hand1.GetComponent<HandScript>().DrawTwoCards(player1);
+            Hand2.GetComponent<HandScript>().DrawTwoCards(player2);           
             NewRound();
 
         }
@@ -137,7 +141,9 @@ public class GameManager : MonoBehaviour
             UIMessage.text = $"{player2.Name} ha ganado la ronda";
             await Task.Delay(2000);
             player2.IsMyturn = true;
-            UIMessage.text = $"Turno de {player2.Name}";
+            UIMessage.text = $"Turno de {player2.Name}";        
+            Hand1.GetComponent<HandScript>().DrawTwoCards(player1);
+            Hand2.GetComponent<HandScript>().DrawTwoCards(player2);            
             NewRound();
         }
         if (player1.IsMyturn == false && player2.IsMyturn == false && player2.boardPlayer.score == player1.boardPlayer.score)
@@ -146,6 +152,8 @@ public class GameManager : MonoBehaviour
             Victory(player2);
             UIMessage.text = $"{player1.Name} y {player2.Name} han empatado";
             WhoStart(player1, player2);
+            Hand1.GetComponent<HandScript>().DrawTwoCards(player1);
+            Hand2.GetComponent<HandScript>().DrawTwoCards(player2);            
             NewRound();
         }
         Board.CleanBoard(player1, player2);
@@ -195,7 +203,7 @@ public class GameManager : MonoBehaviour
             {
                 UIMessage.text = "La ronda ha terminado";
                 await Task.Delay(2000);
-                SetVictory(player1, player2);
+                SetVictory();
             }
         }
         else
@@ -211,7 +219,7 @@ public class GameManager : MonoBehaviour
             {
                 UIMessage.text = "La ronda ha terminado";
                 await Task.Delay(2000);
-                SetVictory(player1, player2);
+                SetVictory();
             }
 
         }

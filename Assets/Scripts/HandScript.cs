@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using System.Diagnostics;
+using Unity.VisualScripting;
 
 public class HandScript : MonoBehaviour
 {
@@ -16,34 +17,47 @@ public class HandScript : MonoBehaviour
 
         if (this.transform.parent.name == "Player1")
         {
-            List<Card> hand = GameManager.player1.Playerdeck.DeckList;
+            List<Card> hand = GameManager.player1.Hand.ListOfCards;
 
             for (int i = 0; i < 10; i++)
             {
                 var card = Instantiate(CardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                card.GetComponent<CardVisual>().ChangeImage(hand[0]);
-                card.GetComponent<CardVisual>().SetPoints(hand[0]);
+                card.GetComponent<CardVisual>().ChangeImage(hand[i]);
+                card.GetComponent<CardVisual>().SetPoints(hand[i]);
                 card.transform.SetParent(VisualHand.transform);
-                UnityEngine.Debug.Log(hand[0].Name);
-                GameManager.player1.Playerdeck.DeckList.Remove(hand[0]);
+                UnityEngine.Debug.Log(hand[i].Name);
             }
         }
 
 
         if (this.transform.parent.name == "Player2")
         {
-            List<Card> hand1 = GameManager.player2.Playerdeck.DeckList;
+            List<Card> hand1 = GameManager.player2.Hand.ListOfCards;
             for (int i = 0; i < 10; i++)
             {
                 var card = Instantiate(CardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                card.GetComponent<CardVisual>().ChangeImage(hand1[0]);
-                card.GetComponent<CardVisual>().SetPoints(hand1[0]);
+                card.GetComponent<CardVisual>().ChangeImage(hand1[i]);
+                card.GetComponent<CardVisual>().SetPoints(hand1[i]);
                 card.transform.SetParent(VisualHand.transform);
-                UnityEngine.Debug.Log(hand1[0].Name);
-                GameManager.player2.Playerdeck.DeckList.Remove(hand1[0]);
+                UnityEngine.Debug.Log(hand1[i].Name);
             }
         }
 
+    }
+    public void DrawTwoCards(Player player)
+    {
+
+        Hand.DrawTwoCards(player);
+
+        var card = Instantiate(CardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        card.GetComponent<CardVisual>().ChangeImage(player.Hand.ListOfCards[player.Hand.ListOfCards.Count - 1]);
+        card.GetComponent<CardVisual>().SetPoints(player.Hand.ListOfCards[player.Hand.ListOfCards.Count - 1]);
+        card.transform.SetParent(VisualHand.transform);
+
+        var card1 = Instantiate(CardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        card1.GetComponent<CardVisual>().ChangeImage(player.Hand.ListOfCards[player.Hand.ListOfCards.Count - 2]);
+        card1.GetComponent<CardVisual>().SetPoints(player.Hand.ListOfCards[player.Hand.ListOfCards.Count - 2]);
+        card1.transform.SetParent(VisualHand.transform);
     }
     void Update()
     {

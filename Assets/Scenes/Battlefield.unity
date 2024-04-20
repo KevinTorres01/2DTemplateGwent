@@ -5420,6 +5420,8 @@ MonoBehaviour:
   WeatherM: {fileID: 1931810309}
   WeatherR: {fileID: 2062002196}
   WeatherS: {fileID: 507223254}
+  Hand1: {fileID: 1347123401}
+  Hand2: {fileID: 1530491531}
 --- !u!4 &1780803162
 Transform:
   m_ObjectHideFlags: 0
