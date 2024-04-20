@@ -21,19 +21,5 @@ public class Player
         IsMyturn = false;
         Victories = 0;
         Pased = false;
-    }
-    public static void EndTurn(Player player)
-    {
-        player.IsMyturn = false;
-    }
-    public static void StartTurn(Player player)
-    {
-        player.IsMyturn = true;
-    }
-    public static void Pas(Player player)
-    {
-        player.Pased = true;
-    }
-   
-   
+    } 
 }

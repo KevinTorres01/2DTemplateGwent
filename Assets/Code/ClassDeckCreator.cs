@@ -8,16 +8,16 @@ public class Deck
     public Lider Lider;
     public List<Card> DeckList;
 
-    public Deck(List<Card> CardCollection)
+    public Deck(string Faction)
     {
-        Lider = GetLider(CardCollection);
+        Lider = GetLider(CardCreator.CreateDeck(Faction));
         DeckList = new List<Card>();
-        foreach (var card in CardCollection)
+        foreach (var card in CardCreator.CreateDeck(Faction))
         {
-            if ((card.Faction == Lider.Faction || card.Faction == "Neutral") && card.Type != "Lider")
-            {
-                DeckList.Add(card);
-            }
+          if (card.Type != "Lider")
+          {
+           DeckList.Add(card);            
+          }
         }
         DeckList = Swap(DeckList);
     }

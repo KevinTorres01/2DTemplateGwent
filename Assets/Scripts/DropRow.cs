@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class DropRow : MonoBehaviour, IDropHandler
 {
     public string NameOfRow;
+    [SerializeField] public TextMeshProUGUI UIMessage;
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -34,7 +36,7 @@ public class DropRow : MonoBehaviour, IDropHandler
                     GameManager.player1.boardPlayer.UnitCards[1].Add(unitCard);
                     GameManager.player1.Hand.ListOfCards.Remove(unitCard);
                 }
-                Board.UpdatePointsM(GameManager.player1.boardPlayer);
+                Board.UpdatePoints(GameManager.player1.boardPlayer);
 
             }
             if (this.transform.parent.name == "Player2")
@@ -54,36 +56,26 @@ public class DropRow : MonoBehaviour, IDropHandler
                     GameManager.player2.boardPlayer.UnitCards[1].Add(unitCard);
                     GameManager.player2.Hand.ListOfCards.Remove(unitCard);
                 }
-                Board.UpdatePointsM(GameManager.player2.boardPlayer);
+                Board.UpdatePoints(GameManager.player2.boardPlayer);
 
             }
 
 
             if (this.transform.parent.name == "Player1" && GameManager.player2.Pased == false)
             {
-                Debug.Log(GameManager.player2.Pased);
-                Debug.Log("turno del jugador 2 desde el drop");
                 GameManager.player1.IsMyturn = false;
                 GameManager.player2.IsMyturn = true;
+                UIMessage.text = $"Turno de {GameManager.player2.Name}";
+            
             }
             if (this.transform.parent.name == "Player2" && GameManager.player1.Pased == false)
             {
-                Debug.Log("turno del jugador 1 desde el drop");
-                Debug.Log(GameManager.player1.Pased);
                 GameManager.player1.IsMyturn = true;
                 GameManager.player2.IsMyturn = false;
+                UIMessage.text = $"Turno de {GameManager.player1.Name}";
             }
         }
     }
 
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+   
 }

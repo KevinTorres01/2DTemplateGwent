@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class DropSlot : MonoBehaviour, IDropHandler
 {
     public string NameofSlot;
+    [SerializeField] public TextMeshProUGUI UIMessage;
     public void OnDrop(PointerEventData eventData)
     {
         if (this.transform.childCount == 0 && ((Drag.DraggedCard.GetComponent<CardVisual>().Card is Weather weather && weather.Effect.Contains(NameofSlot)) || (Drag.DraggedCard.GetComponent<CardVisual>().Card is BonusCard bonus && Drag.OriginalParent.parent.name == this.transform.parent.name && bonus.Effect.Contains(NameofSlot))))
@@ -49,25 +51,15 @@ public class DropSlot : MonoBehaviour, IDropHandler
             {
                 GameManager.player1.IsMyturn = false;
                 GameManager.player2.IsMyturn = true;
+                UIMessage.text = $"Turno de {GameManager.player2.Name}";
             }
             if (Drag.OriginalParent.parent.name == "Player2")
             {
                 GameManager.player1.IsMyturn = true;
                 GameManager.player2.IsMyturn = false;
+                UIMessage.text = $"Turno de {GameManager.player1.Name}";
             }
         }
-
-    }
-
-
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
 
     }
 }

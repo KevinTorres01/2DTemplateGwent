@@ -45,22 +45,8 @@ public class HandScript : MonoBehaviour
         }
 
     }
-
-    // Update is called once per frame
     void Update()
     {
-        /*if (GameManager.player1.Pased && this.transform.parent.name == "Player1")
-        {
-            this.GetComponent<CanvasGroup>().blocksRaycasts = false;
-            //GameManager.PassTurn();
-            return;
-        }
-        if (GameManager.player1.Pased && this.transform.parent.name == "Player2")
-        {
-            this.GetComponent<CanvasGroup>().blocksRaycasts = false;
-            //GameManager.PassTurn();
-            return;
-        }*/
         if (GameManager.player1.IsMyturn == false && this.transform.parent.name == "Player1")
         {
             this.GetComponent<CanvasGroup>().blocksRaycasts = false;

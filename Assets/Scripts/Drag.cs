@@ -32,14 +32,5 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         this.GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
 
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+ 
 }

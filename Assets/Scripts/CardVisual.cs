@@ -25,14 +25,4 @@ public class CardVisual : MonoBehaviour
         else points.text = "";
     }
 
-    void Start()
-    {
-
-    }
-
-
-    void Update()
-    {
-
-    }
 }

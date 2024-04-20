@@ -68,6 +68,19 @@ public class CardCreator
         return CardList;
 
     }
+    public static List<Card> CreateDeck(string Faction)
+    {
+        List<Card> CardList = new List<Card>();
+        foreach (var item in CardCreator.CreateCards())
+        {
+            if (item.Faction == Faction||item.Faction == "Neutral")
+            {
+                CardList.Add(item);
+            }
+            
+        }
+        return CardList;
+    } 
     private static SilverCard DuplicateCards(SilverCard card)
     {
         SilverCard copy = new SilverCard(card.Name, card.Effect, card.Faction, card.Possition, card.PowerPoints);

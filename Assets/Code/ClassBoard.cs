@@ -29,7 +29,7 @@ public class Board
         rowRPoints = 0;
         rowSPoints = 0;
     }
-    public static void UpdatePointsM(Board board)
+    public static void UpdatePoints(Board board)
     {
         board.rowMPoints = 0;
         board.rowRPoints = 0;
@@ -49,16 +49,6 @@ public class Board
         }
         board.score = board.rowMPoints + board.rowRPoints + board.rowSPoints;
 
-    }
-    public static void Actpoints(Board board)
-    {
-        for (int i = 0; i < board.UnitCards.Length; i++)
-        {
-            foreach (var item in board.UnitCards[i])
-            {
-                board.score += item.Score;
-            }
-        }
     }
     public static UnitCard GetPowerfulCard(List<UnitCard>[] unitCards)
     {
@@ -105,5 +95,35 @@ public class Board
             }
         }
         return result;
+    }
+    public static void CleanBoard(Player player, Player player1)
+    {
+        Weather[] CleanWeathers = null;
+        CleanWeathers = new Weather[3];
+        BonusCard[] CleanBonus1 = null;
+        CleanBonus1 = new BonusCard[3];
+        BonusCard[] CleanBonus2 = new BonusCard[3];
+        List<UnitCard>[] CleanBoard1 = null;
+        CleanBoard1 = new List<UnitCard>[3];
+        List<UnitCard>[] CleanBoard2 = null;
+        CleanBoard2 = new List<UnitCard>[3];
+        CleanBoard1[0] = new List<UnitCard>();
+        CleanBoard2[0] = new List<UnitCard>();
+        CleanBoard1[1] = new List<UnitCard>();
+        CleanBoard2[1] = new List<UnitCard>();
+        CleanBoard1[2] = new List<UnitCard>();
+        CleanBoard2[2] = new List<UnitCard>();
+
+        Board.BothPlayersWeather = CleanWeathers;
+
+        player1.boardPlayer.UnitCards = CleanBoard1;
+        player1.boardPlayer.bonus = CleanBonus1;
+
+        player.boardPlayer.UnitCards = CleanBoard2;
+        player.boardPlayer.bonus = CleanBonus2;
+        Board.UpdatePoints(player1.boardPlayer);
+        Board.UpdatePoints(player.boardPlayer);
+
+
     }
 }

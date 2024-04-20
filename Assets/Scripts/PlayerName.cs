@@ -19,10 +19,4 @@ public class PlayerName : MonoBehaviour
              Name.text = GameManager.player2.Name;
         }
     }
-
-   
-    void Update()
-    {
-        
-    }
 }

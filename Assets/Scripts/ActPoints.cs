@@ -7,12 +7,7 @@ public class ActPoints : MonoBehaviour
 {
     public TextMeshProUGUI points;
     public string row;
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
+   
     void Update()
     {
         if (this.transform.parent.parent.name == "Player1")

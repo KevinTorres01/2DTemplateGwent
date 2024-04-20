@@ -6,9 +6,6 @@ using UnityEngine;
 public class TotalPoints : MonoBehaviour
 {
     public TextMeshProUGUI Points;
-    void Start()
-    {
-    }
     void Update()
     {
         if (this.transform.parent.parent.name == "Player1")

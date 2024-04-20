@@ -21,15 +21,4 @@ public class ScaleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         Destroy(ScaledObject);
     }
-
-    void Start()
-    {
-
-    }
-
-
-    void Update()
-    {
-
-    }
 }
