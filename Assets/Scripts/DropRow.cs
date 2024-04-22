@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class DropRow : MonoBehaviour, IDropHandler
 {
@@ -25,18 +26,37 @@ public class DropRow : MonoBehaviour, IDropHandler
                 {
                     GameManager.player1.boardPlayer.UnitCards[0].Add(unitCard);
                     GameManager.player1.Hand.ListOfCards.Remove(unitCard);
+                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+                    if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
+                    {
+                        Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player1);
+                    }
+
                 }
                 if (NameOfRow == "S")
                 {
                     GameManager.player1.boardPlayer.UnitCards[2].Add(unitCard);
                     GameManager.player1.Hand.ListOfCards.Remove(unitCard);
+                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+                    if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
+                    {
+                        Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player1);
+                    }
+
                 }
                 if (NameOfRow == "R")
                 {
                     GameManager.player1.boardPlayer.UnitCards[1].Add(unitCard);
                     GameManager.player1.Hand.ListOfCards.Remove(unitCard);
+                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+                    if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
+                    {
+                        Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player1);
+                    }
+
                 }
                 Board.UpdatePoints(GameManager.player1.boardPlayer);
+                Board.UpdatePoints(GameManager.player2.boardPlayer);
 
             }
             if (this.transform.parent.name == "Player2")
@@ -45,19 +65,37 @@ public class DropRow : MonoBehaviour, IDropHandler
                 {
                     GameManager.player2.boardPlayer.UnitCards[0].Add(unitCard);
                     GameManager.player2.Hand.ListOfCards.Remove(unitCard);
+                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+                    if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
+                    {
+                        Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player2);
+                    }
+
                 }
                 if (NameOfRow == "S")
                 {
                     GameManager.player2.boardPlayer.UnitCards[2].Add(unitCard);
                     GameManager.player2.Hand.ListOfCards.Remove(unitCard);
+                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+                    if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
+                    {
+                        Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player2);
+                    }
+
                 }
                 if (NameOfRow == "R")
                 {
                     GameManager.player2.boardPlayer.UnitCards[1].Add(unitCard);
                     GameManager.player2.Hand.ListOfCards.Remove(unitCard);
-                }
-                Board.UpdatePoints(GameManager.player2.boardPlayer);
+                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+                    if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
+                    {
+                        Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player2);
+                    }
 
+                }
+                Board.UpdatePoints(GameManager.player1.boardPlayer);
+                Board.UpdatePoints(GameManager.player2.boardPlayer);
             }
 
 
@@ -66,7 +104,7 @@ public class DropRow : MonoBehaviour, IDropHandler
                 GameManager.player1.IsMyturn = false;
                 GameManager.player2.IsMyturn = true;
                 UIMessage.text = $"Turno de {GameManager.player2.Name}";
-            
+
             }
             if (this.transform.parent.name == "Player2" && GameManager.player1.Pased == false)
             {
@@ -74,8 +112,8 @@ public class DropRow : MonoBehaviour, IDropHandler
                 GameManager.player2.IsMyturn = false;
                 UIMessage.text = $"Turno de {GameManager.player1.Name}";
             }
+
+
         }
     }
-
-   
 }

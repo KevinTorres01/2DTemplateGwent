@@ -30,7 +30,7 @@ public class CardCreator
         CardList.Add(Capsule_Corp);
         Lider Beerus_Sama = new Lider("Beerus Sama", "", "Universe 7");
         CardList.Add(Beerus_Sama);
-        GoldenCard Freeza = new GoldenCard("Freeza", "WeatherR", "Universe 7", "MR", 6);
+        GoldenCard Freeza = new GoldenCard("Freeza", "WeatherS", "Universe 7", "MR", 6);
         CardList.Add(Freeza);
         Clearance Genkidama = new Clearance("Genkidama", "CleanWeather");
         CardList.Add(Genkidama);

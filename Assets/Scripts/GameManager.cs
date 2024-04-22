@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     public GameObject Hand2;
     public static Player player1;
     public static Player player2;
+    public static GameManager gameManager;
     void Awake()
     {
         Board board1 = new Board();
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
         Hand hand1 = new Hand(deck1.DeckList);
         Board board2 = new Board();
         Deck deck2 = new Deck(GameData.Player2Faction);
-        Hand hand2 = new Hand(deck2.DeckList);      
+        Hand hand2 = new Hand(deck2.DeckList);
         player1 = new Player(GameData.Player1Name, board1, deck1, hand1);
         player2 = new Player(GameData.Player2Name, board2, deck2, hand2);
         WhoStart(player1, player2);
@@ -120,6 +121,7 @@ public class GameManager : MonoBehaviour
         SecondWin1.gameObject.SetActive(false);
         FirstWin2.gameObject.SetActive(false);
         SecondWin2.gameObject.SetActive(false);
+        gameManager = this;
     }
     async public void SetVictory()
     {
@@ -129,9 +131,9 @@ public class GameManager : MonoBehaviour
             UIMessage.text = $"{player1.Name} ha ganado la ronda";
             await Task.Delay(2000);
             player1.IsMyturn = true;
-            UIMessage.text = $"Turno de {player1.Name}";            
+            UIMessage.text = $"Turno de {player1.Name}";
             Hand1.GetComponent<HandScript>().DrawTwoCards(player1);
-            Hand2.GetComponent<HandScript>().DrawTwoCards(player2);           
+            Hand2.GetComponent<HandScript>().DrawTwoCards(player2);
             NewRound();
 
         }
@@ -141,9 +143,9 @@ public class GameManager : MonoBehaviour
             UIMessage.text = $"{player2.Name} ha ganado la ronda";
             await Task.Delay(2000);
             player2.IsMyturn = true;
-            UIMessage.text = $"Turno de {player2.Name}";        
+            UIMessage.text = $"Turno de {player2.Name}";
             Hand1.GetComponent<HandScript>().DrawTwoCards(player1);
-            Hand2.GetComponent<HandScript>().DrawTwoCards(player2);            
+            Hand2.GetComponent<HandScript>().DrawTwoCards(player2);
             NewRound();
         }
         if (player1.IsMyturn == false && player2.IsMyturn == false && player2.boardPlayer.score == player1.boardPlayer.score)
@@ -153,7 +155,7 @@ public class GameManager : MonoBehaviour
             UIMessage.text = $"{player1.Name} y {player2.Name} han empatado";
             WhoStart(player1, player2);
             Hand1.GetComponent<HandScript>().DrawTwoCards(player1);
-            Hand2.GetComponent<HandScript>().DrawTwoCards(player2);            
+            Hand2.GetComponent<HandScript>().DrawTwoCards(player2);
             NewRound();
         }
         Board.CleanBoard(player1, player2);
@@ -255,6 +257,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        GameManager.gameManager.ActPointsInFronten();
         if (player1.Victories == 1)
         {
             FirstWin1.gameObject.SetActive(true);
@@ -282,5 +285,91 @@ public class GameManager : MonoBehaviour
             player1.IsMyturn = false;
             UIMessage.text = "La partida ha terminado";
         }
+    }
+    public void ActPointsInFronten()
+    {
+        for (int i = 0; i < M1.transform.childCount; i++)
+        {
+            Card CardToSearch = M1.transform.GetChild(i).GetComponent<CardVisual>().Card;
+            if (CardToSearch is UnitCard unitCard && player1.boardPlayer.UnitCards[0].Contains(unitCard))
+            {
+                M1.transform.GetChild(i).GetComponent<CardVisual>().SetPoints(unitCard);
+            }
+            else
+            {
+                Destroy(M1.transform.GetChild(i).gameObject);
+            }
+        }
+        for (int i = 0; i < M2.transform.childCount; i++)
+        {
+            Card CardToSearch = M2.transform.GetChild(i).GetComponent<CardVisual>().Card;
+            if (CardToSearch is UnitCard unitCard && player2.boardPlayer.UnitCards[0].Contains(unitCard))
+            {
+                M2.transform.GetChild(i).GetComponent<CardVisual>().SetPoints(unitCard);
+                
+            }
+            else
+            {
+                Destroy(M2.transform.GetChild(i).gameObject);
+                
+            }
+        }
+        for (int i = 0; i < R2.transform.childCount; i++)
+        {
+            Card CardToSearch = R2.transform.GetChild(i).GetComponent<CardVisual>().Card;
+            if (CardToSearch is UnitCard unitCard && player2.boardPlayer.UnitCards[1].Contains(unitCard))
+            {
+                R2.transform.GetChild(i).GetComponent<CardVisual>().SetPoints(unitCard);
+                
+            }
+            else
+            {
+                Destroy(R2.transform.GetChild(i).gameObject);
+    
+            }
+        }
+        for (int i = 0; i < R1.transform.childCount; i++)
+        {
+            Card CardToSearch = R1.transform.GetChild(i).GetComponent<CardVisual>().Card;
+            if (CardToSearch is UnitCard unitCard && player1.boardPlayer.UnitCards[1].Contains(unitCard))
+            {
+                R1.transform.GetChild(i).GetComponent<CardVisual>().SetPoints(unitCard);
+                
+            }
+            else
+            {
+                Destroy(R1.transform.GetChild(i).gameObject);
+        
+            }
+        }
+        for (int i = 0; i < S1.transform.childCount; i++)
+        {
+            Card CardToSearch = S1.transform.GetChild(i).GetComponent<CardVisual>().Card;
+            if (CardToSearch is UnitCard unitCard && player1.boardPlayer.UnitCards[2].Contains(unitCard))
+            {
+                S1.transform.GetChild(i).GetComponent<CardVisual>().SetPoints(unitCard);
+                
+            }
+            else
+            {
+                Destroy(S1.transform.GetChild(i).gameObject);
+            
+            }
+        }
+        for (int i = 0; i < S2.transform.childCount; i++)
+        {
+            Card CardToSearch = S2.transform.GetChild(i).GetComponent<CardVisual>().Card;
+            if (CardToSearch is UnitCard unitCard && player2.boardPlayer.UnitCards[2].Contains(unitCard))
+            {
+                S2.transform.GetChild(i).GetComponent<CardVisual>().SetPoints(unitCard);
+                
+            }
+            else
+            {
+                Destroy(S2.transform.GetChild(i).gameObject);
+                
+            }
+        }
+
     }
 }

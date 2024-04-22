@@ -25,6 +25,8 @@ public class DropSlot : MonoBehaviour, IDropHandler
                     Drag.DraggedCard.transform.position = this.GetComponent<HorizontalLayoutGroup>().transform.position;
                     Drag.DraggedCard.transform.rotation = this.GetComponent<HorizontalLayoutGroup>().transform.rotation;
                     Drag.DraggedCard.GetComponent<Drag>().enabled = false;
+                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+
                     WasDropped = true;
                 }
                 if (weather1.Effect.Contains("R") && NameofSlot == "R")
@@ -34,6 +36,8 @@ public class DropSlot : MonoBehaviour, IDropHandler
                     Drag.DraggedCard.transform.SetParent(this.GetComponent<HorizontalLayoutGroup>().transform);
                     Drag.DraggedCard.transform.position = this.GetComponent<HorizontalLayoutGroup>().transform.position;
                     Drag.DraggedCard.transform.rotation = this.GetComponent<HorizontalLayoutGroup>().transform.rotation;
+                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+
                     Drag.DraggedCard.GetComponent<Drag>().enabled = false;
                     WasDropped = true;
 
@@ -46,6 +50,8 @@ public class DropSlot : MonoBehaviour, IDropHandler
                     Drag.DraggedCard.transform.position = this.GetComponent<HorizontalLayoutGroup>().transform.position;
                     Drag.DraggedCard.transform.rotation = this.GetComponent<HorizontalLayoutGroup>().transform.rotation;
                     Drag.DraggedCard.GetComponent<Drag>().enabled = false;
+                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+
                     WasDropped = true;
                 }
 
@@ -73,7 +79,9 @@ public class DropSlot : MonoBehaviour, IDropHandler
                         GameManager.player2.IsMyturn = false;
                         UIMessage.text = $"Turno de {GameManager.player1.Name}";
                     }
-
+                    Board.UpdatePoints(GameManager.player1.boardPlayer);
+                    Board.UpdatePoints(GameManager.player2.boardPlayer);
+                    
                     WasDropped = false;
                 }
 
@@ -90,6 +98,8 @@ public class DropSlot : MonoBehaviour, IDropHandler
                         Drag.DraggedCard.transform.SetParent(this.GetComponent<HorizontalLayoutGroup>().transform);
                         Drag.DraggedCard.transform.position = this.GetComponent<HorizontalLayoutGroup>().transform.position;
                         Drag.DraggedCard.transform.rotation = this.GetComponent<HorizontalLayoutGroup>().transform.rotation;
+                        Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+
                         Drag.DraggedCard.GetComponent<Drag>().enabled = false;
                         WasDropped = true;
                     }
@@ -100,6 +110,8 @@ public class DropSlot : MonoBehaviour, IDropHandler
                         Drag.DraggedCard.transform.SetParent(this.GetComponent<HorizontalLayoutGroup>().transform);
                         Drag.DraggedCard.transform.position = this.GetComponent<HorizontalLayoutGroup>().transform.position;
                         Drag.DraggedCard.transform.rotation = this.GetComponent<HorizontalLayoutGroup>().transform.rotation;
+                        Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+
                         Drag.DraggedCard.GetComponent<Drag>().enabled = false;
                         WasDropped = true;
                     }
@@ -110,6 +122,8 @@ public class DropSlot : MonoBehaviour, IDropHandler
                         Drag.DraggedCard.transform.SetParent(this.GetComponent<HorizontalLayoutGroup>().transform);
                         Drag.DraggedCard.transform.position = this.GetComponent<HorizontalLayoutGroup>().transform.position;
                         Drag.DraggedCard.transform.rotation = this.GetComponent<HorizontalLayoutGroup>().transform.rotation;
+                        Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+
                         Drag.DraggedCard.GetComponent<Drag>().enabled = false;
                         WasDropped = true;
                     }
@@ -129,6 +143,10 @@ public class DropSlot : MonoBehaviour, IDropHandler
                             GameManager.player2.IsMyturn = false;
                             UIMessage.text = $"Turno de {GameManager.player1.Name}";
                         }
+                        Board.UpdatePoints(GameManager.player1.boardPlayer);
+                        Board.UpdatePoints(GameManager.player2.boardPlayer);
+                        
+                        WasDropped = false;
                     }
 
                 }
@@ -142,6 +160,8 @@ public class DropSlot : MonoBehaviour, IDropHandler
                         Drag.DraggedCard.transform.SetParent(this.GetComponent<HorizontalLayoutGroup>().transform);
                         Drag.DraggedCard.transform.position = this.GetComponent<HorizontalLayoutGroup>().transform.position;
                         Drag.DraggedCard.transform.rotation = this.GetComponent<HorizontalLayoutGroup>().transform.rotation;
+                        Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+
                         Drag.DraggedCard.GetComponent<Drag>().enabled = false;
                         WasDropped = true;
                     }
@@ -153,6 +173,8 @@ public class DropSlot : MonoBehaviour, IDropHandler
                         Drag.DraggedCard.transform.position = this.GetComponent<HorizontalLayoutGroup>().transform.position;
                         Drag.DraggedCard.transform.rotation = this.GetComponent<HorizontalLayoutGroup>().transform.rotation;
                         Drag.DraggedCard.GetComponent<Drag>().enabled = false;
+                        Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+
                         WasDropped = true;
                     }
                     if (bonusCard.Effect.Contains("S") && NameofSlot == "S")
@@ -162,6 +184,8 @@ public class DropSlot : MonoBehaviour, IDropHandler
                         Drag.DraggedCard.transform.SetParent(this.GetComponent<HorizontalLayoutGroup>().transform);
                         Drag.DraggedCard.transform.position = this.GetComponent<HorizontalLayoutGroup>().transform.position;
                         Drag.DraggedCard.transform.rotation = this.GetComponent<HorizontalLayoutGroup>().transform.rotation;
+                        Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+
                         Drag.DraggedCard.GetComponent<Drag>().enabled = false;
                         WasDropped = true;
                     }
@@ -181,6 +205,10 @@ public class DropSlot : MonoBehaviour, IDropHandler
                             GameManager.player2.IsMyturn = false;
                             UIMessage.text = $"Turno de {GameManager.player1.Name}";
                         }
+                        Board.UpdatePoints(GameManager.player1.boardPlayer);
+                        Board.UpdatePoints(GameManager.player2.boardPlayer);
+                        
+                        WasDropped = false;
                     }
 
                 }

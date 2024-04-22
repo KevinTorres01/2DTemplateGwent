@@ -31,6 +31,7 @@ public class Hand
             // player2.Playerdeck.DeckList.Remove(player2.Playerdeck.DeckList[0]);
         }
     }
+    
 
 
 }

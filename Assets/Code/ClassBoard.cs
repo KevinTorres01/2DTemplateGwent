@@ -35,6 +35,27 @@ public class Board
         board.rowRPoints = 0;
         board.rowSPoints = 0;
         board.score = 0;
+        for (int i = 0; i < BothPlayersWeather.Length; i++)
+        {
+            if (BothPlayersWeather[i] is Weather weather)
+            {
+                weather.TakeEffect(GameManager.player1, GameManager.player2, weather);
+            }
+        }
+        for (int i = 0; i < GameManager.player1.boardPlayer.bonus.Length; i++)
+        {
+            if (GameManager.player1.boardPlayer.bonus[i] is BonusCard bonus)
+            {
+                bonus.TakeEffect(GameManager.player1, GameManager.player2, bonus);
+            }
+        }
+        for (int i = 0; i < GameManager.player2.boardPlayer.bonus.Length; i++)
+        {
+            if (GameManager.player2.boardPlayer.bonus[i] is BonusCard bonus)
+            {
+                bonus.TakeEffect(GameManager.player1, GameManager.player2, bonus);
+            }
+        }
         foreach (var item in board.UnitCards[0])
         {
             board.rowMPoints += item.Score;
@@ -57,13 +78,13 @@ public class Board
         {
             foreach (var item in unitCards[i])
             {
-                if (result.Score == 0)                              //result = a la primera carta q me encuentre en la lista , luego cada vez q me encuentre una carta comparo los score
+                if (result.Score == 0 && item is not GoldenCard)                              //result = a la primera carta q me encuentre en la lista , luego cada vez q me encuentre una carta comparo los score
                 {
                     result = item;
                 }
                 else
                 {
-                    if (item.Score > result.Score)
+                    if (item.Score > result.Score && item is not GoldenCard)
                     {
                         result = item;
                     }

@@ -14,7 +14,7 @@ public abstract class Effects
         Dictionary<string, Effects> ef = new Dictionary<string, Effects>();
         ef.Add("Multiply", new Multiply());
         ef.Add("DeletRivalWeek", new DeletRivalWeak());
-        ef.Add("DeletPowerful", new DeletPowerful());
+        ef.Add("DeletePowerful", new DeletPowerful());
         ef.Add("Draw", new Draw());
         ef.Add("Clean", new Clean());
         ef.Add("BonusR", new BonificationR());
@@ -24,7 +24,8 @@ public abstract class Effects
         ef.Add("WeatherR", new WeatherEffect_R());
         ef.Add("WeatherM", new WeatherEffect_M());
         ef.Add("WeatherS", new WeatherEffect_S());
-        ef.Add("CleanWeather",new CleanWeather());
+        ef.Add("CleanWeather", new CleanWeather());
+        ef.Add("", new Empty());
         return ef;
     }
 
@@ -69,7 +70,7 @@ class Multiply : Effects
             {
                 if (item.Name == temp)
                 {
-                    item.Score = item.Score * count;
+                    item.Score = item.PowerPoints * count;
                 }
             }
         }
@@ -80,10 +81,12 @@ class Multiply : Effects
             {
                 if (item.Name == temp)
                 {
-                    item.Score = item.Score * count;
+                    item.Score = item.PowerPoints * count;
                 }
             }
         }
+
+        Debug.Log($"efecto hecho");
     }
 }
 //-----------------------------------------------------------------------------------------------------------------
@@ -97,14 +100,15 @@ class DeletRivalWeak : Effects
     {
         if (player.IsMyturn)
         {
-            Card weak = Board.GetWeakCard(player1.boardPlayer.UnitCards);
+            UnitCard weak = Board.GetWeakCard(player1.boardPlayer.UnitCards);
             string temp = weak.Name;
             for (int i = 0; i < player1.boardPlayer.UnitCards.Length; i++)
             {
                 foreach (var item in player1.boardPlayer.UnitCards[i])
                 {
-                    if (item.Name == temp)
+                    if (item.Name == temp && weak.Score == item.Score)
                     {
+                        Debug.Log($"la carta {item.Name} fue eliminada");
                         player1.boardPlayer.UnitCards[i].Remove(item);
                         return;
                     }
@@ -127,7 +131,6 @@ class DeletPowerful : Effects
     {
         UnitCard PowerfulP = Board.GetPowerfulCard(player.boardPlayer.UnitCards);
         UnitCard PowerfulP1 = Board.GetPowerfulCard(player1.boardPlayer.UnitCards);
-        int count = 0;
         if (player.IsMyturn && PowerfulP.Score == PowerfulP1.Score)
         {
             for (int i = 0; i < player1.boardPlayer.UnitCards.Length; i++)
@@ -137,11 +140,10 @@ class DeletPowerful : Effects
                     if (item == PowerfulP)
                     {
                         player1.boardPlayer.UnitCards[i].Remove(item);
-                        count++;
-                        break;
+                        Debug.Log($"la carta {item.Name} fue eliminada");
+                        return;
                     }
                 }
-                if (count != 0) break;
             }
 
         }
@@ -154,11 +156,11 @@ class DeletPowerful : Effects
                     if (item == PowerfulP)
                     {
                         player.boardPlayer.UnitCards[i].Remove(item);
-                        count++;
-                        break;
+                        Debug.Log($"la carta {item.Name} fue eliminada");
+                        return;
                     }
                 }
-                if (count != 0) break;
+
             }
 
         }
@@ -172,6 +174,7 @@ class DeletPowerful : Effects
                     if (item == p)
                     {
                         player.boardPlayer.UnitCards[i].Remove(item);
+                        Debug.Log($"la carta {item.Name} fue eliminada");
                         return;
                     }
                 }
@@ -183,6 +186,7 @@ class DeletPowerful : Effects
                     if (item == p)
                     {
                         player1.boardPlayer.UnitCards[i].Remove(item);
+                        Debug.Log($"la carta {item.Name} fue eliminada");
                         return;
                     }
                 }
@@ -200,10 +204,11 @@ class Draw : Effects
     }
     public void DrawACArd(Player player, Player player1, Card unitCard)
     {
-        if (player.IsMyturn)
+        if (player1.IsMyturn)
         {
-            player.Hand.ListOfCards.Add(player.Playerdeck.DeckList[0]);
-            player.Playerdeck.DeckList.Remove(player.Playerdeck.DeckList[0]);
+            player1.Hand.ListOfCards.Add(player1.Playerdeck.DeckList[0]);
+            player1.Playerdeck.DeckList.Remove(player1.Playerdeck.DeckList[0]);
+            Debug.Log("Robo la carta en el backend");
         }
         else DrawACArd(player1, player, unitCard);
     }
@@ -236,7 +241,7 @@ class Clean : Effects
             }
         }
 
-        List<UnitCard> units = new List<UnitCard>();
+
         int count = 0;
 
         if (player.IsMyturn)
@@ -245,9 +250,20 @@ class Clean : Effects
             {
                 if (player1.boardPlayer.UnitCards[i].Count == value)
                 {
-                    player1.boardPlayer.UnitCards[i] = units;
-                    count++;
-                    break;
+                    for (int j = player1.boardPlayer.UnitCards[i].Count - 1; j >= 0; j--)
+                    {
+                        if (player1.boardPlayer.UnitCards[i][j] is SilverCard)
+                        {
+
+                            Debug.Log("Se Elimino la carta" + player1.boardPlayer.UnitCards[i][j].Name);
+                            player1.boardPlayer.UnitCards[i].RemoveAt(j);
+                            count++;
+                        }
+                    }
+                    if (count != 0)
+                    {
+                        break;
+                    }
                 }
             }
 
@@ -257,9 +273,20 @@ class Clean : Effects
                 {
                     if (player.boardPlayer.UnitCards[i].Count == value)
                     {
-                        player.boardPlayer.UnitCards[i] = units;
-                        count++;
-                        break;
+                        for (int j = player.boardPlayer.UnitCards[i].Count - 1; j >= 0; j--)
+                        {
+                            if (player.boardPlayer.UnitCards[i][j] is SilverCard)
+                            {
+                                Debug.Log("Se Elimino la carta" + player.boardPlayer.UnitCards[i][j].Name);
+                                player.boardPlayer.UnitCards[i].RemoveAt(j);
+                                count++;
+                            }
+                        }
+                        if (count != 0)
+                        {
+
+                            break;
+                        }
                     }
                 }
             }
@@ -374,7 +401,8 @@ class Averages : Effects
             {
                 prom = item.Score;
                 nomberOfcards++;
-            } player1.Pased = true;
+            }
+
         }
         prom = prom / nomberOfcards;
         for (int i = 0; i < player.boardPlayer.UnitCards.Length; i++)
@@ -396,7 +424,8 @@ class Averages : Effects
                     item.Score = prom;
                 }
             }
-        } player1.Pased = true;
+        }
+        Debug.Log($"efecto hecho");
     }
 }
 //--------------------------------------------------------------------------------------------------------
@@ -454,9 +483,9 @@ class WeatherEffect_S : Effects
 {
     public override void ActivateEffect(Player player, Player player1, Card unitCard)
     {
-        WeatherR(player, player1, unitCard);
+        WeatherS(player, player1, unitCard);
     }
-    static void WeatherR(Player player, Player player1, Card unitCard)
+    static void WeatherS(Player player, Player player1, Card unitCard)
     {
         foreach (var item in player.boardPlayer.UnitCards[2])
         {
@@ -482,7 +511,22 @@ class CleanWeather : Effects
     }
     static void CleanW(Player player, Player player1, Card unitCard)
     {
-    Weather[] wheathers = new Weather[3];
-    Board.BothPlayersWeather = wheathers;
+        Weather[] wheathers = new Weather[3];
+        Board.BothPlayersWeather = wheathers;
+        for (int i = 0; i < player.boardPlayer.UnitCards.Length; i++)
+        {
+            foreach (var item in player.boardPlayer.UnitCards[i])
+            {
+                item.Score = item.PowerPoints;
+            }
+        }
+        for (int i = 0; i < player1.boardPlayer.UnitCards.Length; i++)
+        {
+            foreach (var item in player1.boardPlayer.UnitCards[i])
+            {
+                item.Score = item.PowerPoints;
+            }
+        }
+
     }
 }
