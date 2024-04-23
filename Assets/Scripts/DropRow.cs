@@ -25,6 +25,14 @@ public class DropRow : MonoBehaviour, IDropHandler
                 if (NameOfRow == "M")
                 {
                     GameManager.player1.boardPlayer.UnitCards[0].Add(unitCard);
+                    if (Board.BothPlayersWeather[0] != null)
+                    {
+                        unitCard.Score = 1;
+                    }
+                    if (GameManager.player1.boardPlayer.bonus[0] != null)
+                    {
+                        unitCard.Score += 3;
+                    }
                     GameManager.player1.Hand.ListOfCards.Remove(unitCard);
                     Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
                     if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
@@ -36,6 +44,14 @@ public class DropRow : MonoBehaviour, IDropHandler
                 if (NameOfRow == "S")
                 {
                     GameManager.player1.boardPlayer.UnitCards[2].Add(unitCard);
+                     if (Board.BothPlayersWeather[2] != null)
+                    {
+                        unitCard.Score = 1;
+                    }
+                    if (GameManager.player1.boardPlayer.bonus[2] != null)
+                    {
+                        unitCard.Score += 3;
+                    }
                     GameManager.player1.Hand.ListOfCards.Remove(unitCard);
                     Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
                     if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
@@ -47,6 +63,14 @@ public class DropRow : MonoBehaviour, IDropHandler
                 if (NameOfRow == "R")
                 {
                     GameManager.player1.boardPlayer.UnitCards[1].Add(unitCard);
+                     if (Board.BothPlayersWeather[1] != null)
+                    {
+                        unitCard.Score = 1;
+                    }
+                    if (GameManager.player1.boardPlayer.bonus[1] != null)
+                    {
+                        unitCard.Score += 3;
+                    }
                     GameManager.player1.Hand.ListOfCards.Remove(unitCard);
                     Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
                     if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
@@ -64,6 +88,14 @@ public class DropRow : MonoBehaviour, IDropHandler
                 if (NameOfRow == "M")
                 {
                     GameManager.player2.boardPlayer.UnitCards[0].Add(unitCard);
+                     if (Board.BothPlayersWeather[0] != null)
+                    {
+                        unitCard.Score = 1;
+                    }
+                    if (GameManager.player2.boardPlayer.bonus[0] != null)
+                    {
+                        unitCard.Score += 3;
+                    }
                     GameManager.player2.Hand.ListOfCards.Remove(unitCard);
                     Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
                     if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
@@ -75,6 +107,14 @@ public class DropRow : MonoBehaviour, IDropHandler
                 if (NameOfRow == "S")
                 {
                     GameManager.player2.boardPlayer.UnitCards[2].Add(unitCard);
+                     if (Board.BothPlayersWeather[2] != null)
+                    {
+                        unitCard.Score = 1;
+                    }
+                    if (GameManager.player2.boardPlayer.bonus[2] != null)
+                    {
+                        unitCard.Score += 3;
+                    }
                     GameManager.player2.Hand.ListOfCards.Remove(unitCard);
                     Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
                     if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
@@ -86,6 +126,14 @@ public class DropRow : MonoBehaviour, IDropHandler
                 if (NameOfRow == "R")
                 {
                     GameManager.player2.boardPlayer.UnitCards[1].Add(unitCard);
+                     if (Board.BothPlayersWeather[1] != null)
+                    {
+                        unitCard.Score = 1;
+                    }
+                    if (GameManager.player2.boardPlayer.bonus[1] != null)
+                    {
+                        unitCard.Score += 3;
+                    }
                     GameManager.player2.Hand.ListOfCards.Remove(unitCard);
                     Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
                     if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
