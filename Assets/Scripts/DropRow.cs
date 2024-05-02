@@ -42,19 +42,20 @@ public class DropRow : MonoBehaviour, IDropHandler
                                 unitCard1.Score = 1;
                             }
                         }
-                        unitCard.Score = 1;
                     }
                     if (GameManager.player1.boardPlayer.bonus[0] != null)
                     {
                         foreach (var item in GameManager.player1.boardPlayer.UnitCards[0])
                         {
-                            if (item is SilverCard && (item.Score == 1) || item.Score == item.PowerPoints)
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
                             {
                                 item.Score += 3;
                             }
                         }
+                        Debug.Log("Los Puntos han sido actualizados en M");
                     }
                     Board.UpdatePoints(GameManager.player1.boardPlayer);
+                    Board.UpdatePoints(GameManager.player2.boardPlayer);
                     GameManager.gameManager.ActPointsInFronten();
                     GameManager.player1.Hand.ListOfCards.Remove(unitCard);
                     if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
@@ -84,20 +85,22 @@ public class DropRow : MonoBehaviour, IDropHandler
                                 unitCard1.Score = 1;
                             }
                         }
-                        unitCard.Score = 1;
+
                         Debug.Log("Estos son los puntos de la carta " + unitCard.Score);
                     }
                     if (GameManager.player1.boardPlayer.bonus[2] != null)
                     {
                         foreach (var item in GameManager.player1.boardPlayer.UnitCards[2])
                         {
-                            if (item is SilverCard && (item.Score == 1) || item.Score == item.PowerPoints)
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
                             {
                                 item.Score += 3;
                             }
                         }
+                        Debug.Log("Los Puntos han sido actualizados en S");
                     }
                     Board.UpdatePoints(GameManager.player1.boardPlayer);
+                    Board.UpdatePoints(GameManager.player2.boardPlayer);
                     GameManager.gameManager.ActPointsInFronten();
                     GameManager.player1.Hand.ListOfCards.Remove(unitCard);
                     if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
@@ -126,19 +129,21 @@ public class DropRow : MonoBehaviour, IDropHandler
                                 unitCard1.Score = 1;
                             }
                         }
-                        unitCard.Score = 1;
+
                     }
                     if (GameManager.player1.boardPlayer.bonus[1] != null)
                     {
                         foreach (var item in GameManager.player1.boardPlayer.UnitCards[1])
                         {
-                            if (item is SilverCard && (item.Score == 1) || item.Score == item.PowerPoints)
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
                             {
                                 item.Score += 3;
                             }
                         }
+                        Debug.Log("Los Puntos han sido actualizados en R");
                     }
                     Board.UpdatePoints(GameManager.player1.boardPlayer);
+                    Board.UpdatePoints(GameManager.player2.boardPlayer);
                     GameManager.gameManager.ActPointsInFronten();
                     GameManager.player1.Hand.ListOfCards.Remove(unitCard);
                     if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
@@ -173,19 +178,21 @@ public class DropRow : MonoBehaviour, IDropHandler
                                 unitCard1.Score = 1;
                             }
                         }
-                        unitCard.Score = 1;
+
                     }
                     if (GameManager.player2.boardPlayer.bonus[0] != null)
                     {
                         foreach (var item in GameManager.player2.boardPlayer.UnitCards[0])
                         {
-                            if (item is SilverCard && (item.Score == 1) || item.Score == item.PowerPoints)
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
                             {
                                 item.Score += 3;
                             }
                         }
+                        Debug.Log("Los Puntos han sido actualizados en M");
                     }
                     Board.UpdatePoints(GameManager.player2.boardPlayer);
+                    Board.UpdatePoints(GameManager.player1.boardPlayer);
                     GameManager.gameManager.ActPointsInFronten();
                     GameManager.player2.Hand.ListOfCards.Remove(unitCard);
                     if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
@@ -214,19 +221,21 @@ public class DropRow : MonoBehaviour, IDropHandler
                                 unitCard1.Score = 1;
                             }
                         }
-                        unitCard.Score = 1;
+
                     }
                     if (GameManager.player2.boardPlayer.bonus[2] != null)
                     {
                         foreach (var item in GameManager.player2.boardPlayer.UnitCards[2])
                         {
-                            if (item is SilverCard && (item.Score == 1) || item.Score == item.PowerPoints)
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
                             {
                                 item.Score += 3;
                             }
                         }
+                        Debug.Log("Los Puntos han sido actualizados en S");
                     }
                     Board.UpdatePoints(GameManager.player2.boardPlayer);
+                    Board.UpdatePoints(GameManager.player1.boardPlayer);
                     GameManager.gameManager.ActPointsInFronten();
                     GameManager.player2.Hand.ListOfCards.Remove(unitCard);
                     if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
@@ -248,19 +257,20 @@ public class DropRow : MonoBehaviour, IDropHandler
                                 unitCard1.Score = 1;
                             }
                         }
-                        unitCard.Score = 1;
                     }
                     if (GameManager.player2.boardPlayer.bonus[1] != null)
                     {
                         foreach (var item in GameManager.player2.boardPlayer.UnitCards[1])
                         {
-                            if (item is SilverCard && (item.Score == 1) || item.Score == item.PowerPoints)
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
                             {
                                 item.Score += 3;
                             }
                         }
+                        Debug.Log("Los Puntos han sido actualizados en R");
                     }
                     Board.UpdatePoints(GameManager.player2.boardPlayer);
+                    Board.UpdatePoints(GameManager.player1.boardPlayer);
                     GameManager.gameManager.ActPointsInFronten();
                     GameManager.player2.Hand.ListOfCards.Remove(unitCard);
                     if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")

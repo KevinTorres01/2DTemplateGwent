@@ -54,6 +54,7 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                     if (item is SilverCard silverCard)
                     {
                         silverCard.Score = silverCard.PowerPoints;
+                        Debug.Log($"{silverCard.Name} tiene {silverCard.Score} puntos");
                     }
                 }
             }
@@ -64,8 +65,81 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                     if (item is SilverCard silverCard)
                     {
                         silverCard.Score = silverCard.PowerPoints;
+                        Debug.Log($"{silverCard.Name} tiene {silverCard.Score} puntos");
                     }
                 }
+            }
+            if (GameManager.player1.boardPlayer.bonus[0] != null)
+            {
+
+                foreach (var item in GameManager.player1.boardPlayer.UnitCards[0])
+                {
+                    if (item is SilverCard card1)
+                    {
+                        card1.Score += 3;
+                    }
+                }
+
+            }
+            if (GameManager.player1.boardPlayer.bonus[1] != null)
+            {
+
+                foreach (var item in GameManager.player1.boardPlayer.UnitCards[1])
+                {
+                    if (item is SilverCard card1)
+                    {
+                        card1.Score += 3;
+                    }
+                }
+
+            }
+            if (GameManager.player1.boardPlayer.bonus[2] != null)
+            {
+
+                foreach (var item in GameManager.player1.boardPlayer.UnitCards[2])
+                {
+                    if (item is SilverCard card1)
+                    {
+                        card1.Score += 3;
+                    }
+                }
+
+            }
+            if (GameManager.player2.boardPlayer.bonus[0] != null)
+            {
+
+                foreach (var item in GameManager.player2.boardPlayer.UnitCards[0])
+                {
+                    if (item is SilverCard card1)
+                    {
+                        card1.Score += 3;
+                    }
+                }
+
+            }
+            if (GameManager.player2.boardPlayer.bonus[1] != null)
+            {
+
+                foreach (var item in GameManager.player2.boardPlayer.UnitCards[1])
+                {
+                    if (item is SilverCard card1)
+                    {
+                        card1.Score += 3;
+                    }
+                }
+
+            }
+            if (GameManager.player2.boardPlayer.bonus[2] != null)
+            {
+
+                foreach (var item in GameManager.player2.boardPlayer.UnitCards[2])
+                {
+                    if (item is SilverCard card1)
+                    {
+                        card1.Score += 3;
+                    }
+                }
+
             }
             Board.UpdatePoints(GameManager.player1.boardPlayer);
             Board.UpdatePoints(GameManager.player2.boardPlayer);
