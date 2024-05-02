@@ -6,13 +6,13 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class Board
 {
-    public static Weather[] BothPlayersWeather = new Weather[3];
-    public int score;
-    public int rowMPoints;
-    public int rowRPoints;
-    public int rowSPoints;
-    public List<UnitCard>[] UnitCards = new List<UnitCard>[3];
-    public BonusCard[] bonus;
+    public static Weather[] BothPlayersWeather = new Weather[3];                                     //  Array de Weathers, donde los jugadores pondran un clima
+    public int score;                                                                                //  Entero score para conocer los puntos totales del jugdor
+    public int rowMPoints;                                                                           //  Entero para conocer los puntos de la fila M del jugador
+    public int rowRPoints;                                                                           //  Entero para conocer los puntos de la fila R del jugador
+    public int rowSPoints;                                                                           //  Entero para conocer los puntos de la fila S del jugador
+    public List<UnitCard>[] UnitCards = new List<UnitCard>[3];                                       //  Array de listas para las filas de las cartas unidad
+    public BonusCard[] bonus;                                                                        //  Array para las cartas clima del jugador
 
 
     public Board()
@@ -29,7 +29,7 @@ public class Board
         rowRPoints = 0;
         rowSPoints = 0;
     }
-    public static void UpdatePoints(Board board)
+    public static void UpdatePoints(Board board)                //Metodo para actualizar los puntos de las filas y del tablero 
     {
         board.rowMPoints = 0;
         board.rowRPoints = 0;
@@ -51,14 +51,14 @@ public class Board
         board.score = board.rowMPoints + board.rowRPoints + board.rowSPoints;
 
     }
-    public static UnitCard GetPowerfulCard(List<UnitCard>[] unitCards)
+    public static UnitCard GetPowerfulCard(List<UnitCard>[] unitCards)            //Metodo para obtener la carta mas poderosa del tablero (catas de unidad)
     {
         UnitCard result = new UnitCard("default", "", "default", "", 0);
         for (int i = 0; i < unitCards.Length; i++)
         {
             foreach (var item in unitCards[i])
             {
-                if (result.Score == 0 && item is not GoldenCard)                              //result = a la primera carta q me encuentre en la lista , luego cada vez q me encuentre una carta comparo los score
+                if (result.Score == 0 && item is not GoldenCard)                              //result = a la primera carta q me encuentre en la lista que no sea de oro , luego cada vez q me encuentre una carta comparo los score
                 {
                     result = item;
                 }
@@ -75,7 +75,7 @@ public class Board
 
     }
 
-    public static UnitCard GetWeakCard(List<UnitCard>[] unitCards)
+    public static UnitCard GetWeakCard(List<UnitCard>[] unitCards)                // Metodo para obtener la carta mas debil del tablero
     {
         UnitCard result = new UnitCard("default", "", "default", "", int.MaxValue);
         for (int i = 0; i < unitCards.Length; i++)
@@ -97,7 +97,7 @@ public class Board
         }
         return result;
     }
-    public static void CleanBoard(Player player, Player player1)
+    public static void CleanBoard(Player player, Player player1)                   // Metodo para limpiar el tablero 
     {
         Weather[] CleanWeathers = null;
         CleanWeathers = new Weather[3];

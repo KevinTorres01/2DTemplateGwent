@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PassButton : MonoBehaviour
 {
-    void Update()
+    void Update()                                                                        // Boton de pasar turno
     {
         if (GameManager.player1.IsMyturn == false && this.transform.parent.name == "Player1")
         {

@@ -10,9 +10,9 @@ public class DropSlot : MonoBehaviour, IDropHandler
     public string NameofSlot;
     public bool WasDropped = false;
     [SerializeField] public TextMeshProUGUI UIMessage;
-    public void OnDrop(PointerEventData eventData)
+    public void OnDrop(PointerEventData eventData)                                      // compruebo si es posible poner la carta en el slot, la anado a su posicion en el backend
     {
-        if (this.transform.childCount == 0)
+        if (this.transform.childCount == 0)                                             // activo el efecto y elimino la carta de su posicion en la mano
         {
 
             if (Drag.DraggedCard.GetComponent<CardVisual>().Card is Weather weather1 && this.transform.parent.name == "WeatherRow")
@@ -81,7 +81,7 @@ public class DropSlot : MonoBehaviour, IDropHandler
                     }
                     Board.UpdatePoints(GameManager.player1.boardPlayer);
                     Board.UpdatePoints(GameManager.player2.boardPlayer);
-                    
+
                     WasDropped = false;
                 }
 
@@ -145,7 +145,7 @@ public class DropSlot : MonoBehaviour, IDropHandler
                         }
                         Board.UpdatePoints(GameManager.player1.boardPlayer);
                         Board.UpdatePoints(GameManager.player2.boardPlayer);
-                        
+
                         WasDropped = false;
                     }
 
@@ -207,7 +207,7 @@ public class DropSlot : MonoBehaviour, IDropHandler
                         }
                         Board.UpdatePoints(GameManager.player1.boardPlayer);
                         Board.UpdatePoints(GameManager.player2.boardPlayer);
-                        
+
                         WasDropped = false;
                     }
 

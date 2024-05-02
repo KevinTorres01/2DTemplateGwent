@@ -21,5 +21,5 @@ public class Player
         IsMyturn = false;
         Victories = 0;
         Pased = false;
-    } 
+    }
 }

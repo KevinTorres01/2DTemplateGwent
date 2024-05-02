@@ -10,7 +10,7 @@ public class GameData : MonoBehaviour
     public static string Player1Faction;
     public static string Player2Faction;
     public static GameData gameData;
-    void Awake()
+    void Awake()                           // guardo los datos de la escena de poner el nombre 
     {
         if (gameData == null)
         {

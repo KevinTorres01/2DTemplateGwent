@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class LiderScript : MonoBehaviour
 {
     public GameObject Lider;
-    void Start()
+    void Start()                                                // Pone los lideres en el tablero
     {
         if (this.transform.parent.name == "Player1")
         {

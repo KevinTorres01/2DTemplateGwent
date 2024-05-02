@@ -18,7 +18,7 @@ public class SetPlayerManager : MonoBehaviour
         OkButton2.interactable = false;
     }
 
-    void Update()
+    void Update()                                                // permite pasar a la escena de jugar despues de elegir nombre y mazo
     {
         if (Player1Name.text.Length > 1 && GameData.Player1Faction != null)
         {

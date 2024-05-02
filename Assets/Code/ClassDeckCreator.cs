@@ -14,10 +14,10 @@ public class Deck
         DeckList = new List<Card>();
         foreach (var card in CardCreator.CreateDeck(Faction))
         {
-          if (card.Type != "Lider")
-          {
-           DeckList.Add(card);            
-          }
+            if (card.Type != "Lider")
+            {
+                DeckList.Add(card);
+            }
         }
         DeckList = Swap(DeckList);
     }
@@ -36,7 +36,7 @@ public class Deck
             cards[aleatory] = cards[aleatory1];
             cards[aleatory1] = temp;
             i++;
-        
+
         }
         return cards;
     }

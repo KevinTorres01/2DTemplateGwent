@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class PlayerName : MonoBehaviour
 {
     public TextMeshProUGUI Name;
-    
-    void Start()
+
+    void Start()                                       // Anade el nomre del jugador en la escena de elegir deck que luego se lo pasa como parametro al jugador para mostrarlo en el juego
     {
         if (this.transform.parent.name == "Player1")
         {
@@ -16,7 +16,7 @@ public class PlayerName : MonoBehaviour
         }
         if (this.transform.parent.name == "Player2")
         {
-             Name.text = GameManager.player2.Name;
+            Name.text = GameManager.player2.Name;
         }
     }
 }

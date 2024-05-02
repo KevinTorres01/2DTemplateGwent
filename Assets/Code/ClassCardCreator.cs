@@ -56,7 +56,7 @@ public class CardCreator
         CardList.Add(Roshi2);
         GoldenCard Son_Goku = new GoldenCard("Son Goku", "DeletePowerful", "Universe 7", "M", 8);
         CardList.Add(Son_Goku);
-        SilverCard Tien_Shinhan = new SilverCard("Tien Shinhan","Draw","Universe 7","RS",2);
+        SilverCard Tien_Shinhan = new SilverCard("Tien Shinhan", "Draw", "Universe 7", "RS", 2);
         CardList.Add(Tien_Shinhan);
         SilverCard Tien_Shinhan_1 = DuplicateCards(Tien_Shinhan);
         CardList.Add(Tien_Shinhan_1);
@@ -73,14 +73,14 @@ public class CardCreator
         List<Card> CardList = new List<Card>();
         foreach (var item in CardCreator.CreateCards())
         {
-            if (item.Faction == Faction||item.Faction == "Neutral")
+            if (item.Faction == Faction || item.Faction == "Neutral")
             {
                 CardList.Add(item);
             }
-            
+
         }
         return CardList;
-    } 
+    }
     private static SilverCard DuplicateCards(SilverCard card)
     {
         SilverCard copy = new SilverCard(card.Name, card.Effect, card.Faction, card.Possition, card.PowerPoints);

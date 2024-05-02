@@ -70,7 +70,7 @@ class Multiply : Effects
             {
                 if (item.Name == temp)
                 {
-                    item.Score = item.PowerPoints * count;
+                    item.Score = item.Score * count;
                 }
             }
         }
@@ -81,7 +81,7 @@ class Multiply : Effects
             {
                 if (item.Name == temp)
                 {
-                    item.Score = item.PowerPoints * count;
+                    item.Score = item.Score * count;
                 }
             }
         }

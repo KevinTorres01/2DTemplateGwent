@@ -9,7 +9,7 @@ public class ScaleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     static Vector3 Pos = new Vector3(-789f, 0f, 0f);
     GameObject ScaledObject;
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerEnter(PointerEventData eventData)                                   // Escala la carta al pasarle por encima con el mouse
     {
         ScaledObject = Instantiate(gameObject, new Vector3(0f, 0f, 0f), Quaternion.identity);
         ScaledObject.transform.SetParent(transform.root);
@@ -17,7 +17,7 @@ public class ScaleCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         ScaledObject.transform.localPosition = Pos;
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public void OnPointerExit(PointerEventData eventData)               // elimina la instancia de la carta escalada cuando el mouse sale de encima de ella
     {
         Destroy(ScaledObject);
     }

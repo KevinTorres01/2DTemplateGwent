@@ -11,12 +11,12 @@ public class CardVisual : MonoBehaviour
     public UnityEngine.UI.Image image;
     public Card Card;
 
-    public void ChangeImage(Card card)
+    public void ChangeImage(Card card)                     //  le asigna la imagen a la carta en el visual
     {
         image.sprite = Resources.Load<Sprite>(card.Name);
         Card = card;
     }
-    public void SetPoints(Card card)
+    public void SetPoints(Card card)                       //   le asigna los puntos a la carta en el visual
     {
         if (card is UnitCard unitCard)
         {

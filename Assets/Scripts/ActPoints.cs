@@ -7,10 +7,10 @@ public class ActPoints : MonoBehaviour
 {
     public TextMeshProUGUI points;
     public string row;
-   
+
     void Update()
     {
-        if (this.transform.parent.parent.name == "Player1")
+        if (this.transform.parent.parent.name == "Player1")                            // actualiza los puntos del tablero en el fronten 
         {
             if (row == "M")
             {
@@ -26,7 +26,7 @@ public class ActPoints : MonoBehaviour
             }
 
         }
-        if (this.transform.parent.parent.name == "Player2")
+        if (this.transform.parent.parent.name == "Player2")                   // actualiza los puntos del tablero en el fronten
         {
             if (row == "M")
             {

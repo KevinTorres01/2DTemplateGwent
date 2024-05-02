@@ -15,26 +15,48 @@ public class DropRow : MonoBehaviour, IDropHandler
     {
         if (this.transform.childCount < 6 && Drag.DraggedCard.GetComponent<CardVisual>().Card is UnitCard unitCard && unitCard.Possition.Contains(NameOfRow) && Drag.OriginalParent.parent.name == this.transform.parent.name)
         {
-            Drag.DraggedCard.GetComponent<CanvasGroup>().blocksRaycasts = true;
+            Drag.DraggedCard.GetComponent<CanvasGroup>().blocksRaycasts = true;                                                     // Compruebo si la carta es valida ponerla en las filas, ademas anhado las cartas en
             Drag.DraggedCard.transform.SetParent(this.GetComponent<HorizontalLayoutGroup>().transform);
-            Drag.DraggedCard.transform.position = this.GetComponent<HorizontalLayoutGroup>().transform.position;
-            Drag.DraggedCard.transform.rotation = this.GetComponent<HorizontalLayoutGroup>().transform.rotation;
+            Drag.DraggedCard.transform.position = this.GetComponent<HorizontalLayoutGroup>().transform.position;                    // el backend en el tablero, la remuevo del deck y hago el efecto teniendo en cuenta si hay climas o aumntos jugados
+            Drag.DraggedCard.transform.rotation = this.GetComponent<HorizontalLayoutGroup>().transform.rotation;                    // ademas actualizo los puntos de las cartas y el tablero en el backend
             Drag.DraggedCard.GetComponent<Drag>().enabled = false;
             if (this.transform.parent.name == "Player1")
             {
                 if (NameOfRow == "M")
                 {
                     GameManager.player1.boardPlayer.UnitCards[0].Add(unitCard);
+                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
                     if (Board.BothPlayersWeather[0] != null)
                     {
+                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[0].Count; i++)
+                        {
+                            if (GameManager.player1.boardPlayer.UnitCards[0][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
+                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[0].Count; i++)
+                        {
+                            if (GameManager.player2.boardPlayer.UnitCards[0][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
                         unitCard.Score = 1;
                     }
                     if (GameManager.player1.boardPlayer.bonus[0] != null)
                     {
-                        unitCard.Score += 3;
+                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[0])
+                        {
+                            if (item is SilverCard && (item.Score == 1) || item.Score == item.PowerPoints)
+                            {
+                                item.Score += 3;
+                            }
+                        }
                     }
+                    Board.UpdatePoints(GameManager.player1.boardPlayer);
+                    GameManager.gameManager.ActPointsInFronten();
                     GameManager.player1.Hand.ListOfCards.Remove(unitCard);
-                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
                     if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
                     {
                         Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player1);
@@ -44,16 +66,40 @@ public class DropRow : MonoBehaviour, IDropHandler
                 if (NameOfRow == "S")
                 {
                     GameManager.player1.boardPlayer.UnitCards[2].Add(unitCard);
-                     if (Board.BothPlayersWeather[2] != null)
+                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+                    Debug.Log("Estos son los puntos de la carta " + unitCard.Score);
+                    if (Board.BothPlayersWeather[2] != null)
                     {
+                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[2].Count; i++)
+                        {
+                            if (GameManager.player1.boardPlayer.UnitCards[2][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
+                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[2].Count; i++)
+                        {
+                            if (GameManager.player2.boardPlayer.UnitCards[2][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
                         unitCard.Score = 1;
+                        Debug.Log("Estos son los puntos de la carta " + unitCard.Score);
                     }
                     if (GameManager.player1.boardPlayer.bonus[2] != null)
                     {
-                        unitCard.Score += 3;
+                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[2])
+                        {
+                            if (item is SilverCard && (item.Score == 1) || item.Score == item.PowerPoints)
+                            {
+                                item.Score += 3;
+                            }
+                        }
                     }
+                    Board.UpdatePoints(GameManager.player1.boardPlayer);
+                    GameManager.gameManager.ActPointsInFronten();
                     GameManager.player1.Hand.ListOfCards.Remove(unitCard);
-                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
                     if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
                     {
                         Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player1);
@@ -63,16 +109,38 @@ public class DropRow : MonoBehaviour, IDropHandler
                 if (NameOfRow == "R")
                 {
                     GameManager.player1.boardPlayer.UnitCards[1].Add(unitCard);
-                     if (Board.BothPlayersWeather[1] != null)
+                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+                    if (Board.BothPlayersWeather[1] != null)
                     {
+                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[1].Count; i++)
+                        {
+                            if (GameManager.player1.boardPlayer.UnitCards[1][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
+                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[1].Count; i++)
+                        {
+                            if (GameManager.player2.boardPlayer.UnitCards[1][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
                         unitCard.Score = 1;
                     }
                     if (GameManager.player1.boardPlayer.bonus[1] != null)
                     {
-                        unitCard.Score += 3;
+                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[1])
+                        {
+                            if (item is SilverCard && (item.Score == 1) || item.Score == item.PowerPoints)
+                            {
+                                item.Score += 3;
+                            }
+                        }
                     }
+                    Board.UpdatePoints(GameManager.player1.boardPlayer);
+                    GameManager.gameManager.ActPointsInFronten();
                     GameManager.player1.Hand.ListOfCards.Remove(unitCard);
-                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
                     if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
                     {
                         Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player1);
@@ -88,16 +156,38 @@ public class DropRow : MonoBehaviour, IDropHandler
                 if (NameOfRow == "M")
                 {
                     GameManager.player2.boardPlayer.UnitCards[0].Add(unitCard);
-                     if (Board.BothPlayersWeather[0] != null)
+                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+                    if (Board.BothPlayersWeather[0] != null)
                     {
+                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[0].Count; i++)
+                        {
+                            if (GameManager.player2.boardPlayer.UnitCards[0][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
+                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[0].Count; i++)
+                        {
+                            if (GameManager.player1.boardPlayer.UnitCards[0][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
                         unitCard.Score = 1;
                     }
                     if (GameManager.player2.boardPlayer.bonus[0] != null)
                     {
-                        unitCard.Score += 3;
+                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[0])
+                        {
+                            if (item is SilverCard && (item.Score == 1) || item.Score == item.PowerPoints)
+                            {
+                                item.Score += 3;
+                            }
+                        }
                     }
+                    Board.UpdatePoints(GameManager.player2.boardPlayer);
+                    GameManager.gameManager.ActPointsInFronten();
                     GameManager.player2.Hand.ListOfCards.Remove(unitCard);
-                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
                     if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
                     {
                         Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player2);
@@ -107,16 +197,38 @@ public class DropRow : MonoBehaviour, IDropHandler
                 if (NameOfRow == "S")
                 {
                     GameManager.player2.boardPlayer.UnitCards[2].Add(unitCard);
-                     if (Board.BothPlayersWeather[2] != null)
+                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+                    if (Board.BothPlayersWeather[2] != null)
                     {
+                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[2].Count; i++)
+                        {
+                            if (GameManager.player2.boardPlayer.UnitCards[2][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
+                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[2].Count; i++)
+                        {
+                            if (GameManager.player1.boardPlayer.UnitCards[2][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
                         unitCard.Score = 1;
                     }
                     if (GameManager.player2.boardPlayer.bonus[2] != null)
                     {
-                        unitCard.Score += 3;
+                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[2])
+                        {
+                            if (item is SilverCard && (item.Score == 1) || item.Score == item.PowerPoints)
+                            {
+                                item.Score += 3;
+                            }
+                        }
                     }
+                    Board.UpdatePoints(GameManager.player2.boardPlayer);
+                    GameManager.gameManager.ActPointsInFronten();
                     GameManager.player2.Hand.ListOfCards.Remove(unitCard);
-                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
                     if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
                     {
                         Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player2);
@@ -126,16 +238,31 @@ public class DropRow : MonoBehaviour, IDropHandler
                 if (NameOfRow == "R")
                 {
                     GameManager.player2.boardPlayer.UnitCards[1].Add(unitCard);
-                     if (Board.BothPlayersWeather[1] != null)
+                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+                    if (Board.BothPlayersWeather[1] != null)
                     {
+                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[1].Count; i++)
+                        {
+                            if (GameManager.player2.boardPlayer.UnitCards[1][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
                         unitCard.Score = 1;
                     }
                     if (GameManager.player2.boardPlayer.bonus[1] != null)
                     {
-                        unitCard.Score += 3;
+                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[1])
+                        {
+                            if (item is SilverCard && (item.Score == 1) || item.Score == item.PowerPoints)
+                            {
+                                item.Score += 3;
+                            }
+                        }
                     }
+                    Board.UpdatePoints(GameManager.player2.boardPlayer);
+                    GameManager.gameManager.ActPointsInFronten();
                     GameManager.player2.Hand.ListOfCards.Remove(unitCard);
-                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
                     if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
                     {
                         Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player2);

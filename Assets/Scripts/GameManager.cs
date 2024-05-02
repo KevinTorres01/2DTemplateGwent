@@ -10,11 +10,11 @@ using TMPro;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
-{
-    public UnityEngine.UI.Image Final;
-    public TextMeshProUGUI FinalMessage;
-    [SerializeField] public TextMeshProUGUI UIMessage;
+public class GameManager : MonoBehaviour                                         // Crea los jugadores, verifica si los jugadores ya pasaron o no,
+{                                                                                // escoge un ganador y anade sus victorias en backend y fronten
+    public UnityEngine.UI.Image Final;                                           // destruye las cartas del fronten cuando termina una ronda y cuando no estan en el tablero  del backend las detruye en el fronten
+    public TextMeshProUGUI FinalMessage;                                         //  decide cuando  una ronda termina
+    [SerializeField] public TextMeshProUGUI UIMessage;                           //  crea nuevas ronda
     public UnityEngine.UI.Image FirstWin1;
     public UnityEngine.UI.Image FirstWin2;
     public UnityEngine.UI.Image SecondWin1;
@@ -306,12 +306,12 @@ public class GameManager : MonoBehaviour
             if (CardToSearch is UnitCard unitCard && player2.boardPlayer.UnitCards[0].Contains(unitCard))
             {
                 M2.transform.GetChild(i).GetComponent<CardVisual>().SetPoints(unitCard);
-                
+
             }
             else
             {
                 Destroy(M2.transform.GetChild(i).gameObject);
-                
+
             }
         }
         for (int i = 0; i < R2.transform.childCount; i++)
@@ -320,12 +320,12 @@ public class GameManager : MonoBehaviour
             if (CardToSearch is UnitCard unitCard && player2.boardPlayer.UnitCards[1].Contains(unitCard))
             {
                 R2.transform.GetChild(i).GetComponent<CardVisual>().SetPoints(unitCard);
-                
+
             }
             else
             {
                 Destroy(R2.transform.GetChild(i).gameObject);
-    
+
             }
         }
         for (int i = 0; i < R1.transform.childCount; i++)
@@ -334,12 +334,12 @@ public class GameManager : MonoBehaviour
             if (CardToSearch is UnitCard unitCard && player1.boardPlayer.UnitCards[1].Contains(unitCard))
             {
                 R1.transform.GetChild(i).GetComponent<CardVisual>().SetPoints(unitCard);
-                
+
             }
             else
             {
                 Destroy(R1.transform.GetChild(i).gameObject);
-        
+
             }
         }
         for (int i = 0; i < S1.transform.childCount; i++)
@@ -348,12 +348,12 @@ public class GameManager : MonoBehaviour
             if (CardToSearch is UnitCard unitCard && player1.boardPlayer.UnitCards[2].Contains(unitCard))
             {
                 S1.transform.GetChild(i).GetComponent<CardVisual>().SetPoints(unitCard);
-                
+
             }
             else
             {
                 Destroy(S1.transform.GetChild(i).gameObject);
-            
+
             }
         }
         for (int i = 0; i < S2.transform.childCount; i++)
@@ -362,14 +362,29 @@ public class GameManager : MonoBehaviour
             if (CardToSearch is UnitCard unitCard && player2.boardPlayer.UnitCards[2].Contains(unitCard))
             {
                 S2.transform.GetChild(i).GetComponent<CardVisual>().SetPoints(unitCard);
-                
+
             }
             else
             {
                 Destroy(S2.transform.GetChild(i).gameObject);
-                
+
             }
         }
 
+    }
+    public void DestroyWeathers()
+    {
+        if (WeatherM.transform.childCount > 0)
+        {
+            Destroy(WeatherM.transform.GetChild(0).gameObject);
+        }
+        if (WeatherR.transform.childCount > 0)
+        {
+            Destroy(WeatherR.transform.GetChild(0).gameObject);
+        }
+        if (WeatherS.transform.childCount > 0)
+        {
+            Destroy(WeatherS.transform.GetChild(0).gameObject);
+        }
     }
 }

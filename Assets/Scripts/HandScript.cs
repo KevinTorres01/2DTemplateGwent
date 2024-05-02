@@ -12,10 +12,10 @@ public class HandScript : MonoBehaviour
     public GameObject CardPrefab;
 
 
-    void Start()
-    {
-
-        if (this.transform.parent.name == "Player1")
+    void Start()                                                          // Instancia las cartas del fronten al inicio de la partida
+    {                                                                     // Activa y desactiva las manos de los jugadores respecto a su turno
+                                                                        // roba 2 cartas al inicio  de las nuevas rondas en fronten 
+        if (this.transform.parent.name == "Player1")                    // roba 1 carta cuando se  activa el efecto robar una carta
         {
             List<Card> hand = GameManager.player1.Hand.ListOfCards;
 
