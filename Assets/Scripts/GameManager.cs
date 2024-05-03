@@ -286,6 +286,7 @@ public class GameManager : MonoBehaviour                                        
             UIMessage.text = "La partida ha terminado";
         }
     }
+
     public void ActPointsInFronten()
     {
         for (int i = 0; i < M1.transform.childCount; i++)
@@ -372,6 +373,7 @@ public class GameManager : MonoBehaviour                                        
         }
 
     }
+    
     public void DestroyWeathers()
     {
         if (WeatherM.transform.childCount > 0)

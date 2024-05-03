@@ -37,13 +37,24 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                 GameManager.player1.Hand.ListOfCards.Remove(card);
                 Weather[] weathers = new Weather[3];
                 Board.BothPlayersWeather = weathers;
+                if (GameManager.player2.Pased == false)
+                {
+                    GameManager.player1.IsMyturn = false;
+                    GameManager.player2.IsMyturn = true;
+                }
             }
-            if (GameManager.player2.IsMyturn)
+            else if (GameManager.player2.IsMyturn)
             {
                 GameManager.player2.Hand.ListOfCards.Remove(card);
                 Weather[] weathers = new Weather[3];
                 Board.BothPlayersWeather = weathers;
+                if (GameManager.player1.Pased == false)
+                {
+                    GameManager.player1.IsMyturn = true;
+                    GameManager.player2.IsMyturn = false;
+                }
             }
+
             Destroy(this.gameObject);
             GameManager.gameManager.DestroyWeathers();
 
@@ -53,11 +64,14 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                 {
                     if (item is SilverCard silverCard)
                     {
+
                         silverCard.Score = silverCard.PowerPoints;
                         Debug.Log($"{silverCard.Name} tiene {silverCard.Score} puntos");
+
                     }
                 }
             }
+
             for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards.Length; i++)
             {
                 foreach (var item in GameManager.player2.boardPlayer.UnitCards[i])
@@ -69,6 +83,7 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                     }
                 }
             }
+
             if (GameManager.player1.boardPlayer.bonus[0] != null)
             {
 
@@ -81,6 +96,7 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                 }
 
             }
+
             if (GameManager.player1.boardPlayer.bonus[1] != null)
             {
 
@@ -93,6 +109,7 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                 }
 
             }
+
             if (GameManager.player1.boardPlayer.bonus[2] != null)
             {
 
@@ -105,6 +122,7 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                 }
 
             }
+
             if (GameManager.player2.boardPlayer.bonus[0] != null)
             {
 
@@ -117,6 +135,7 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                 }
 
             }
+
             if (GameManager.player2.boardPlayer.bonus[1] != null)
             {
 
@@ -129,6 +148,7 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                 }
 
             }
+
             if (GameManager.player2.boardPlayer.bonus[2] != null)
             {
 
@@ -141,9 +161,11 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                 }
 
             }
+
             Board.UpdatePoints(GameManager.player1.boardPlayer);
             Board.UpdatePoints(GameManager.player2.boardPlayer);
             GameManager.gameManager.ActPointsInFronten();
+
 
         }
 
