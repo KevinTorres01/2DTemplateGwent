@@ -25,7 +25,7 @@ public class DropRow : MonoBehaviour, IDropHandler
                 if (NameOfRow == "M")
                 {
                     GameManager.player1.boardPlayer.UnitCards[0].Add(unitCard);
-                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+
                     if (Board.BothPlayersWeather[0] != null)
                     {
                         for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[0].Count; i++)
@@ -54,6 +54,59 @@ public class DropRow : MonoBehaviour, IDropHandler
                         }
                         Debug.Log("Los Puntos han sido actualizados en M");
                     }
+                    if (GameManager.player2.boardPlayer.bonus[0] != null)
+                    {
+                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[0])
+                        {
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                            {
+                                item.Score += 3;
+                            }
+                        }
+                        Debug.Log("Los Puntos han sido actualizados en M");
+                    }
+
+                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+
+                    if (Board.BothPlayersWeather[0] != null)
+                    {
+                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[0].Count; i++)
+                        {
+                            if (GameManager.player1.boardPlayer.UnitCards[0][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
+                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[0].Count; i++)
+                        {
+                            if (GameManager.player2.boardPlayer.UnitCards[0][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
+                    }
+                    if (GameManager.player1.boardPlayer.bonus[0] != null)
+                    {
+                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[0])
+                        {
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                            {
+                                item.Score += 3;
+                            }
+                        }
+                        Debug.Log("Los Puntos han sido actualizados en M");
+                    }
+                    if (GameManager.player2.boardPlayer.bonus[0] != null)
+                    {
+                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[0])
+                        {
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                            {
+                                item.Score += 3;
+                            }
+                        }
+                        Debug.Log("Los Puntos han sido actualizados en M");
+                    }
                     Board.UpdatePoints(GameManager.player1.boardPlayer);
                     Board.UpdatePoints(GameManager.player2.boardPlayer);
                     GameManager.gameManager.ActPointsInFronten();
@@ -67,8 +120,6 @@ public class DropRow : MonoBehaviour, IDropHandler
                 if (NameOfRow == "S")
                 {
                     GameManager.player1.boardPlayer.UnitCards[2].Add(unitCard);
-                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
-                    Debug.Log("Estos son los puntos de la carta " + unitCard.Score);
                     if (Board.BothPlayersWeather[2] != null)
                     {
                         for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[2].Count; i++)
@@ -99,6 +150,61 @@ public class DropRow : MonoBehaviour, IDropHandler
                         }
                         Debug.Log("Los Puntos han sido actualizados en S");
                     }
+                    if (GameManager.player2.boardPlayer.bonus[2] != null)
+                    {
+                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[2])
+                        {
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                            {
+                                item.Score += 3;
+                            }
+                        }
+                        Debug.Log("Los Puntos han sido actualizados en S");
+                    }
+
+                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+
+                    if (Board.BothPlayersWeather[2] != null)
+                    {
+                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[2].Count; i++)
+                        {
+                            if (GameManager.player1.boardPlayer.UnitCards[2][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
+                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[2].Count; i++)
+                        {
+                            if (GameManager.player2.boardPlayer.UnitCards[2][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
+
+                        Debug.Log("Estos son los puntos de la carta " + unitCard.Score);
+                    }
+                    if (GameManager.player1.boardPlayer.bonus[2] != null)
+                    {
+                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[2])
+                        {
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                            {
+                                item.Score += 3;
+                            }
+                        }
+                        Debug.Log("Los Puntos han sido actualizados en S");
+                    }
+                    if (GameManager.player2.boardPlayer.bonus[2] != null)
+                    {
+                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[2])
+                        {
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                            {
+                                item.Score += 3;
+                            }
+                        }
+                        Debug.Log("Los Puntos han sido actualizados en S");
+                    }
                     Board.UpdatePoints(GameManager.player1.boardPlayer);
                     Board.UpdatePoints(GameManager.player2.boardPlayer);
                     GameManager.gameManager.ActPointsInFronten();
@@ -112,6 +218,46 @@ public class DropRow : MonoBehaviour, IDropHandler
                 if (NameOfRow == "R")
                 {
                     GameManager.player1.boardPlayer.UnitCards[1].Add(unitCard);
+                    if (Board.BothPlayersWeather[1] != null)
+                    {
+                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[1].Count; i++)
+                        {
+                            if (GameManager.player1.boardPlayer.UnitCards[1][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
+                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[1].Count; i++)
+                        {
+                            if (GameManager.player2.boardPlayer.UnitCards[1][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
+
+                    }
+                    if (GameManager.player1.boardPlayer.bonus[1] != null)
+                    {
+                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[1])
+                        {
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                            {
+                                item.Score += 3;
+                            }
+                        }
+                        Debug.Log("Los Puntos han sido actualizados en R");
+                    }
+                    if (GameManager.player2.boardPlayer.bonus[1] != null)
+                    {
+                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[1])
+                        {
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                            {
+                                item.Score += 3;
+                            }
+                        }
+                        Debug.Log("Los Puntos han sido actualizados en R");
+                    }
                     Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
                     if (Board.BothPlayersWeather[1] != null)
                     {
@@ -142,6 +288,17 @@ public class DropRow : MonoBehaviour, IDropHandler
                         }
                         Debug.Log("Los Puntos han sido actualizados en R");
                     }
+                    if (GameManager.player2.boardPlayer.bonus[1] != null)
+                    {
+                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[1])
+                        {
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                            {
+                                item.Score += 3;
+                            }
+                        }
+                        Debug.Log("Los Puntos han sido actualizados en R");
+                    }
                     Board.UpdatePoints(GameManager.player1.boardPlayer);
                     Board.UpdatePoints(GameManager.player2.boardPlayer);
                     GameManager.gameManager.ActPointsInFronten();
@@ -161,6 +318,46 @@ public class DropRow : MonoBehaviour, IDropHandler
                 if (NameOfRow == "M")
                 {
                     GameManager.player2.boardPlayer.UnitCards[0].Add(unitCard);
+                    if (Board.BothPlayersWeather[0] != null)
+                    {
+                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[0].Count; i++)
+                        {
+                            if (GameManager.player2.boardPlayer.UnitCards[0][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
+                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[0].Count; i++)
+                        {
+                            if (GameManager.player1.boardPlayer.UnitCards[0][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
+
+                    }
+                    if (GameManager.player2.boardPlayer.bonus[0] != null)
+                    {
+                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[0])
+                        {
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                            {
+                                item.Score += 3;
+                            }
+                        }
+                        Debug.Log("Los Puntos han sido actualizados en M");
+                    }
+                    if (GameManager.player1.boardPlayer.bonus[0] != null)
+                    {
+                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[0])
+                        {
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                            {
+                                item.Score += 3;
+                            }
+                        }
+                        Debug.Log("Los Puntos han sido actualizados en M");
+                    }
                     Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
                     if (Board.BothPlayersWeather[0] != null)
                     {
@@ -191,6 +388,17 @@ public class DropRow : MonoBehaviour, IDropHandler
                         }
                         Debug.Log("Los Puntos han sido actualizados en M");
                     }
+                    if (GameManager.player1.boardPlayer.bonus[0] != null)
+                    {
+                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[0])
+                        {
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                            {
+                                item.Score += 3;
+                            }
+                        }
+                        Debug.Log("Los Puntos han sido actualizados en M");
+                    }
                     Board.UpdatePoints(GameManager.player2.boardPlayer);
                     Board.UpdatePoints(GameManager.player1.boardPlayer);
                     GameManager.gameManager.ActPointsInFronten();
@@ -204,6 +412,46 @@ public class DropRow : MonoBehaviour, IDropHandler
                 if (NameOfRow == "S")
                 {
                     GameManager.player2.boardPlayer.UnitCards[2].Add(unitCard);
+                    if (Board.BothPlayersWeather[2] != null)
+                    {
+                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[2].Count; i++)
+                        {
+                            if (GameManager.player2.boardPlayer.UnitCards[2][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
+                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[2].Count; i++)
+                        {
+                            if (GameManager.player1.boardPlayer.UnitCards[2][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
+
+                    }
+                    if (GameManager.player2.boardPlayer.bonus[2] != null)
+                    {
+                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[2])
+                        {
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                            {
+                                item.Score += 3;
+                            }
+                        }
+                        Debug.Log("Los Puntos han sido actualizados en S");
+                    }
+                    if (GameManager.player1.boardPlayer.bonus[2] != null)
+                    {
+                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[2])
+                        {
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                            {
+                                item.Score += 3;
+                            }
+                        }
+                        Debug.Log("Los Puntos han sido actualizados en S");
+                    }
                     Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
                     if (Board.BothPlayersWeather[2] != null)
                     {
@@ -234,6 +482,17 @@ public class DropRow : MonoBehaviour, IDropHandler
                         }
                         Debug.Log("Los Puntos han sido actualizados en S");
                     }
+                    if (GameManager.player1.boardPlayer.bonus[2] != null)
+                    {
+                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[2])
+                        {
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                            {
+                                item.Score += 3;
+                            }
+                        }
+                        Debug.Log("Los Puntos han sido actualizados en S");
+                    }
                     Board.UpdatePoints(GameManager.player2.boardPlayer);
                     Board.UpdatePoints(GameManager.player1.boardPlayer);
                     GameManager.gameManager.ActPointsInFronten();
@@ -247,6 +506,46 @@ public class DropRow : MonoBehaviour, IDropHandler
                 if (NameOfRow == "R")
                 {
                     GameManager.player2.boardPlayer.UnitCards[1].Add(unitCard);
+                    if (Board.BothPlayersWeather[1] != null)
+                    {
+                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[1].Count; i++)
+                        {
+                            if (GameManager.player2.boardPlayer.UnitCards[1][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
+                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[1].Count; i++)
+                        {
+                            if (GameManager.player1.boardPlayer.UnitCards[1][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
+
+                    }
+                    if (GameManager.player2.boardPlayer.bonus[1] != null)
+                    {
+                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[1])
+                        {
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                            {
+                                item.Score += 3;
+                            }
+                        }
+                        Debug.Log("Los Puntos han sido actualizados en R");
+                    }
+                    if (GameManager.player1.boardPlayer.bonus[1] != null)
+                    {
+                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[1])
+                        {
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                            {
+                                item.Score += 3;
+                            }
+                        }
+                        Debug.Log("Los Puntos han sido actualizados en R");
+                    }
                     Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
                     if (Board.BothPlayersWeather[1] != null)
                     {
@@ -257,10 +556,29 @@ public class DropRow : MonoBehaviour, IDropHandler
                                 unitCard1.Score = 1;
                             }
                         }
+                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[1].Count; i++)
+                        {
+                            if (GameManager.player1.boardPlayer.UnitCards[1][i] is UnitCard unitCard1)
+                            {
+                                unitCard1.Score = 1;
+                            }
+                        }
+
                     }
                     if (GameManager.player2.boardPlayer.bonus[1] != null)
                     {
                         foreach (var item in GameManager.player2.boardPlayer.UnitCards[1])
+                        {
+                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                            {
+                                item.Score += 3;
+                            }
+                        }
+                        Debug.Log("Los Puntos han sido actualizados en R");
+                    }
+                    if (GameManager.player1.boardPlayer.bonus[1] != null)
+                    {
+                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[1])
                         {
                             if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
                             {

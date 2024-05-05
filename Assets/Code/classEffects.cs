@@ -137,7 +137,7 @@ class DeletPowerful : Effects
             {
                 foreach (var item in player1.boardPlayer.UnitCards[i])
                 {
-                    if (item == PowerfulP)
+                    if (item.Score == PowerfulP.Score)
                     {
                         player1.boardPlayer.UnitCards[i].Remove(item);
                         Debug.Log($"la carta {item.Name} fue eliminada");
@@ -153,7 +153,7 @@ class DeletPowerful : Effects
             {
                 foreach (var item in player.boardPlayer.UnitCards[i])
                 {
-                    if (item == PowerfulP)
+                    if (item.Score == PowerfulP.Score)
                     {
                         player.boardPlayer.UnitCards[i].Remove(item);
                         Debug.Log($"la carta {item.Name} fue eliminada");
@@ -171,7 +171,7 @@ class DeletPowerful : Effects
             {
                 foreach (var item in player.boardPlayer.UnitCards[i])
                 {
-                    if (item == p)
+                    if (item.Score == p.Score)
                     {
                         player.boardPlayer.UnitCards[i].Remove(item);
                         Debug.Log($"la carta {item.Name} fue eliminada");
@@ -183,7 +183,7 @@ class DeletPowerful : Effects
             {
                 foreach (var item in player1.boardPlayer.UnitCards[i])
                 {
-                    if (item == p)
+                    if (item.Score == p.Score)
                     {
                         player1.boardPlayer.UnitCards[i].Remove(item);
                         Debug.Log($"la carta {item.Name} fue eliminada");
@@ -442,6 +442,10 @@ class WeatherEffect_R : Effects
             if (item.Type == "Silver")
             {
                 item.Score = 1;
+                if (player.boardPlayer.bonus[1] != null)
+                {
+                    item.Score += 3;
+                }
             }
         }
         foreach (var item in player1.boardPlayer.UnitCards[1])
@@ -449,6 +453,10 @@ class WeatherEffect_R : Effects
             if (item.Type == "Silver")
             {
                 item.Score = 1;
+                if (player1.boardPlayer.bonus[1] != null)
+                {
+                    item.Score += 3;
+                }
             }
         }
     }
@@ -467,6 +475,10 @@ class WeatherEffect_M : Effects
             if (item.Type == "Silver")
             {
                 item.Score = 1;
+                if (player.boardPlayer.bonus[0] != null)
+                {
+                    item.Score += 3;
+                }
             }
         }
         foreach (var item in player1.boardPlayer.UnitCards[0])
@@ -474,6 +486,10 @@ class WeatherEffect_M : Effects
             if (item.Type == "Silver")
             {
                 item.Score = 1;
+                if (player1.boardPlayer.bonus[0] != null)
+                {
+                    item.Score += 3;
+                }
             }
         }
     }
@@ -492,6 +508,10 @@ class WeatherEffect_S : Effects
             if (item.Type == "Silver")
             {
                 item.Score = 1;
+                if (player.boardPlayer.bonus[2] != null)
+                {
+                    item.Score += 3;
+                }
             }
         }
         foreach (var item in player1.boardPlayer.UnitCards[2])
@@ -499,6 +519,10 @@ class WeatherEffect_S : Effects
             if (item.Type == "Silver")
             {
                 item.Score = 1;
+                if (player1.boardPlayer.bonus[2] != null)
+                {
+                    item.Score += 3;
+                }
             }
         }
     }

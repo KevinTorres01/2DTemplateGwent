@@ -26,7 +26,7 @@ public class DropSlot : MonoBehaviour, IDropHandler
                     Drag.DraggedCard.transform.rotation = this.GetComponent<HorizontalLayoutGroup>().transform.rotation;
                     Drag.DraggedCard.GetComponent<Drag>().enabled = false;
                     Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
-
+                    
                     WasDropped = true;
                 }
                 if (weather1.Effect.Contains("R") && NameofSlot == "R")
