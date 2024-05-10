@@ -41,14 +41,8 @@ public class GameManager : MonoBehaviour                                        
     public static GameManager gameManager;
     void Awake()
     {
-        Board board1 = new Board();
-        Deck deck1 = new Deck(GameData.Player1Faction);
-        Hand hand1 = new Hand(deck1.DeckList);
-        Board board2 = new Board();
-        Deck deck2 = new Deck(GameData.Player2Faction);
-        Hand hand2 = new Hand(deck2.DeckList);
-        player1 = new Player(GameData.Player1Name, board1, deck1, hand1);
-        player2 = new Player(GameData.Player2Name, board2, deck2, hand2);
+        player1 = GameData.Player1;
+        player2 = GameData.Player2;
         WhoStart(player1, player2);
     }
     void Destroyer()
@@ -251,7 +245,8 @@ public class GameManager : MonoBehaviour                                        
 
         Final.gameObject.SetActive(true);
 
-        await Task.Delay(17000);
+        await Task.Delay(10000);
+        GameData.ResetData();
         SceneManager.LoadScene("MainMenu");
     }
 

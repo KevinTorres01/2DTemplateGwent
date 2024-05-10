@@ -38,7 +38,8 @@ public class SetPlayerManager : MonoBehaviour
 
         if (GameData.Player1Name != null && GameData.Player2Name != null)
         {
-            SceneManager.LoadScene("Battlefield");
+            GameData.gameData.CreatePlayers();
+            SceneManager.LoadScene("ChangeCards");
         }
     }
     public void SetPlayer1Name()

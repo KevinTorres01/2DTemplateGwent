@@ -82,7 +82,7 @@ public class Board
         {
             foreach (var item in unitCards[i])
             {
-                if (result.Score == int.MaxValue && item is not GoldenCard)                              //res = a la primera carta q me encuentre en la lista , luego cada vez q me encuentre una carta comparo los score
+                if (result.Score == int.MaxValue && item is not GoldenCard)                              //res = a la primera carta de plata q me encuentre en la lista , luego cada vez q me encuentre una carta comparo los score
                 {
                     result = item;
                 }
@@ -96,6 +96,46 @@ public class Board
             }
         }
         return result;
+    }
+    public static void ActPointsInRow(Board boardPlayer1, Board boardPlayer2, int row)
+    {
+        if (Board.BothPlayersWeather[row] != null)
+        {
+            for (int i = 0; i < boardPlayer1.UnitCards[row].Count; i++)
+            {
+                if (boardPlayer1.UnitCards[row][i] is UnitCard unitCard1)
+                {
+                    unitCard1.Score = 1;
+                }
+            }
+            for (int i = 0; i < boardPlayer2.UnitCards[row].Count; i++)
+            {
+                if (boardPlayer2.UnitCards[row][i] is UnitCard unitCard1)
+                {
+                    unitCard1.Score = 1;
+                }
+            }
+        }
+        if (boardPlayer1.bonus[row] != null)
+        {
+            foreach (var item in boardPlayer1.UnitCards[row])
+            {
+                if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                {
+                    item.Score += 3;
+                }
+            }
+        }
+        if (boardPlayer2.bonus[row] != null)
+        {
+            foreach (var item in boardPlayer2.UnitCards[row])
+            {
+                if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
+                {
+                    item.Score += 3;
+                }
+            }
+        }
     }
     public static void CleanBoard(Player player, Player player1)                   // Metodo para limpiar el tablero 
     {

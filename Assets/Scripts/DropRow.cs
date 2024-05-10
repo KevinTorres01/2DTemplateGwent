@@ -22,593 +22,59 @@ public class DropRow : MonoBehaviour, IDropHandler
             Drag.DraggedCard.GetComponent<Drag>().enabled = false;
             if (this.transform.parent.name == "Player1")
             {
+                int count = GameManager.player1.Hand.ListOfCards.Count - 1;
                 if (NameOfRow == "M")
-                {
-                    GameManager.player1.boardPlayer.UnitCards[0].Add(unitCard);
+                    PlayCard(GameManager.player1, unitCard, 0);
 
-                    if (Board.BothPlayersWeather[0] != null)
-                    {
-                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[0].Count; i++)
-                        {
-                            if (GameManager.player1.boardPlayer.UnitCards[0][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[0].Count; i++)
-                        {
-                            if (GameManager.player2.boardPlayer.UnitCards[0][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-                    }
-                    if (GameManager.player1.boardPlayer.bonus[0] != null)
-                    {
-                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[0])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en M");
-                    }
-                    if (GameManager.player2.boardPlayer.bonus[0] != null)
-                    {
-                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[0])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en M");
-                    }
-
-                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
-
-                    if (Board.BothPlayersWeather[0] != null)
-                    {
-                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[0].Count; i++)
-                        {
-                            if (GameManager.player1.boardPlayer.UnitCards[0][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[0].Count; i++)
-                        {
-                            if (GameManager.player2.boardPlayer.UnitCards[0][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-                    }
-                    if (GameManager.player1.boardPlayer.bonus[0] != null)
-                    {
-                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[0])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en M");
-                    }
-                    if (GameManager.player2.boardPlayer.bonus[0] != null)
-                    {
-                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[0])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en M");
-                    }
-                    Board.UpdatePoints(GameManager.player1.boardPlayer);
-                    Board.UpdatePoints(GameManager.player2.boardPlayer);
-                    GameManager.gameManager.ActPointsInFronten();
-                    GameManager.player1.Hand.ListOfCards.Remove(unitCard);
-                    if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
-                    {
-                        Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player1);
-                    }
-
-                }
                 if (NameOfRow == "S")
-                {
-                    GameManager.player1.boardPlayer.UnitCards[2].Add(unitCard);
-                    if (Board.BothPlayersWeather[2] != null)
-                    {
-                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[2].Count; i++)
-                        {
-                            if (GameManager.player1.boardPlayer.UnitCards[2][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[2].Count; i++)
-                        {
-                            if (GameManager.player2.boardPlayer.UnitCards[2][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
+                    PlayCard(GameManager.player1, unitCard, 2);
 
-                        Debug.Log("Estos son los puntos de la carta " + unitCard.Score);
-                    }
-                    if (GameManager.player1.boardPlayer.bonus[2] != null)
-                    {
-                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[2])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en S");
-                    }
-                    if (GameManager.player2.boardPlayer.bonus[2] != null)
-                    {
-                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[2])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en S");
-                    }
-
-                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
-
-                    if (Board.BothPlayersWeather[2] != null)
-                    {
-                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[2].Count; i++)
-                        {
-                            if (GameManager.player1.boardPlayer.UnitCards[2][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[2].Count; i++)
-                        {
-                            if (GameManager.player2.boardPlayer.UnitCards[2][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-
-                        Debug.Log("Estos son los puntos de la carta " + unitCard.Score);
-                    }
-                    if (GameManager.player1.boardPlayer.bonus[2] != null)
-                    {
-                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[2])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en S");
-                    }
-                    if (GameManager.player2.boardPlayer.bonus[2] != null)
-                    {
-                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[2])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en S");
-                    }
-                    Board.UpdatePoints(GameManager.player1.boardPlayer);
-                    Board.UpdatePoints(GameManager.player2.boardPlayer);
-                    GameManager.gameManager.ActPointsInFronten();
-                    GameManager.player1.Hand.ListOfCards.Remove(unitCard);
-                    if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
-                    {
-                        Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player1);
-                    }
-
-                }
                 if (NameOfRow == "R")
+                    PlayCard(GameManager.player1, unitCard, 1);
+
+                GameManager.player1.Hand.ListOfCards.Remove(unitCard);
+
+                if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw" && GameManager.player1.Hand.ListOfCards.Count > count)
                 {
-                    GameManager.player1.boardPlayer.UnitCards[1].Add(unitCard);
-                    if (Board.BothPlayersWeather[1] != null)
-                    {
-                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[1].Count; i++)
-                        {
-                            if (GameManager.player1.boardPlayer.UnitCards[1][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[1].Count; i++)
-                        {
-                            if (GameManager.player2.boardPlayer.UnitCards[1][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-
-                    }
-                    if (GameManager.player1.boardPlayer.bonus[1] != null)
-                    {
-                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[1])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en R");
-                    }
-                    if (GameManager.player2.boardPlayer.bonus[1] != null)
-                    {
-                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[1])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en R");
-                    }
-                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
-                    if (Board.BothPlayersWeather[1] != null)
-                    {
-                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[1].Count; i++)
-                        {
-                            if (GameManager.player1.boardPlayer.UnitCards[1][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[1].Count; i++)
-                        {
-                            if (GameManager.player2.boardPlayer.UnitCards[1][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-
-                    }
-                    if (GameManager.player1.boardPlayer.bonus[1] != null)
-                    {
-                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[1])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en R");
-                    }
-                    if (GameManager.player2.boardPlayer.bonus[1] != null)
-                    {
-                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[1])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en R");
-                    }
-                    Board.UpdatePoints(GameManager.player1.boardPlayer);
-                    Board.UpdatePoints(GameManager.player2.boardPlayer);
-                    GameManager.gameManager.ActPointsInFronten();
-                    GameManager.player1.Hand.ListOfCards.Remove(unitCard);
-                    if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
-                    {
-                        Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player1);
-                    }
-
+                    Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player1);
                 }
+
                 Board.UpdatePoints(GameManager.player1.boardPlayer);
                 Board.UpdatePoints(GameManager.player2.boardPlayer);
-
+                GameManager.gameManager.ActPointsInFronten();
             }
+
             if (this.transform.parent.name == "Player2")
             {
+                int count = GameManager.player2.Hand.ListOfCards.Count - 1;
                 if (NameOfRow == "M")
-                {
-                    GameManager.player2.boardPlayer.UnitCards[0].Add(unitCard);
-                    if (Board.BothPlayersWeather[0] != null)
-                    {
-                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[0].Count; i++)
-                        {
-                            if (GameManager.player2.boardPlayer.UnitCards[0][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[0].Count; i++)
-                        {
-                            if (GameManager.player1.boardPlayer.UnitCards[0][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
+                    PlayCard(GameManager.player2, unitCard, 0);
 
-                    }
-                    if (GameManager.player2.boardPlayer.bonus[0] != null)
-                    {
-                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[0])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en M");
-                    }
-                    if (GameManager.player1.boardPlayer.bonus[0] != null)
-                    {
-                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[0])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en M");
-                    }
-                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
-                    if (Board.BothPlayersWeather[0] != null)
-                    {
-                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[0].Count; i++)
-                        {
-                            if (GameManager.player2.boardPlayer.UnitCards[0][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[0].Count; i++)
-                        {
-                            if (GameManager.player1.boardPlayer.UnitCards[0][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-
-                    }
-                    if (GameManager.player2.boardPlayer.bonus[0] != null)
-                    {
-                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[0])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en M");
-                    }
-                    if (GameManager.player1.boardPlayer.bonus[0] != null)
-                    {
-                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[0])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en M");
-                    }
-                    Board.UpdatePoints(GameManager.player2.boardPlayer);
-                    Board.UpdatePoints(GameManager.player1.boardPlayer);
-                    GameManager.gameManager.ActPointsInFronten();
-                    GameManager.player2.Hand.ListOfCards.Remove(unitCard);
-                    if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
-                    {
-                        Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player2);
-                    }
-
-                }
                 if (NameOfRow == "S")
-                {
-                    GameManager.player2.boardPlayer.UnitCards[2].Add(unitCard);
-                    if (Board.BothPlayersWeather[2] != null)
-                    {
-                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[2].Count; i++)
-                        {
-                            if (GameManager.player2.boardPlayer.UnitCards[2][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[2].Count; i++)
-                        {
-                            if (GameManager.player1.boardPlayer.UnitCards[2][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
+                    PlayCard(GameManager.player2, unitCard, 2);
 
-                    }
-                    if (GameManager.player2.boardPlayer.bonus[2] != null)
-                    {
-                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[2])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en S");
-                    }
-                    if (GameManager.player1.boardPlayer.bonus[2] != null)
-                    {
-                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[2])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en S");
-                    }
-                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
-                    if (Board.BothPlayersWeather[2] != null)
-                    {
-                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[2].Count; i++)
-                        {
-                            if (GameManager.player2.boardPlayer.UnitCards[2][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[2].Count; i++)
-                        {
-                            if (GameManager.player1.boardPlayer.UnitCards[2][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-
-                    }
-                    if (GameManager.player2.boardPlayer.bonus[2] != null)
-                    {
-                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[2])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en S");
-                    }
-                    if (GameManager.player1.boardPlayer.bonus[2] != null)
-                    {
-                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[2])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en S");
-                    }
-                    Board.UpdatePoints(GameManager.player2.boardPlayer);
-                    Board.UpdatePoints(GameManager.player1.boardPlayer);
-                    GameManager.gameManager.ActPointsInFronten();
-                    GameManager.player2.Hand.ListOfCards.Remove(unitCard);
-                    if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
-                    {
-                        Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player2);
-                    }
-
-                }
                 if (NameOfRow == "R")
+                    PlayCard(GameManager.player2, unitCard, 1);
+
+                GameManager.player2.Hand.ListOfCards.Remove(unitCard);
+
+                if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw" && GameManager.player2.Hand.ListOfCards.Count > count)
                 {
-                    GameManager.player2.boardPlayer.UnitCards[1].Add(unitCard);
-                    if (Board.BothPlayersWeather[1] != null)
-                    {
-                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[1].Count; i++)
-                        {
-                            if (GameManager.player2.boardPlayer.UnitCards[1][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[1].Count; i++)
-                        {
-                            if (GameManager.player1.boardPlayer.UnitCards[1][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-
-                    }
-                    if (GameManager.player2.boardPlayer.bonus[1] != null)
-                    {
-                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[1])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en R");
-                    }
-                    if (GameManager.player1.boardPlayer.bonus[1] != null)
-                    {
-                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[1])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en R");
-                    }
-                    Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
-                    if (Board.BothPlayersWeather[1] != null)
-                    {
-                        for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards[1].Count; i++)
-                        {
-                            if (GameManager.player2.boardPlayer.UnitCards[1][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-                        for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards[1].Count; i++)
-                        {
-                            if (GameManager.player1.boardPlayer.UnitCards[1][i] is UnitCard unitCard1)
-                            {
-                                unitCard1.Score = 1;
-                            }
-                        }
-
-                    }
-                    if (GameManager.player2.boardPlayer.bonus[1] != null)
-                    {
-                        foreach (var item in GameManager.player2.boardPlayer.UnitCards[1])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en R");
-                    }
-                    if (GameManager.player1.boardPlayer.bonus[1] != null)
-                    {
-                        foreach (var item in GameManager.player1.boardPlayer.UnitCards[1])
-                        {
-                            if (item is SilverCard && ((item.Score == 1) || item.Score == item.PowerPoints))
-                            {
-                                item.Score += 3;
-                            }
-                        }
-                        Debug.Log("Los Puntos han sido actualizados en R");
-                    }
-                    Board.UpdatePoints(GameManager.player2.boardPlayer);
-                    Board.UpdatePoints(GameManager.player1.boardPlayer);
-                    GameManager.gameManager.ActPointsInFronten();
-                    GameManager.player2.Hand.ListOfCards.Remove(unitCard);
-                    if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw")
-                    {
-                        Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player2);
-                    }
-
+                    Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player2);
                 }
+
                 Board.UpdatePoints(GameManager.player1.boardPlayer);
                 Board.UpdatePoints(GameManager.player2.boardPlayer);
+                GameManager.gameManager.ActPointsInFronten();
             }
-
 
             if (this.transform.parent.name == "Player1" && GameManager.player2.Pased == false)
             {
                 GameManager.player1.IsMyturn = false;
                 GameManager.player2.IsMyturn = true;
                 UIMessage.text = $"Turno de {GameManager.player2.Name}";
-
             }
+
             if (this.transform.parent.name == "Player2" && GameManager.player1.Pased == false)
             {
                 GameManager.player1.IsMyturn = true;
@@ -616,7 +82,15 @@ public class DropRow : MonoBehaviour, IDropHandler
                 UIMessage.text = $"Turno de {GameManager.player1.Name}";
             }
 
-
         }
+    }
+
+    private static void PlayCard(Player player, UnitCard unitCard, int row)
+    {
+        player.boardPlayer.UnitCards[row].Add(unitCard);
+
+        Board.ActPointsInRow(GameManager.player1.boardPlayer, GameManager.player2.boardPlayer, row);
+        Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
+        Board.ActPointsInRow(GameManager.player1.boardPlayer, GameManager.player2.boardPlayer, row);
     }
 }

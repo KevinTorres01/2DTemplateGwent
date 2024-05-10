@@ -64,26 +64,35 @@ class Multiply : Effects
             }
         }
 
-        for (int i = 0; i < player.boardPlayer.UnitCards.Length; i++)
+        if (player.IsMyturn)
         {
-            foreach (var item in player.boardPlayer.UnitCards[i])
+            for (int i = 0; i < player.boardPlayer.UnitCards.Length; i++)
             {
-                if (item.Name == temp)
+                foreach (var item in player.boardPlayer.UnitCards[i])
                 {
-                    item.Score = item.Score * count;
+                    if (item == unitCard)
+                    {
+                        item.Score = item.Score * count;
+                        return;
+                    }
                 }
             }
-        }
 
-        for (int i = 0; i < player1.boardPlayer.UnitCards.Length; i++)
+        }
+        if (player1.IsMyturn)
         {
-            foreach (var item in player1.boardPlayer.UnitCards[i])
+            for (int i = 0; i < player1.boardPlayer.UnitCards.Length; i++)
             {
-                if (item.Name == temp)
+                foreach (var item in player1.boardPlayer.UnitCards[i])
                 {
-                    item.Score = item.Score * count;
+                    if (item == unitCard)
+                    {
+                        item.Score = item.Score * count;
+                        return;
+                    }
                 }
             }
+
         }
 
         Debug.Log($"efecto hecho");
@@ -101,12 +110,11 @@ class DeletRivalWeak : Effects
         if (player.IsMyturn)
         {
             UnitCard weak = Board.GetWeakCard(player1.boardPlayer.UnitCards);
-            string temp = weak.Name;
             for (int i = 0; i < player1.boardPlayer.UnitCards.Length; i++)
             {
                 foreach (var item in player1.boardPlayer.UnitCards[i])
                 {
-                    if (item.Name == temp && weak.Score == item.Score)
+                    if (weak.Score == item.Score && item.Type == "Silver")
                     {
                         Debug.Log($"la carta {item.Name} fue eliminada");
                         player1.boardPlayer.UnitCards[i].Remove(item);
@@ -137,7 +145,7 @@ class DeletPowerful : Effects
             {
                 foreach (var item in player1.boardPlayer.UnitCards[i])
                 {
-                    if (item.Score == PowerfulP.Score)
+                    if (item.Score == PowerfulP.Score && item.Type == "Silver")
                     {
                         player1.boardPlayer.UnitCards[i].Remove(item);
                         Debug.Log($"la carta {item.Name} fue eliminada");
@@ -153,7 +161,7 @@ class DeletPowerful : Effects
             {
                 foreach (var item in player.boardPlayer.UnitCards[i])
                 {
-                    if (item.Score == PowerfulP.Score)
+                    if (item.Score == PowerfulP.Score && item.Type == "Silver")
                     {
                         player.boardPlayer.UnitCards[i].Remove(item);
                         Debug.Log($"la carta {item.Name} fue eliminada");
@@ -206,9 +214,12 @@ class Draw : Effects
     {
         if (player1.IsMyturn)
         {
-            player1.Hand.ListOfCards.Add(player1.Playerdeck.DeckList[0]);
-            player1.Playerdeck.DeckList.Remove(player1.Playerdeck.DeckList[0]);
-            Debug.Log("Robo la carta en el backend");
+            if (player1.Hand.ListOfCards.Count <= 10)
+            {
+                player1.Hand.ListOfCards.Add(player1.Playerdeck.DeckList[0]);
+                player1.Playerdeck.DeckList.Remove(player1.Playerdeck.DeckList[0]);
+                Debug.Log("Robo la carta en el backend");
+            }
         }
         else DrawACArd(player1, player, unitCard);
     }
@@ -551,6 +562,5 @@ class CleanWeather : Effects
                 item.Score = item.PowerPoints;
             }
         }
-
     }
 }
