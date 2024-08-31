@@ -156,6 +156,20 @@ public class Board
         CleanBoard2[2] = new List<UnitCard>();
 
         Board.BothPlayersWeather = CleanWeathers;
+        for (int i = 0; i < 3; i++)
+        {
+            foreach (var item in player.boardPlayer.UnitCards[i])
+            {
+                player.Graveyard.Add(item);
+            }
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            foreach (var item in player1.boardPlayer.UnitCards[i])
+            {
+                player1.Graveyard.Add(item);
+            }
+        }
 
         player1.boardPlayer.UnitCards = CleanBoard1;
         player1.boardPlayer.bonus = CleanBonus1;

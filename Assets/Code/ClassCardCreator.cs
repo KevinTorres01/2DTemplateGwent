@@ -4,7 +4,8 @@ using System;
 using System.Collections.Generic;
 public class CardCreator
 {
-    public static List<Card> CreateCards()
+    public static List<Card> Cards = new List<Card>();
+    public static void CreateCards()
     {
         List<Card> CardList = new List<Card>();
 
@@ -64,14 +65,16 @@ public class CardCreator
         CardList.Add(Tien_Shinhan_2);
         GoldenCard goldenCard = new GoldenCard("Veggeta", "Average", "Universe 7", "M", 7);
         CardList.Add(goldenCard);
-
-        return CardList;
+        foreach (var item in CardList)
+        {
+            Cards.Add(item);
+        }
 
     }
     public static List<Card> CreateDeck(string Faction)
     {
         List<Card> CardList = new List<Card>();
-        foreach (var item in CardCreator.CreateCards())
+        foreach (var item in Cards)
         {
             if (item.Faction == Faction || item.Faction == "Neutral")
             {
@@ -81,7 +84,7 @@ public class CardCreator
         }
         return CardList;
     }
-    private static SilverCard DuplicateCards(SilverCard card)
+    public static SilverCard DuplicateCards(SilverCard card)
     {
         SilverCard copy = new SilverCard(card.Name, card.Effect, card.Faction, card.Possition, card.PowerPoints);
         return copy;

@@ -117,6 +117,7 @@ class DeletRivalWeak : Effects
                     if (weak.Score == item.Score && item.Type == "Silver")
                     {
                         Debug.Log($"la carta {item.Name} fue eliminada");
+                        player1.Graveyard.Add(item);
                         player1.boardPlayer.UnitCards[i].Remove(item);
                         return;
                     }
@@ -147,6 +148,7 @@ class DeletPowerful : Effects
                 {
                     if (item.Score == PowerfulP.Score && item.Type == "Silver")
                     {
+                        player1.Graveyard.Add(item);
                         player1.boardPlayer.UnitCards[i].Remove(item);
                         Debug.Log($"la carta {item.Name} fue eliminada");
                         return;
@@ -163,6 +165,7 @@ class DeletPowerful : Effects
                 {
                     if (item.Score == PowerfulP.Score && item.Type == "Silver")
                     {
+                        player.Graveyard.Add(item);
                         player.boardPlayer.UnitCards[i].Remove(item);
                         Debug.Log($"la carta {item.Name} fue eliminada");
                         return;

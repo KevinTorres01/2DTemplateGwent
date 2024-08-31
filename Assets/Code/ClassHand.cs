@@ -24,7 +24,7 @@ public class Hand
     {
         for (int i = 0; i < 2; i++)
         {
-            Debug.Log("Este es el nombre de la cata q da error" + player1.Playerdeck.DeckList[0].Name);
+            Debug.Log("Este es el nombre de la carta q da error" + player1.Playerdeck.DeckList[0].Name);
             player1.Hand.ListOfCards.Add(player1.Playerdeck.DeckList[0]);
             player1.Playerdeck.DeckList.Remove(player1.Playerdeck.DeckList[0]);
             // player2.Hand.ListOfCards.Add(player2.Playerdeck.DeckList[0]);

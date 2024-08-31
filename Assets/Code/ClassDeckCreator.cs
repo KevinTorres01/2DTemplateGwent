@@ -23,7 +23,6 @@ public class Deck
     }
     public static List<Card> Swap(List<Card> cards)       //barajar el deck
     {
-
         int i = 0;
         System.Random random = new System.Random();
         System.Random random1 = new System.Random();

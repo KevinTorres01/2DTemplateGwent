@@ -9,9 +9,11 @@ using Unity.VisualScripting;
 using TMPro;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System;
 
-public class GameManager : MonoBehaviour                                         // Crea los jugadores, verifica si los jugadores ya pasaron o no,
-{                                                                                // escoge un ganador y anade sus victorias en backend y fronten
+public class GameManager : MonoBehaviour                                        // Crea los jugadores, verifica si los jugadores ya pasaron o no,
+{                                                                               // escoge un ganador y anade sus victorias en backend y fronten
     public UnityEngine.UI.Image Final;                                           // destruye las cartas del fronten cuando termina una ronda y cuando no estan en el tablero  del backend las detruye en el fronten
     public TextMeshProUGUI FinalMessage;                                         //  decide cuando  una ronda termina
     [SerializeField] public TextMeshProUGUI UIMessage;                           //  crea nuevas ronda
@@ -363,12 +365,10 @@ public class GameManager : MonoBehaviour                                        
             else
             {
                 Destroy(S2.transform.GetChild(i).gameObject);
-
             }
         }
-
     }
-    
+
     public void DestroyWeathers()
     {
         if (WeatherM.transform.childCount > 0)
@@ -383,5 +383,40 @@ public class GameManager : MonoBehaviour                                        
         {
             Destroy(WeatherS.transform.GetChild(0).gameObject);
         }
+    }
+    public static void CreateCompiledCards()
+    {
+        string ToCompile = GetFileContent("/home/kevin/Subiendo proyecto/2DTemplate/Assets/Text/Text");
+        var x = Compiler.Compile(ToCompile);
+        Debug.Log("Compilo");
+        foreach (var item in x.cards.Keys)
+        {
+            string name = x.cards[item].Name;
+            int power = Convert.ToInt32(x.cards[item].Power);
+            string Range = x.cards[item].Range;
+            string Type = x.cards[item].Type;
+            string Faction = x.cards[item].Faction;
+            if (Type == "Silver")
+            {
+                SilverCard silverCard = new SilverCard(name, "", Faction, Range, power);
+                CardCreator.Cards.Add(silverCard);
+                CardCreator.Cards.Add(CardCreator.DuplicateCards(silverCard));
+                CardCreator.Cards.Add(CardCreator.DuplicateCards(silverCard));
+            }
+            if (Type == "Golden")
+            {
+                GoldenCard goldenCard = new GoldenCard(name, "", Faction, Range, power);
+                CardCreator.Cards.Add(goldenCard);
+            }
+            Debug.Log("carta creada " + name);
+        }
+
+    }
+    private static string GetFileContent(string root)
+    {
+        StreamReader streamReader = new StreamReader(root);
+        string FileContent = streamReader.ReadToEnd();
+        streamReader.Close();
+        return FileContent;
     }
 }

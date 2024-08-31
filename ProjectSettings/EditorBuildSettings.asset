@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ChangeCards.unity
     guid: becac5a75af210a82b1fd02e3c35cd8e
+  - enabled: 1
+    path: Assets/Scenes/TextToCompile.unity
+    guid: bb29e0a968472bd2eaa7180a3ed4f30a
   m_configObjects: {}

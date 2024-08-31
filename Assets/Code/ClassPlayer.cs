@@ -11,6 +11,7 @@ public class Player
     public bool IsMyturn { get; set; }
     public int Victories;
     public bool Pased;
+    public List<Card> Graveyard;
 
     public Player(string name, Board board, Deck deck, Hand hand)
     {
@@ -21,5 +22,6 @@ public class Player
         IsMyturn = false;
         Victories = 0;
         Pased = false;
+        Graveyard = new List<Card>();
     }
 }
