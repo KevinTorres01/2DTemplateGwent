@@ -106,6 +106,6 @@ public class PrintStmt : IStatements
     }
     public void Execute()
     {
-        System.Console.WriteLine(exp.Evaluate());
+        Debug.Log(exp.Evaluate());
     }
 }

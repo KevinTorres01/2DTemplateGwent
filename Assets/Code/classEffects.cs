@@ -2,12 +2,22 @@ using UnityEngine;
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 public abstract class Effects
 {
     public static Dictionary<string, Effects> GiveEffect { get; set; } = Fill();
+    protected static Dictionary<string, CompiledEffect> CompiledEffects = new Dictionary<string, CompiledEffect>();
     public Effects()
     {
 
+    }
+    public static void AddCompilatedEffect(CompiledEffect effect)
+    {
+        if (CompiledEffects.ContainsKey(effect.Name))
+        {
+            return;
+        }
+        CompiledEffects.Add(effect.Name, effect);
     }
     static Dictionary<string, Effects> Fill()
     {
@@ -25,7 +35,8 @@ public abstract class Effects
         ef.Add("WeatherM", new WeatherEffect_M());
         ef.Add("WeatherS", new WeatherEffect_S());
         ef.Add("CleanWeather", new CleanWeather());
-        ef.Add("", new Empty());
+        ef.Add(" ", new Empty());
+        ef.Add("", new PersonalizedEffect());
         return ef;
     }
 
@@ -565,5 +576,58 @@ class CleanWeather : Effects
                 item.Score = item.PowerPoints;
             }
         }
+    }
+}
+class PersonalizedEffect : Effects
+{
+    public override void ActivateEffect(Player player, Player player1, Card unitCard)
+    {
+if (unitCard.onActivations==null)
+{
+    Debug.Log("nullllllll");
+}
+        foreach (var item in unitCard.onActivations)
+        {
+            ExecuteOnActivation(item);
+        }
+    }
+
+    private void ExecuteOnActivation(OnActivationObject item)
+    {
+        var x = new Context();
+        CompiledEffects[item.EffectInfo.name].action.Invoke(x, GetTargets(x, item));
+        if (item.postaction != null)
+        {
+            ExecuteOnActivation(item.postaction);
+        }
+    }
+    private List<Card> GetTargets(Context context, OnActivationObject onActivation, OnActivationObject parent = null)
+    {
+        var sour = onActivation.Selector.source;
+        List<Card> targets = sour == "hand" ? context.Hand : sour == "otherHand" ? context.HandOfPlayer((context.TrigerPlayer + 1) % 2) : sour == "deck" ? context.Deck : sour == "otherDeck" ? context.DeckOfPlayer((context.TrigerPlayer + 1) % 2) :
+        sour == "field" ? context.Field : sour == "otherField" ? context.FieldOfPlayer((context.TrigerPlayer + 1) % 2) : new();
+        if (sour == "parent")
+        {
+            sour = parent.Selector.source;
+            targets = sour == "hand" ? context.Hand : sour == "otherHand" ? context.HandOfPlayer((context.TrigerPlayer + 1) % 2) : sour == "deck" ? context.Deck : sour == "otherDeck" ? context.DeckOfPlayer((context.TrigerPlayer + 1) % 2) :
+                   sour == "field" ? context.Field : sour == "otherField" ? context.FieldOfPlayer((context.TrigerPlayer + 1) % 2) : new();
+        }
+        List<Card> cards = new();
+        foreach (var item in targets)
+        {
+            if ((bool)onActivation.Selector.Delegate.Invoke(item))
+            {
+                cards.Add(item);
+            }
+        }
+        if (onActivation.Selector.single)
+        {
+            return cards.Count == 0 ? cards : new List<Card> { cards[0] };
+        }
+        else
+        {
+            return cards;
+        }
+
     }
 }

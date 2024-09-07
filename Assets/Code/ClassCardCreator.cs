@@ -2,9 +2,11 @@ using UnityEngine;
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 public class CardCreator
 {
     public static List<Card> Cards = new List<Card>();
+    public static List<Card> Liders => Cards.Where(x => (x.Type == "Lider")).ToList();
     public static void CreateCards()
     {
         List<Card> CardList = new List<Card>();
@@ -86,7 +88,7 @@ public class CardCreator
     }
     public static SilverCard DuplicateCards(SilverCard card)
     {
-        SilverCard copy = new SilverCard(card.Name, card.Effect, card.Faction, card.Possition, card.PowerPoints);
+        SilverCard copy = new SilverCard(card.Name, card.Effect, card.Faction, card.Possition, card.PowerPoints,card.onActivations);
         return copy;
     }
 }

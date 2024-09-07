@@ -24,11 +24,11 @@ public class GameData : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public static void FillPlayer1Name(string name)
+    public void FillPlayer1Name(string name)
     {
         Player1Name = name;
     }
-    public static void FillPlayer2Name(string name)
+    public void FillPlayer2Name(string name)
     {
         Player2Name = name;
     }

@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ccc5c440dabf95809516a76e803fbe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardButton: {fileID: 398252578689492120, guid: 123e189c9d670e839b55194ba5f02cba, type: 3}
+  CardButton: {fileID: 350214280393591181, guid: 9954ad0b2b9b161c5a074f51aad9b6a5, type: 3}
   PlayerName: {fileID: 619572019}
 --- !u!225 &240543517
 CanvasGroup:
@@ -809,8 +809,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 665.3889, y: -460.72617}
-  m_SizeDelta: {x: 191.2222, y: 116.5111}
+  m_AnchoredPosition: {x: 742.92, y: -451}
+  m_SizeDelta: {x: 191, y: 116}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1597825745
 MonoBehaviour:
@@ -1057,7 +1057,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 681, y: -52}
+  m_AnchoredPosition: {x: 742.92, y: -47}
   m_SizeDelta: {x: 191, y: 116}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1697510913
@@ -1428,7 +1428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ccc5c440dabf95809516a76e803fbe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardButton: {fileID: 398252578689492120, guid: 123e189c9d670e839b55194ba5f02cba, type: 3}
+  CardButton: {fileID: 350214280393591181, guid: 9954ad0b2b9b161c5a074f51aad9b6a5, type: 3}
   PlayerName: {fileID: 1719126083}
 --- !u!225 &2139345040
 CanvasGroup:

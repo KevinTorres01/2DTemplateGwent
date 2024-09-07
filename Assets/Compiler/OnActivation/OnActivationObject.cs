@@ -6,7 +6,7 @@ public class OnActivationObject
 {
     public EffectInfo EffectInfo { get; }
     public Selector Selector { get; }
-    OnActivationObject postaction;
+    public OnActivationObject postaction;
     public OnActivationObject(EffectInfo effectInfo, Selector selector)
     {
         EffectInfo = effectInfo;

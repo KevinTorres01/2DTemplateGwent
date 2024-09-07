@@ -176,7 +176,16 @@ public class PropertySet : IExpression
         if (expression is GetProperties p)
         {
             var e = p.exp.Evaluate();
-            if (e is List<object> list)
+            if (e is UnitCard card)
+            {
+                switch (p.NameOfPropery)
+                {
+                    case "Power":
+                        card.Score = Convert.ToInt32(value.Evaluate());
+                        return value.Evaluate();
+                }
+            }
+            else if (e is List<object> list)
             {
                 switch (p.NameOfPropery)
                 {
@@ -236,27 +245,27 @@ public class FunctionCall : IExpression
             switch (NameOfMethod)
             {
                 case "HandOfPlayer":
-                    if (s != null && s is Player player)
+                    if (s != null)
                     {
-                        return context.HandOfPlayer(player);
+                        return context.HandOfPlayer(Convert.ToInt32(s));
                     }
                     throw new Exception();
                 case "DeckOfPlayer":
-                    if (s != null && s is Player player1)
+                    if (s != null)
                     {
-                        return context.DeckOfPlayer(player1);
+                        return context.DeckOfPlayer(Convert.ToInt32(s));
                     }
                     throw new Exception();
                 case "GraveyardOfPlayer":
-                    if (s != null && s is Player player2)
+                    if (s != null)
                     {
-                        return context.GraveyardOfPlayer(player2);
+                        return context.GraveyardOfPlayer(Convert.ToInt32(s));
                     }
                     throw new Exception();
                 case "FieldOfPlayer":
-                    if (s != null && s is Player player3)
+                    if (s != null)
                     {
-                        return context.FieldOfPlayer(player3);
+                        return context.FieldOfPlayer(Convert.ToInt32(s));
                     }
                     throw new Exception();
                 default: throw new Exception();
@@ -331,6 +340,7 @@ public class GetProperties : IExpression
     public object Evaluate()
     {
         var x = exp.Evaluate();
+        Debug.Log(x + x.GetType().ToString());
         if (x is Context context)
         {
             switch (NameOfPropery)
@@ -339,14 +349,30 @@ public class GetProperties : IExpression
                     return context.Hand;
                 case "Deck":
                     return context.Deck;
+                case "Board":
+                    return context.Board;
                 case "Graveyard":
                     return context.Graveyard;
                 case "Field":
                     return context.Field;
+                case "TrigerPlayer":
+                    return context.TrigerPlayer;
                 default: throw new Exception();
             }
         }
-        if (x is List<Card> cards)
+        else if (x is UnitCard card)
+        {
+            switch (NameOfPropery)
+            {
+                case "Power":
+                    return card.Score;
+                case "Type":
+                    return card.Type;
+                default:
+                    throw new Exception();
+            }
+        }
+        else if (x is List<Card> cards)
         {
             switch (NameOfPropery)
             {
@@ -357,7 +383,7 @@ public class GetProperties : IExpression
                 default: throw new Exception();
             }
         }
-        if (x is List<object> list)
+        else if (x is List<object> list)
         {
             switch (NameOfPropery)
             {
@@ -368,7 +394,8 @@ public class GetProperties : IExpression
                 default: throw new Exception();
             }
         }
-        throw new Exception();
+        else
+            throw new Exception();
     }
 }
 public class DelegateExpression : IExpression

@@ -4317,7 +4317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VisualHand: {fileID: 1347123404}
-  CardPrefab: {fileID: 7858082122221279016, guid: b2d007600b4e9cd97b80e8c36bd51d2c, type: 3}
+  CardPrefab: {fileID: 1898491660761689632, guid: 4693df338aa2696319fa5d684d18e528, type: 3}
 --- !u!225 &1347123406
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -4904,7 +4904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VisualHand: {fileID: 1530491535}
-  CardPrefab: {fileID: 7858082122221279016, guid: b2d007600b4e9cd97b80e8c36bd51d2c, type: 3}
+  CardPrefab: {fileID: 1898491660761689632, guid: 4693df338aa2696319fa5d684d18e528, type: 3}
 --- !u!222 &1530491534
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5847,7 +5847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0373936023ac959f0b1f82f87f995c39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Lider: {fileID: 7858082122221279016, guid: b2d007600b4e9cd97b80e8c36bd51d2c, type: 3}
+  Lider: {fileID: 1898491660761689632, guid: 4693df338aa2696319fa5d684d18e528, type: 3}
 --- !u!1001 &2052883236
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5965,7 +5965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0373936023ac959f0b1f82f87f995c39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Lider: {fileID: 7858082122221279016, guid: b2d007600b4e9cd97b80e8c36bd51d2c, type: 3}
+  Lider: {fileID: 1898491660761689632, guid: 4693df338aa2696319fa5d684d18e528, type: 3}
 --- !u!1 &2055941371
 GameObject:
   m_ObjectHideFlags: 0

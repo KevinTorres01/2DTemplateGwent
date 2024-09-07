@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 public abstract class Card
 {
@@ -8,6 +9,7 @@ public abstract class Card
     public virtual string Type { get; protected set; } = "";
     public virtual string Faction { get; protected set; } = "";
     public string Effect;
+    public List<OnActivationObject> onActivations;
     public Card(string name, string ef)
     {
         Name = name;
@@ -51,6 +53,12 @@ public class SilverCard : UnitCard
         Appearances = 3;
         Type = "Silver";
     }
+    public SilverCard(string name, string ef, string faction, string row, int points, List<OnActivationObject> onActivationObjects) : base(name, ef, faction, row, points)
+    {
+        Appearances = 3;
+        Type = "Silver";
+        onActivations = onActivationObjects;
+    }
 
 }
 //--------------------------------------------------------------------------------------------------
@@ -60,6 +68,13 @@ public class GoldenCard : UnitCard
     {
         Appearances = 1;
         Type = "Golden";
+
+    }
+    public GoldenCard(string name, string ef, string faction, string row, int points, List<OnActivationObject> onact) : base(name, ef, faction, row, points)
+    {
+        Appearances = 1;
+        Type = "Golden";
+        onActivations = onact;
 
     }
 }

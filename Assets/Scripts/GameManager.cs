@@ -387,8 +387,13 @@ public class GameManager : MonoBehaviour                                        
     public static void CreateCompiledCards()
     {
         string ToCompile = GetFileContent("/home/kevin/Subiendo proyecto/2DTemplate/Assets/Text/Text");
+        if(ToCompile.Length < 2) return;
         var x = Compiler.Compile(ToCompile);
         Debug.Log("Compilo");
+        foreach (var item in x.effects)
+        {
+            Effects.AddCompilatedEffect(item.Value);
+        }
         foreach (var item in x.cards.Keys)
         {
             string name = x.cards[item].Name;
@@ -396,16 +401,17 @@ public class GameManager : MonoBehaviour                                        
             string Range = x.cards[item].Range;
             string Type = x.cards[item].Type;
             string Faction = x.cards[item].Faction;
+            List<OnActivationObject> onActivations = x.cards[item].onActivations;
             if (Type == "Silver")
             {
-                SilverCard silverCard = new SilverCard(name, "", Faction, Range, power);
+                SilverCard silverCard = new SilverCard(name, "", Faction, Range, power, onActivations);
                 CardCreator.Cards.Add(silverCard);
                 CardCreator.Cards.Add(CardCreator.DuplicateCards(silverCard));
                 CardCreator.Cards.Add(CardCreator.DuplicateCards(silverCard));
             }
             if (Type == "Golden")
             {
-                GoldenCard goldenCard = new GoldenCard(name, "", Faction, Range, power);
+                GoldenCard goldenCard = new GoldenCard(name, "", Faction, Range, power, onActivations);
                 CardCreator.Cards.Add(goldenCard);
             }
             Debug.Log("carta creada " + name);

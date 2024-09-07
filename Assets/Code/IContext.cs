@@ -12,29 +12,44 @@ public class Context
                                                         ,GameManager.player2.boardPlayer.UnitCards[0]
                                                         ,GameManager.player2.boardPlayer.UnitCards[1]
                                                         ,GameManager.player2.boardPlayer.UnitCards[2] };
-    public Player TrigerPlayer => GameManager.player1.IsMyturn ? GameManager.player1 : GameManager.player2;
+    public int TrigerPlayer => GameManager.player1.IsMyturn ? 0 : 1;
     public List<Card> Graveyard => GraveyardOfPlayer(TrigerPlayer);
     public List<Card> Deck => DeckOfPlayer(TrigerPlayer);
     public List<Card> Field => FieldOfPlayer(TrigerPlayer);
 
-    public List<Card> HandOfPlayer(Player player)
+    public List<Card> HandOfPlayer(int Id)
     {
-        return player.Hand.ListOfCards;
+        return Id == 0 ? GameManager.player1.Hand.ListOfCards : GameManager.player2.Hand.ListOfCards;
     }
-    public List<Card> GraveyardOfPlayer(Player player)
+    public List<Card> GraveyardOfPlayer(int ID)
     {
-        return player.Graveyard;
+        return ID == 0 ? GameManager.player1.Graveyard : GameManager.player2.Graveyard;
     }
-    public List<Card> DeckOfPlayer(Player player)
-    { return player.Playerdeck.DeckList; }
-    public List<Card> FieldOfPlayer(Player player)
+    public List<Card> DeckOfPlayer(int ID)
+    {
+        return ID == 0 ? GameManager.player1.Graveyard : GameManager.player2.Graveyard;
+    }
+    public List<Card> FieldOfPlayer(int ID)
     {
         List<Card> cards = new List<Card>();
-        for (int i = 0; i < 3; i++)
+        if (ID == 0)
         {
-            foreach (var item in player.boardPlayer.UnitCards[i])
+            for (int i = 0; i < 3; i++)
             {
-                cards.Add(item);
+                foreach (var item in GameManager.player1.boardPlayer.UnitCards[i])
+                {
+                    cards.Add(item);
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                foreach (var item in GameManager.player2.boardPlayer.UnitCards[i])
+                {
+                    cards.Add(item);
+                }
             }
         }
         return cards;

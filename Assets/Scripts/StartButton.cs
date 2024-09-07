@@ -9,10 +9,8 @@ public class StartButton : MonoBehaviour
     public void ChangeScene()
     {
         Debug.Log("Entro al start");
-
+        CardCreator.CreateCards();
         GameManager.CreateCompiledCards();
-
-
         SceneManager.LoadScene("SetPlayer");
     }
 }

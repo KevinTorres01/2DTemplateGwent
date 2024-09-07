@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Selector
 {
-    string source;
-    bool single;
-    Delegate Delegate;
+   public string source;
+   public bool single;
+   public Delegate Delegate;
     public Selector(string source, bool single, Delegate predicate)
     {
         this.source = source;

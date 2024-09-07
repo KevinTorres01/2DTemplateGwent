@@ -44,10 +44,10 @@ public class SetPlayerManager : MonoBehaviour
     }
     public void SetPlayer1Name()
     {
-        GameData.FillPlayer1Name(Player1Name.text);
+        GameData.gameData.FillPlayer1Name(Player1Name.text);
     }
     public void SetPlayer2Name()
     {
-        GameData.FillPlayer2Name(Player2Name.text);
+        GameData.gameData.FillPlayer2Name(Player2Name.text);
     }
 }

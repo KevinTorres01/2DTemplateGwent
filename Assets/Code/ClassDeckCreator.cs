@@ -3,6 +3,25 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
+public class DeckCreator
+{
+    public static Dictionary<string, Deck> decks => GetDecks();
+    static Dictionary<string, Deck> GetDecks()
+    {
+        Dictionary<string, Deck> deck = new();
+        foreach (var item in CardCreator.Liders)
+        {
+            Deck Deck = new Deck(item.Faction);
+            if (Deck.DeckList.Count >= 25 && !deck.ContainsKey(item.Faction))
+            {
+                deck.Add(item.Faction, Deck);
+            }
+        }
+        return deck;
+    }
+}
+
+
 public class Deck
 {
     public Lider Lider;
