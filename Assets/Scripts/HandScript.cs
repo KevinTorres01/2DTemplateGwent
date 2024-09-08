@@ -28,8 +28,6 @@ public class HandScript : MonoBehaviour
                 UnityEngine.Debug.Log(hand[i].Name);
             }
         }
-
-
         if (this.transform.parent.name == "Player2")
         {
             List<Card> hand1 = GameManager.player2.Hand.ListOfCards;

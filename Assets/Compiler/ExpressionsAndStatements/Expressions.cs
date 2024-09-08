@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 
 using System.Net.Http.Headers;
+using System.Linq;
 
 public interface IExpression : IAstNode
 {
@@ -301,6 +302,9 @@ public class FunctionCall : IExpression
                     return typeof(void);
                 case "Pop":
                     list.RemoveAt(list.Count - 1);
+                    return typeof(void);
+                case "Remove":
+                    list.Remove(args[0].Evaluate());
                     return typeof(void);
                 default: throw new Exception();
             }

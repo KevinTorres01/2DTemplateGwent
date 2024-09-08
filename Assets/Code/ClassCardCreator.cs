@@ -82,7 +82,6 @@ public class CardCreator
             {
                 CardList.Add(item);
             }
-
         }
         return CardList;
     }

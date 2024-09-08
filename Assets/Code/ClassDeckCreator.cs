@@ -38,6 +38,7 @@ public class Deck
                 DeckList.Add(card);
             }
         }
+        Debug.Log(DeckList.Count);
         DeckList = Swap(DeckList);
     }
     public static List<Card> Swap(List<Card> cards)       //barajar el deck

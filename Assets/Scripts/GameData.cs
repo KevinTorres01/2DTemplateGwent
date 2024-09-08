@@ -42,9 +42,10 @@ public class GameData : MonoBehaviour
     }
     public void CreatePlayers()
     {
-        CardCreator.CreateCards();
         Deck Deck1 = new Deck(Player1Faction);
+        foreach(Card card in Deck1.DeckList) Debug.Log(card.Name);
         Deck Deck2 = new Deck(Player2Faction);
+        foreach(Card card in Deck2.DeckList) Debug.Log(card.Name);
         Player1 = new Player(Player1Name, new Board(), Deck1, new Hand(Deck1.DeckList));
         Player2 = new Player(Player2Name, new Board(), Deck2, new Hand(Deck2.DeckList));
     }

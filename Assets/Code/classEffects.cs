@@ -604,7 +604,7 @@ if (unitCard.onActivations==null)
     private List<Card> GetTargets(Context context, OnActivationObject onActivation, OnActivationObject parent = null)
     {
         var sour = onActivation.Selector.source;
-        List<Card> targets = sour == "hand" ? context.Hand : sour == "otherHand" ? context.HandOfPlayer((context.TrigerPlayer + 1) % 2) : sour == "deck" ? context.Deck : sour == "otherDeck" ? context.DeckOfPlayer((context.TrigerPlayer + 1) % 2) :
+        var targets = sour == "hand" ? context.Hand : sour == "otherHand" ? context.HandOfPlayer((context.TrigerPlayer + 1) % 2) : sour == "deck" ? context.Deck : sour == "otherDeck" ? context.DeckOfPlayer((context.TrigerPlayer + 1) % 2) :
         sour == "field" ? context.Field : sour == "otherField" ? context.FieldOfPlayer((context.TrigerPlayer + 1) % 2) : new();
         if (sour == "parent")
         {
