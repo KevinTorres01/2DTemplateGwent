@@ -621,6 +621,14 @@ PrefabInstance:
       propertyPath: UIMessage
       value: 
       objectReference: {fileID: 1668269039}
+    - target: {fileID: -7502036897886359781, guid: f0294da6a084a6149b0de2133963487e, type: 3}
+      propertyPath: Player1Hand
+      value: 
+      objectReference: {fileID: 1347123405}
+    - target: {fileID: -7502036897886359781, guid: f0294da6a084a6149b0de2133963487e, type: 3}
+      propertyPath: Player2Hand
+      value: 
+      objectReference: {fileID: 1530491533}
     - target: {fileID: 567222261917674158, guid: f0294da6a084a6149b0de2133963487e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1584,6 +1592,14 @@ PrefabInstance:
       propertyPath: NameofSlot
       value: M
       objectReference: {fileID: 0}
+    - target: {fileID: 7580367438546284351, guid: 4559308582e771137954f3c68d09f08e, type: 3}
+      propertyPath: Player1Hand
+      value: 
+      objectReference: {fileID: 1347123405}
+    - target: {fileID: 7580367438546284351, guid: 4559308582e771137954f3c68d09f08e, type: 3}
+      propertyPath: Player2Hand
+      value: 
+      objectReference: {fileID: 1530491533}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2082,6 +2098,14 @@ PrefabInstance:
       propertyPath: UIMessage
       value: 
       objectReference: {fileID: 1668269039}
+    - target: {fileID: -7502036897886359781, guid: f0294da6a084a6149b0de2133963487e, type: 3}
+      propertyPath: Player1Hand
+      value: 
+      objectReference: {fileID: 1347123405}
+    - target: {fileID: -7502036897886359781, guid: f0294da6a084a6149b0de2133963487e, type: 3}
+      propertyPath: Player2Hand
+      value: 
+      objectReference: {fileID: 1530491533}
     - target: {fileID: 567222261917674158, guid: f0294da6a084a6149b0de2133963487e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2568,6 +2592,14 @@ PrefabInstance:
       propertyPath: NameofSlot
       value: S
       objectReference: {fileID: 0}
+    - target: {fileID: 7580367438546284351, guid: 4559308582e771137954f3c68d09f08e, type: 3}
+      propertyPath: Player1Hand
+      value: 
+      objectReference: {fileID: 1347123405}
+    - target: {fileID: 7580367438546284351, guid: 4559308582e771137954f3c68d09f08e, type: 3}
+      propertyPath: Player2Hand
+      value: 
+      objectReference: {fileID: 1530491533}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3431,6 +3463,14 @@ PrefabInstance:
       propertyPath: UIMessage
       value: 
       objectReference: {fileID: 1668269039}
+    - target: {fileID: -7502036897886359781, guid: f0294da6a084a6149b0de2133963487e, type: 3}
+      propertyPath: Player1Hand
+      value: 
+      objectReference: {fileID: 1347123405}
+    - target: {fileID: -7502036897886359781, guid: f0294da6a084a6149b0de2133963487e, type: 3}
+      propertyPath: Player2Hand
+      value: 
+      objectReference: {fileID: 1530491533}
     - target: {fileID: 567222261917674158, guid: f0294da6a084a6149b0de2133963487e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4728,6 +4768,14 @@ PrefabInstance:
       propertyPath: NameofSlot
       value: S
       objectReference: {fileID: 0}
+    - target: {fileID: 7580367438546284351, guid: 4559308582e771137954f3c68d09f08e, type: 3}
+      propertyPath: Player1Hand
+      value: 
+      objectReference: {fileID: 1347123405}
+    - target: {fileID: 7580367438546284351, guid: 4559308582e771137954f3c68d09f08e, type: 3}
+      propertyPath: Player2Hand
+      value: 
+      objectReference: {fileID: 1530491533}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4967,6 +5015,14 @@ PrefabInstance:
       propertyPath: UIMessage
       value: 
       objectReference: {fileID: 1668269039}
+    - target: {fileID: -7502036897886359781, guid: f0294da6a084a6149b0de2133963487e, type: 3}
+      propertyPath: Player1Hand
+      value: 
+      objectReference: {fileID: 1347123405}
+    - target: {fileID: -7502036897886359781, guid: f0294da6a084a6149b0de2133963487e, type: 3}
+      propertyPath: Player2Hand
+      value: 
+      objectReference: {fileID: 1530491533}
     - target: {fileID: 567222261917674158, guid: f0294da6a084a6149b0de2133963487e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5456,6 +5512,14 @@ PrefabInstance:
       propertyPath: NameofSlot
       value: R
       objectReference: {fileID: 0}
+    - target: {fileID: 7580367438546284351, guid: 4559308582e771137954f3c68d09f08e, type: 3}
+      propertyPath: Player1Hand
+      value: 
+      objectReference: {fileID: 1347123405}
+    - target: {fileID: 7580367438546284351, guid: 4559308582e771137954f3c68d09f08e, type: 3}
+      propertyPath: Player2Hand
+      value: 
+      objectReference: {fileID: 1530491533}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5798,6 +5862,14 @@ PrefabInstance:
       propertyPath: NameofSlot
       value: M
       objectReference: {fileID: 0}
+    - target: {fileID: 7580367438546284351, guid: 4559308582e771137954f3c68d09f08e, type: 3}
+      propertyPath: Player1Hand
+      value: 
+      objectReference: {fileID: 1347123405}
+    - target: {fileID: 7580367438546284351, guid: 4559308582e771137954f3c68d09f08e, type: 3}
+      propertyPath: Player2Hand
+      value: 
+      objectReference: {fileID: 1530491533}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6216,6 +6288,14 @@ PrefabInstance:
       propertyPath: NameofSlot
       value: R
       objectReference: {fileID: 0}
+    - target: {fileID: 7580367438546284351, guid: 4559308582e771137954f3c68d09f08e, type: 3}
+      propertyPath: Player1Hand
+      value: 
+      objectReference: {fileID: 1347123405}
+    - target: {fileID: 7580367438546284351, guid: 4559308582e771137954f3c68d09f08e, type: 3}
+      propertyPath: Player2Hand
+      value: 
+      objectReference: {fileID: 1530491533}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6264,6 +6344,14 @@ PrefabInstance:
       propertyPath: UIMessage
       value: 
       objectReference: {fileID: 1668269039}
+    - target: {fileID: -7502036897886359781, guid: f0294da6a084a6149b0de2133963487e, type: 3}
+      propertyPath: Player1Hand
+      value: 
+      objectReference: {fileID: 1347123405}
+    - target: {fileID: -7502036897886359781, guid: f0294da6a084a6149b0de2133963487e, type: 3}
+      propertyPath: Player2Hand
+      value: 
+      objectReference: {fileID: 1530491533}
     - target: {fileID: 567222261917674158, guid: f0294da6a084a6149b0de2133963487e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6549,6 +6637,14 @@ PrefabInstance:
       propertyPath: UIMessage
       value: 
       objectReference: {fileID: 1668269039}
+    - target: {fileID: -7502036897886359781, guid: f0294da6a084a6149b0de2133963487e, type: 3}
+      propertyPath: Player1Hand
+      value: 
+      objectReference: {fileID: 1347123405}
+    - target: {fileID: -7502036897886359781, guid: f0294da6a084a6149b0de2133963487e, type: 3}
+      propertyPath: Player2Hand
+      value: 
+      objectReference: {fileID: 1530491533}
     - target: {fileID: 567222261917674158, guid: f0294da6a084a6149b0de2133963487e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

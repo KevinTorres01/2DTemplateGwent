@@ -29,7 +29,7 @@ public class Action
             }
             return;
         }
-        throw new Exception("");
+        throw new Exception($"No overload of action recive {args.Length} parameters");
     }
 
 }

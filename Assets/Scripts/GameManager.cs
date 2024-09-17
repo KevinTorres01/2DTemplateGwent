@@ -258,23 +258,18 @@ public class GameManager : MonoBehaviour                                        
         if (player1.Victories == 1)
         {
             FirstWin1.gameObject.SetActive(true);
-
         }
         if (player2.Victories == 1)
         {
             FirstWin2.gameObject.SetActive(true);
-
         }
         if (player1.Victories == 2)
         {
             SecondWin1.gameObject.SetActive(true);
-
         }
         if (player2.Victories == 2)
         {
             SecondWin2.gameObject.SetActive(true);
-
-
         }
         if (player1.Victories == 2 || player2.Victories == 2)
         {
@@ -309,7 +304,6 @@ public class GameManager : MonoBehaviour                                        
             else
             {
                 Destroy(M2.transform.GetChild(i).gameObject);
-
             }
         }
         for (int i = 0; i < R2.transform.childCount; i++)
@@ -351,7 +345,6 @@ public class GameManager : MonoBehaviour                                        
             else
             {
                 Destroy(S1.transform.GetChild(i).gameObject);
-
             }
         }
         for (int i = 0; i < S2.transform.childCount; i++)
@@ -360,7 +353,6 @@ public class GameManager : MonoBehaviour                                        
             if (CardToSearch is UnitCard unitCard && player2.boardPlayer.UnitCards[2].Contains(unitCard))
             {
                 S2.transform.GetChild(i).GetComponent<CardVisual>().SetPoints(unitCard);
-
             }
             else
             {
@@ -387,7 +379,7 @@ public class GameManager : MonoBehaviour                                        
     public static void CreateCompiledCards()
     {
         string ToCompile = GetFileContent("/home/kevin/Subiendo proyecto/2DTemplate/Assets/Text/Text");
-        if(ToCompile.Length < 2) return;
+        if (ToCompile.Length < 2) return;
         var x = Compiler.Compile(ToCompile);
         Debug.Log("Compilo");
         foreach (var item in x.effects)
@@ -405,7 +397,7 @@ public class GameManager : MonoBehaviour                                        
             if (Type == "Silver")
             {
                 SilverCard silverCard = new SilverCard(name, "", Faction, Range, power, onActivations);
-                CardCreator.Cards.Add(silverCard);
+                CardCreator.Cards.Add(CardCreator.DuplicateCards(silverCard));
                 CardCreator.Cards.Add(CardCreator.DuplicateCards(silverCard));
                 CardCreator.Cards.Add(CardCreator.DuplicateCards(silverCard));
             }
@@ -413,6 +405,20 @@ public class GameManager : MonoBehaviour                                        
             {
                 GoldenCard goldenCard = new GoldenCard(name, "", Faction, Range, power, onActivations);
                 CardCreator.Cards.Add(goldenCard);
+            }
+            if (Type == "Lider")
+            {
+                CardCreator.Cards.Add(new Lider(name, "", Faction, ""));
+            }
+            if (Type == "Weather")
+            {
+                Weather weather = new Weather(name, "", Range, onActivations);
+                CardCreator.Cards.Add(weather);
+            }
+            if (Type == "Bonus")
+            {
+                BonusCard bonus = new BonusCard(name, "", Range, onActivations);
+                CardCreator.Cards.Add(bonus);
             }
             Debug.Log("carta creada " + name);
         }

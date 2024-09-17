@@ -99,7 +99,7 @@ public class Board
     }
     public static void ActPointsInRow(Board boardPlayer1, Board boardPlayer2, int row)
     {
-        if (Board.BothPlayersWeather[row] != null)
+        if (Board.BothPlayersWeather[row] != null && Board.BothPlayersWeather[row].Effect != "")
         {
             for (int i = 0; i < boardPlayer1.UnitCards[row].Count; i++)
             {
@@ -116,7 +116,7 @@ public class Board
                 }
             }
         }
-        if (boardPlayer1.bonus[row] != null)
+        if (boardPlayer1.bonus[row] != null && boardPlayer1.bonus[row].Effect != "")
         {
             foreach (var item in boardPlayer1.UnitCards[row])
             {
@@ -126,7 +126,7 @@ public class Board
                 }
             }
         }
-        if (boardPlayer2.bonus[row] != null)
+        if (boardPlayer2.bonus[row] != null && boardPlayer2.bonus[row].Effect != "")
         {
             foreach (var item in boardPlayer2.UnitCards[row])
             {
@@ -178,7 +178,5 @@ public class Board
         player.boardPlayer.bonus = CleanBonus2;
         Board.UpdatePoints(player1.boardPlayer);
         Board.UpdatePoints(player.boardPlayer);
-
-
     }
 }

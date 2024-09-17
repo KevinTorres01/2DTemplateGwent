@@ -1,0 +1,511 @@
+effect{
+ Name: "Friendly Enemy",
+ Action : (targets,context) =>
+ {
+ 	if(targets.Count>0)
+ 	{
+ 	   x=targets[0];
+ 	   p=x.Power;
+ 	
+ 	   for target in targets
+ 	   {
+ 	     if(target.Power>p)
+ 	     {
+ 	        x=target;
+ 	        p=x.Power;
+ 	     }
+ 	   }
+ 	context.Hand.Push(x);
+ 	if(context.TriggerPlayer<1)
+ 	{
+ 	context.HandOfPlayer(1).Remove(x);
+ 	}
+ 	else
+ 	{
+ 	  context.HandOfPlayer(0).Remove(x);
+ 	}
+ 	}
+ 	
+ }
+}
+effect{
+ Name: "Draw a Card",
+ Action : (targets,context) =>
+ {
+        if(context.Deck.Count>0)
+        {
+ 	x=context.Deck.Pop();
+ 	context.Hand.Push(x);
+ 	}
+ }
+}
+Card 
+{
+ Name :"Broly",
+ Faction : "Sayayins",
+ Type : "Golden",
+ Power : 7,
+ Range : "S",
+ OnActivation : [
+ 	{
+ 		Effect :{
+ 		 Name : "Friendly Enemy",
+ 		},
+ 		Selector :
+ 		{
+ 			Single: false,
+ 			Predicate : (unit) =>unit.Type=="Silver"&&unit.Power<=7,
+ 			Source : "otherHand",
+ 		}
+ 	}
+ ]
+ 
+}
+
+
+effect{
+ Name: "Powerfull atack",
+ Action : (targets,context) =>
+ {
+ 	for target in targets
+{
+       if(target.Power>4)
+{    
+target.Power=target.Power-5;
+}
+}}}
+
+Card 
+{
+ Name :"Future Trunks",
+ Faction : "Sayayins",
+ Type : "Silver",
+ Power : 4,
+ Range : "M",
+ OnActivation : [
+ 	{
+ 		Effect :{
+ 		 Name : "Powerfull atack",
+ 		},
+ 		Selector :
+ 		{
+ 			Single: false,
+ 			Predicate : (unit) => true,
+ 			Source : "otherField",
+ 		}
+ 	}
+ ]
+ 
+}
+
+effect
+{
+ Name: "Power up",
+ Action : (targets,context) =>
+     {
+	x=0;
+        for item in context.Board
+	{
+                if(item.Power>x)
+     		{           
+              	   x=item.Power;
+     		}
+	} 
+ 	for target in targets
+	{      
+       		target.Power=x;
+        } 
+     }
+}
+
+Card 
+{
+ Name :"Veggeta",
+ Faction : "Sayayins",
+ Type : "Silver",
+ Power : 5,
+ Range : "M",
+ OnActivation : [
+ 	{
+ 		Effect :{
+ 		 Name : "Power up",
+ 		},
+ 		Selector :
+ 		{
+ 			Single: false,
+ 			Predicate : (unit) => unit.Type=="Silver" && unit.Name=="Veggeta",
+ 			Source : "field",
+ 		}
+ 	}
+ ]
+ 
+}
+
+Card 
+{
+ Name :"Bardock",
+ Faction : "Sayayins",
+ Type : "Lider",
+ Power : 0,
+ Range : "M",
+ OnActivation : []}
+effect{
+ Name: "Balance Hand",
+ Action : (targets,context) =>
+ {
+        
+ 	while( context.Hand.Count > context.otherHand.Count && context.Deck.Count > 0)
+	{    
+	     kard = context.otherDeck.Pop();
+ 	     context.otherHand.SendButton(kard);
+	}
+	while(context.Hand.Count<context.otherHand.Count && context.Deck.Count>0)
+	{    
+	     x=context.Deck.Pop();
+ 	     context.Hand.Push(x);
+	}
+          
+ }
+}
+Card 
+{
+ Name :"Goten",
+ Faction : "Sayayins",
+ Type : "Silver",
+ Power : 2,
+ Range : "MR",
+ OnActivation : [
+ 	{
+ 		Effect :{
+ 		 Name : "Draw a Card",
+ 		},
+ 		Selector :
+ 		{
+ 			Single: false,
+ 			Predicate : (unit) => true,
+ 			Source : "otherDeck",
+ 		}
+ 	}
+ ]
+ 
+}
+Card 
+{
+ Name :"Trunks",
+ Faction : "Sayayins",
+ Type : "Silver",
+ Power : 2,
+ Range : "MS",
+ OnActivation : [
+ 	{
+ 		Effect :{
+ 		 Name : "Draw a Card",
+ 		},
+ 		Selector :
+ 		{
+ 			Single: false,
+ 			Predicate : (unit) => true,
+ 			Source : "otherDeck",
+ 		}
+ 	}
+ ]
+ 
+}
+effect{
+ Name: "Clean Board",
+ Action : (targets,context) =>
+ {
+        for target in targets
+        {
+             if (context.TriggerPlayer<1)
+             {
+        	    context.FieldOfPlayer(1).Remove(target);
+             }
+             else
+             {
+        	    context.FieldOfPlayer(0).Remove(target);
+             }
+        }
+ }
+}
+effect{
+ Name: "Clean Hand",
+ Action : (targets,context) =>
+ {
+        for target in targets
+        {
+             if (context.TriggerPlayer < 1)
+             {
+        	context.HandOfPlayer(1).Remove(target);
+             }
+       	     else
+             {
+        	context.HandOfPlayer(0).Remove(target);
+             }
+        }
+ }
+}
+Card 
+{
+ Name :"Gohan ss2",
+ Faction : "Sayayins",
+ Type : "Golden",
+ Power : 6,
+ Range : "MRS",
+ OnActivation : [
+ 	{
+ 		Effect :{
+ 		 Name : "Clean Board",
+ 		},
+ 		Selector :
+ 		{
+ 			Single: false,
+ 			Predicate : (unit) => unit.Power<=6,
+ 			Source : "otherField",
+ 		},
+ 		PostAction : 
+ 		{
+ 		Effect :{
+ 		Name : "Clean Hand",
+ 		},
+ 		Selector :
+ 		{
+ 		        Single: false,
+ 			Predicate : (unit) => unit.Type == "Silver" && unit.Power<=7,
+ 			Source : "otherHand",
+ 		},
+ 		
+ 	}	
+ 	}
+ ]
+ 
+}
+
+effect{
+ Name: "Give Damage",
+ Action : (targets,context) =>
+ {
+        for target in targets
+        {
+             target.Power= target.Power-2;
+        }
+ }
+}
+effect{
+ Name: "Give Power",
+ Action : (targets,context) =>
+ {
+        for target in targets
+        {
+             target.Power= target.Power+2;
+        }
+ }
+}
+Card 
+{
+ Name :"Gotenks",
+ Faction : "Sayayins",
+ Type : "Silver",
+ Power : 4,
+ Range : "MRS",
+ OnActivation : [
+ 	{
+ 		Effect :{
+ 		 Name : "Give Damage",
+ 		},
+ 		Selector :
+ 		{
+ 			Single : false,
+ 			Predicate : (unit) => true,
+ 			Source : "otherField",
+ 		}
+ 	},
+ 	{
+ 	   Effect:{
+ 	   Name:"Give Power",
+ 	   },
+ 	   Selector:
+ 	   {
+ 	     Single : false,
+ 	     Predicate : (unit) => true,
+ 	     Source : "field",
+ 	   }
+ 	   
+ 	}
+ ]
+ 
+}
+Card 
+{
+ Name :"Veggeto",
+ Faction : "Sayayins",
+ Type : "Golden",
+ Power : 7,
+ Range : "SR",
+ OnActivation : [
+ 	{
+ 		Effect :{
+ 		 Name : "Balance Hand",
+ 		},
+ 		Selector :
+ 		{
+ 			Single: false,
+ 			Predicate : (unit) => true,
+ 			Source : "otherDeck",
+ 		}
+ 	}
+ ]
+ 
+}
+effect{
+ Name: "Open Deck",
+ Action : (targets,context) =>
+ {
+        if (targets.Count>0){
+        x=targets[0];
+        for target in targets
+        {
+        if   (target.Power > x.Power)
+        {
+             x=target;
+        }
+        }
+        if(context.TriggerPlayer<1)
+        {
+        context.DeckOfPlayer(1).Remove(x);
+        }
+        else
+        {
+        context.DeckOfPlayer(0).Remove(x);
+        }
+        context.Hand.Push(x);
+ }
+ }
+}
+Card 
+{
+ Name :"Son Goku",
+ Faction : "Sayayins",
+ Type : "Golden",
+ Power : 6,
+ Range : "M",
+ OnActivation : [
+ 	{
+ 		Effect :{
+ 		 Name : "Open Deck",
+ 		},
+ 		Selector :
+ 		{
+ 			Single: false,
+ 			Predicate : (unit) => unit.Type=="Silver",
+ 			Source : "otherDeck",
+ 		}
+ 	}
+ ]
+ 
+}
+effect{
+ Name: "Effect wheather M",
+ Action : (targets,context) =>
+ {
+        for target in context.Board
+        {
+           if(target.Type == "Silver" &&target.Row.Contains("M"))
+             {
+             target.Power= target.Power-2;
+             }
+        }
+ }
+}
+effect{
+ Name: "Effect wheather R",
+ Action : (targets,context) =>
+ {
+        for target in context.Board
+        {
+           if(target.Type == "Silver" && target.Row.Contains("R"))
+             {
+             target.Power= target.Power-2;
+             }
+        }
+ }
+}
+effect{
+ Name: "Effect wheather S",
+ Action : (targets,context) =>
+ {
+        for target in context.Board
+        {
+           if(target.Type == "Silver" && target.Row.Contains("S"))
+             {
+             target.Power= target.Power-2;
+             }
+        }
+ }
+}
+Card 
+{
+ Name :"Clima M",
+ Faction : "Sayayins",
+ Type : "Weather",
+ Power : 6,
+ Range : "M",
+ OnActivation : [
+ 	{
+ 		Effect :{
+ 		 Name : "Effect wheather M",
+ 		},
+ 		Selector :
+ 		{
+ 			Single: false,
+ 			Predicate : (unit) => true,
+ 			Source : "Board",
+ 		}
+ 	}
+ ]
+ 
+}
+Card 
+{
+ Name :"Clima R",
+ Faction : "Sayayins",
+ Type : "Weather",
+ Power : 6,
+ Range : "R",
+ OnActivation : [
+ 	{
+ 		Effect :{
+ 		 Name : "Effect wheather R",
+ 		},
+ 		Selector :
+ 		{
+ 			Single: false,
+ 			Predicate : (unit) => true,
+ 			Source : "Board",
+ 		}
+ 	}
+ ]
+ 
+}
+Card 
+{
+ Name :"Clima S",
+ Faction : "Sayayins",
+ Type : "Weather",
+ Power : 6,
+ Range : "S",
+ OnActivation : [
+ 	{
+ 		Effect :{
+ 		 Name : "Effect wheather S",
+ 		},
+ 		Selector :
+ 		{
+ 			Single: false,
+ 			Predicate : (unit) => true,
+ 			Source : "Board",
+ 		}
+ 	}
+ ]
+ 
+}

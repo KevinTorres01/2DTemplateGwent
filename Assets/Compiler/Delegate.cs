@@ -27,7 +27,7 @@ public class Delegate
         }
         else
         {
-            throw new Exception();
+            throw new Exception($"Predicate must recive {Identifiers.Count} parameters");
         }
     }
 }

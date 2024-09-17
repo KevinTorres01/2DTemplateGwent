@@ -30,12 +30,20 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         this.transform.SetParent(OriginalParent);
         this.transform.position = OriginalPosition;
         this.GetComponent<CanvasGroup>().blocksRaycasts = true;
+        bool[] BeenOcupied = new bool[3];
         if (this.GetComponent<CardVisual>().Card is Clearance card)
         {
             if (GameManager.player1.IsMyturn)
             {
                 GameManager.player1.Hand.ListOfCards.Remove(card);
                 Weather[] weathers = new Weather[3];
+                for (int i = 0; i < BeenOcupied.Length; i++)
+                {
+                    if (Board.BothPlayersWeather[i] != null)
+                    {
+                        BeenOcupied[i] = true;
+                    }
+                }
                 Board.BothPlayersWeather = weathers;
                 if (GameManager.player2.Pased == false)
                 {
@@ -47,6 +55,13 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
             {
                 GameManager.player2.Hand.ListOfCards.Remove(card);
                 Weather[] weathers = new Weather[3];
+                for (int i = 0; i < BeenOcupied.Length; i++)
+                {
+                    if (Board.BothPlayersWeather[i] != null)
+                    {
+                        BeenOcupied[i] = true;
+                    }
+                }
                 Board.BothPlayersWeather = weathers;
                 if (GameManager.player1.Pased == false)
                 {
@@ -60,39 +75,43 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
 
             for (int i = 0; i < GameManager.player1.boardPlayer.UnitCards.Length; i++)
             {
-                foreach (var item in GameManager.player1.boardPlayer.UnitCards[i])
+                if (BeenOcupied[i])
                 {
-                    if (item is SilverCard silverCard)
+                    foreach (var item in GameManager.player1.boardPlayer.UnitCards[i])
                     {
-
-                        silverCard.Score = silverCard.PowerPoints;
-                        Debug.Log($"{silverCard.Name} tiene {silverCard.Score} puntos");
-
+                        if (item is SilverCard silverCard)
+                        {
+                            silverCard.Score = silverCard.PowerPoints;
+                        }
                     }
+
                 }
             }
 
             for (int i = 0; i < GameManager.player2.boardPlayer.UnitCards.Length; i++)
             {
-                foreach (var item in GameManager.player2.boardPlayer.UnitCards[i])
+                if (BeenOcupied[i])
                 {
-                    if (item is SilverCard silverCard)
+                    foreach (var item in GameManager.player2.boardPlayer.UnitCards[i])
                     {
-                        silverCard.Score = silverCard.PowerPoints;
-                        Debug.Log($"{silverCard.Name} tiene {silverCard.Score} puntos");
+                        if (item is SilverCard silverCard)
+                        {
+                            silverCard.Score = silverCard.PowerPoints;
+                            Debug.Log($"{silverCard.Name} tiene {silverCard.Score} puntos");
+                        }
                     }
                 }
             }
 
             if (GameManager.player1.boardPlayer.bonus[0] != null)
             {
-
                 foreach (var item in GameManager.player1.boardPlayer.UnitCards[0])
                 {
                     if (item is SilverCard card1)
                     {
                         card1.Score += 3;
                     }
+
                 }
 
             }
@@ -112,7 +131,6 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
 
             if (GameManager.player1.boardPlayer.bonus[2] != null)
             {
-
                 foreach (var item in GameManager.player1.boardPlayer.UnitCards[2])
                 {
                     if (item is SilverCard card1)
@@ -120,12 +138,10 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                         card1.Score += 3;
                     }
                 }
-
             }
 
             if (GameManager.player2.boardPlayer.bonus[0] != null)
             {
-
                 foreach (var item in GameManager.player2.boardPlayer.UnitCards[0])
                 {
                     if (item is SilverCard card1)
@@ -133,12 +149,10 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                         card1.Score += 3;
                     }
                 }
-
             }
 
             if (GameManager.player2.boardPlayer.bonus[1] != null)
             {
-
                 foreach (var item in GameManager.player2.boardPlayer.UnitCards[1])
                 {
                     if (item is SilverCard card1)
@@ -146,12 +160,10 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                         card1.Score += 3;
                     }
                 }
-
             }
 
             if (GameManager.player2.boardPlayer.bonus[2] != null)
             {
-
                 foreach (var item in GameManager.player2.boardPlayer.UnitCards[2])
                 {
                     if (item is SilverCard card1)
@@ -159,14 +171,10 @@ public class Drag : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                         card1.Score += 3;
                     }
                 }
-
             }
-
             Board.UpdatePoints(GameManager.player1.boardPlayer);
             Board.UpdatePoints(GameManager.player2.boardPlayer);
             GameManager.gameManager.ActPointsInFronten();
-
-
         }
 
 

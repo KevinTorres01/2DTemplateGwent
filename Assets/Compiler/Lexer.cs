@@ -88,16 +88,20 @@ public class Location
         Row = row;
         Col = col;
     }
+    public override string ToString()
+    {
+        return "(" + Row + "," + Col + ")";
+    }
 }
 public class Lexer
 {
     List<Token> Tokens = new List<Token>();
-   public Dictionary<string, List<Location>> Errors = new Dictionary<string, List<Location>>();
+    public Dictionary<string, List<Location>> Errors = new Dictionary<string, List<Location>>();
     public List<Token> GetTokens()
     {
         return Tokens;
     }
-   public void FixErrors()
+    public void FixErrors()
     {
         int actualRow = 0;
         int actualCol = 0;

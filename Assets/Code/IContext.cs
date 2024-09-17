@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 
 public class Context
@@ -15,7 +16,7 @@ public class Context
     public int TrigerPlayer => GameManager.player1.IsMyturn ? 0 : 1;
     public List<Card> Graveyard => GraveyardOfPlayer(TrigerPlayer);
     public List<Card> Deck => DeckOfPlayer(TrigerPlayer);
-    public List<Card> Field => FieldOfPlayer(TrigerPlayer);
+    public List<UnitCard>[] Field => FieldOfPlayer(TrigerPlayer);
 
     public List<Card> HandOfPlayer(int Id)
     {
@@ -27,31 +28,12 @@ public class Context
     }
     public List<Card> DeckOfPlayer(int ID)
     {
-        return ID == 0 ? GameManager.player1.Graveyard : GameManager.player2.Graveyard;
+        Debug.Log(GameManager.player1.Playerdeck.DeckList.Count+" Count player 1");
+        Debug.Log(GameManager.player2.Playerdeck.DeckList.Count+" count player 2");
+        return ID == 0 ? GameManager.player1.Playerdeck.DeckList : GameManager.player2.Playerdeck.DeckList;
     }
-    public List<Card> FieldOfPlayer(int ID)
+    public List<UnitCard>[] FieldOfPlayer(int ID)
     {
-        List<Card> cards = new List<Card>();
-        if (ID == 0)
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                foreach (var item in GameManager.player1.boardPlayer.UnitCards[i])
-                {
-                    cards.Add(item);
-                }
-            }
-        }
-        else
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                foreach (var item in GameManager.player2.boardPlayer.UnitCards[i])
-                {
-                    cards.Add(item);
-                }
-            }
-        }
-        return cards;
+        return ID == 0 ? GameManager.player1.boardPlayer.UnitCards : GameManager.player2.boardPlayer.UnitCards;
     }
 }

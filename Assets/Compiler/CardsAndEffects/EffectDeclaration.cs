@@ -31,7 +31,7 @@ public class EffectDeclaration : IProgramNode
             context.effects.Add(s, new CompiledEffect(s, Params, a));
             return;
         }
-        throw new Exception();
+        throw new Exception("Action and name are not in the correct format");
     }
 
     public void Create()

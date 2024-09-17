@@ -35,7 +35,15 @@ public class Deck
         {
             if (card.Type != "Lider")
             {
-                DeckList.Add(card);
+                if (card is UnitCard card1)
+                {
+                    DeckList.Add(CardCreator.DuplicateCards(card1));
+
+                }
+                else
+                {
+                    DeckList.Add(card);
+                }
             }
         }
         Debug.Log(DeckList.Count);
@@ -62,12 +70,12 @@ public class Deck
     static Lider GetLider(List<Card> ListaDeCartas)
     {
 
-        Lider lider1 = new Lider("default", "", "default");
+        Lider lider1 = new Lider("default", "", "default", "");
         foreach (var card in ListaDeCartas)
         {
             if (card.Type == "Lider")
             {
-                lider1 = new Lider(card.Name, card.Effect, card.Faction);
+                lider1 = new Lider(card.Name, card.Effect, card.Faction, "");
             }
         }
         return lider1;

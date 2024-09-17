@@ -31,7 +31,6 @@ public class IfStmt : IStatements
     }
     public void Execute()
     {
-
         if (condition.Evaluate() is true)
         {
             foreach (var item in statements)
@@ -83,17 +82,37 @@ public class ForStms : IStatements
     }
     public void Execute()
     {
-        if (exp.Evaluate() is IEnumerable<object> l)
+        var e = exp.Evaluate();
+        if (e is List<UnitCard>[] cards)
+        {
+            for (int i = 0; i < cards.Length; i++)
+            {
+                for (int j = 0; j < cards[i].Count; j++)
+                {
+                    enviroment.SetValue(id, cards[i][j]);
+                    foreach (var item in statements)
+                    {
+                        item.Execute();
+                    }
+                }
+            }
+        }
+        else if (e is IEnumerable<object> l)
         {
             var j = l.ToList();
             for (int i = 0; i < j.Count; i++)
             {
                 enviroment.SetValue(id, j[i]);
+                Debug.Log(j[i]);
                 foreach (var item in statements)
                 {
                     item.Execute();
                 }
             }
+        }
+        else
+        {
+            throw new Exception($"Can not aply for over {e.GetType()}");
         }
     }
 }

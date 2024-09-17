@@ -33,7 +33,7 @@ public class CardDeclaration : IProgramNode
         object Faction = faction.Evaluate();
         var onActivation = onActivationDeclarations.Select(x => (OnActivationObject)x.Evaluate()).ToList();
 
-        if (Name is string stringName && Power is double intPower && intPower >= 0 && Type is string stringType && (stringType == "Golden" || stringType == "Silver" || stringType == "Lider") && Faction is string stringFaction)
+        if (Name is string stringName && Power is double intPower && intPower >= 0 && Type is string stringType && (stringType == "Golden" || stringType == "Silver" || stringType == "Lider"||stringType=="Weather"||stringType=="Bonus") && Faction is string stringFaction)
         {
             if (Range is string stringRange)
             {
@@ -58,15 +58,15 @@ public class CardDeclaration : IProgramNode
                 }
                 else
                 {
-                    throw new Exception("");
+                    throw new Exception($"Range can't be {stringRange}");
                 }
             }
             else
             {
-                throw new Exception();
+                throw new Exception("Range is not string");
             }
         }
-        throw new Exception();
+        throw new Exception("The args for the new card are not writen ok");
     }
 
     public void Create()

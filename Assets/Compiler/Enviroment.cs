@@ -11,7 +11,7 @@ public class Enviroment
     {
         this.parent = parent;
     }
-    public Enviroment() { }
+    public Enviroment() {}
     public Enviroment Search(string search)
     {
         if (pairs.ContainsKey(search))
@@ -44,7 +44,7 @@ public class Enviroment
         }
         if (parent == null)
         {
-            throw new Exception("");
+            throw new Exception($"{id} is not declared in the current context");
         }
         return parent.GetValue(id);
     }

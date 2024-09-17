@@ -40,7 +40,7 @@ public class Parser
         {
             return CurrentToken;
         }
-        throw new Exception();
+        throw new Exception($"Expecting {type} at {CurrentToken.location}");
     }
     private IExpression ActionExpression(Enviroment Parent)
     {
@@ -78,6 +78,10 @@ public class Parser
     public List<IProgramNode> Program(Enviroment Parent)
     {
         List<IProgramNode> programNodes = new List<IProgramNode>();
+        if (CurrentToken.Type != TokenType.CARD && CurrentToken.Type != TokenType.EFFECT)
+        {
+            throw new Exception($"Expecting Card or effect at {CurrentToken.location}");
+        }
         while (!IsAtEnd())
         {
             if (Match(TokenType.CARD))
@@ -90,7 +94,7 @@ public class Parser
             }
             else
             {
-                throw new Exception();
+                throw new Exception($"Expecting Card or effect at {CurrentToken.location}");
             }
         }
         return programNodes;
@@ -141,8 +145,12 @@ public class Parser
                 }
                 else
                 {
-                    throw new Exception();
+                    throw new Exception($"effect does not contain a camp named {CurrentToken.Value}");
                 }
+            }
+            else
+            {
+                throw new Exception($"Expecting Identifier at {CurrentToken.location}");
             }
         }
         return new EffectDeclaration(name, param, action, context);
@@ -161,7 +169,6 @@ public class Parser
                 if (CurrentToken.Type == TokenType.COMMA)
                 {
                     Consume(TokenType.COMMA);
-
                 }
                 else
                 {
@@ -170,7 +177,7 @@ public class Parser
             }
             else
             {
-                throw new Exception("");
+                throw new Exception($"Must be Number,Bool or String the type for {name}");
             }
         }
         return param;
@@ -241,7 +248,7 @@ public class Parser
 
                     }
                     else
-                        throw new Exception();
+                        throw new Exception($"Selector does not contain a camp for {CurrentToken.Value}");
                 }
                 Consume(TokenType.RIGHTBRACES);
                 selector = new SelectorExpression(sour, sing, predicate);
@@ -260,7 +267,7 @@ public class Parser
             }
             else
             {
-                throw new Exception();
+                throw new Exception($"OnActivation does not contain a camp named {CurrentToken.Value}");
             }
         }
         return new OnActivationObjectExpression(effectInfo, selector, postAction);
@@ -324,16 +331,20 @@ public class Parser
                         }
                     }
                     Consume(TokenType.RIGHTBRAKETS);
+                    if (CurrentToken.Type == TokenType.COMMA)
+                    {
+                        Consume(TokenType.COMMA);
+                    }
 
                 }
                 else
                 {
-                    throw new Exception("");
+                    throw new Exception($"Card do not contain a camp named {Previus().Value} ");
                 }
             }
             else
             {
-                throw new Exception("");
+                throw new Exception($"Expecting an Identifier at {CurrentToken.location}");
             }
         }
         return new CardDeclaration(name, power, type, range, faction, context, onActivationDeclarations);
@@ -594,7 +605,7 @@ public class Parser
                         left = new GetProperties(left, id, new List<IExpression>());
                 }
                 else
-                    throw new Exception();
+                    throw new Exception($"Expecting Identifier at {CurrentToken.location}");
             }
             else if (Previus().Type == TokenType.INCREMENT || Previus().Type == TokenType.DECREMENT)
             {
@@ -614,15 +625,7 @@ public class Parser
     {
         if (Match(TokenType.NUMS, TokenType.STRING, TokenType.BOOLEANS))
         {
-            // if (!IsAtEnd())
-            // {
             return (Previus().Type == TokenType.NUMS) ? new Atom(double.Parse(Previus().Value)) : Previus().Type == TokenType.STRING ? new Atom(Previus().Value) : new Atom(bool.Parse(Previus().Value));
-
-            // }
-            // else
-            // {
-            //     return (CurrentToken.Type == TokenType.NUMS) ? new Atom(double.Parse(CurrentToken.Value)) : CurrentToken.Type == TokenType.STRING ? new Atom(CurrentToken.Value) : new Atom(bool.Parse(CurrentToken.Value));
-            // }
         }
         if (Match(TokenType.IDENTIFIER))
         {
@@ -683,7 +686,7 @@ public class Parser
             return list;
         }
 
-        throw new Exception();
+        throw new Exception($"{CurrentToken} is not valid. Error at {CurrentToken.location}");
     }
 
     private IExpression ParseDelegateExpression(Enviroment Parent)

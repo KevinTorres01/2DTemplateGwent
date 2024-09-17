@@ -58,6 +58,13 @@ public class CardVisual : MonoBehaviour
         }
 
         Effect.text = Card.Effect;
+        if (Effect.text == "")
+        {
+            if (card.onActivations != null && card.onActivations.Count > 0)
+            {
+                Effect.text = card.onActivations[0].EffectInfo.name;
+            }
+        }
     }
     public void SetPoints(Card card)                       //   le asigna los puntos a la carta en el visual
     {
@@ -85,7 +92,7 @@ public class CardVisual : MonoBehaviour
         }
         return NameOfPic;
     }
-    public int LevenshteinDistance(string First, string Second)
+    private int LevenshteinDistance(string First, string Second)
     {
         int cost = 0;
         int m = First.Length;

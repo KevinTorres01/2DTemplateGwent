@@ -74,37 +74,41 @@ class Multiply : Effects
                 }
             }
         }
-
-        if (player.IsMyturn)
+        if (unitCard is UnitCard card)
         {
-            for (int i = 0; i < player.boardPlayer.UnitCards.Length; i++)
-            {
-                foreach (var item in player.boardPlayer.UnitCards[i])
-                {
-                    if (item == unitCard)
-                    {
-                        item.Score = item.Score * count;
-                        return;
-                    }
-                }
-            }
-
+            card.Score = card.Score * count;
         }
-        if (player1.IsMyturn)
-        {
-            for (int i = 0; i < player1.boardPlayer.UnitCards.Length; i++)
-            {
-                foreach (var item in player1.boardPlayer.UnitCards[i])
-                {
-                    if (item == unitCard)
-                    {
-                        item.Score = item.Score * count;
-                        return;
-                    }
-                }
-            }
 
-        }
+        // if (player.IsMyturn)
+        // {
+        //     for (int i = 0; i < player.boardPlayer.UnitCards.Length; i++)
+        //     {
+        //         foreach (var item in player.boardPlayer.UnitCards[i])
+        //         {
+        //             if (item == unitCard)
+        //             {
+        //                 item.Score = item.Score * count;
+        //                 return;
+        //             }
+        //         }
+        //     }
+
+        // }
+        // if (player1.IsMyturn)
+        // {
+        //     for (int i = 0; i < player1.boardPlayer.UnitCards.Length; i++)
+        //     {
+        //         foreach (var item in player1.boardPlayer.UnitCards[i])
+        //         {
+        //             if (item == unitCard)
+        //             {
+        //                 item.Score = item.Score * count;
+        //                 return;
+        //             }
+        //         }
+        //     }
+
+        // }
 
         Debug.Log($"efecto hecho");
     }
@@ -416,7 +420,7 @@ class Averages : Effects
         {
             foreach (var item in player.boardPlayer.UnitCards[i])
             {
-                prom = item.Score;
+                prom += item.Score;
                 nomberOfcards++;
             }
         }
@@ -424,7 +428,7 @@ class Averages : Effects
         {
             foreach (var item in player1.boardPlayer.UnitCards[i])
             {
-                prom = item.Score;
+                prom += item.Score;
                 nomberOfcards++;
             }
 
@@ -582,10 +586,10 @@ class PersonalizedEffect : Effects
 {
     public override void ActivateEffect(Player player, Player player1, Card unitCard)
     {
-if (unitCard.onActivations==null)
-{
-    Debug.Log("nullllllll");
-}
+        if (unitCard.onActivations == null)
+        {
+            Debug.Log("nullllllll");
+        }
         foreach (var item in unitCard.onActivations)
         {
             ExecuteOnActivation(item);
@@ -595,31 +599,100 @@ if (unitCard.onActivations==null)
     private void ExecuteOnActivation(OnActivationObject item)
     {
         var x = new Context();
-        CompiledEffects[item.EffectInfo.name].action.Invoke(x, GetTargets(x, item));
+        CompiledEffects[item.EffectInfo.name].action.Invoke(GetTargets(x, item), x);
         if (item.postaction != null)
         {
             ExecuteOnActivation(item.postaction);
         }
+        Debug.Log("inmprimieno cartas del tablero");
+        foreach (var ite in GameManager.player1.boardPlayer.UnitCards)
+        {
+            foreach (var it in ite)
+            {
+                Debug.Log(it.Name);
+            }
+        }
+        foreach (var ite in GameManager.player2.boardPlayer.UnitCards)
+        {
+            foreach (var it in ite)
+            {
+                Debug.Log(it.Name);
+            }
+        }
+
     }
     private List<Card> GetTargets(Context context, OnActivationObject onActivation, OnActivationObject parent = null)
     {
         var sour = onActivation.Selector.source;
         var targets = sour == "hand" ? context.Hand : sour == "otherHand" ? context.HandOfPlayer((context.TrigerPlayer + 1) % 2) : sour == "deck" ? context.Deck : sour == "otherDeck" ? context.DeckOfPlayer((context.TrigerPlayer + 1) % 2) :
-        sour == "field" ? context.Field : sour == "otherField" ? context.FieldOfPlayer((context.TrigerPlayer + 1) % 2) : new();
+        new();
+        if (sour == "field" || sour == "otherField")
+        {
+            switch (sour)
+            {
+                case "field":
+                    for (int i = 0; i < context.Field.Length; i++)
+                    {
+                        for (int j = 0; j < context.Field[i].Count; j++)
+                        {
+                            targets.Add(context.Field[i][j]);
+                        }
+                    }
+                    break;
+                case "otherField":
+                    for (int i = 0; i < context.FieldOfPlayer((context.TrigerPlayer + 1) % 2).Length; i++)
+                    {
+                        for (int j = 0; j < context.FieldOfPlayer((context.TrigerPlayer + 1) % 2)[i].Count; j++)
+                        {
+                            targets.Add(context.FieldOfPlayer((context.TrigerPlayer + 1) % 2)[i][j]);
+                        }
+                    }
+                    break;
+                default:
+                    throw new Exception();
+            }
+        }
         if (sour == "parent")
         {
             sour = parent.Selector.source;
             targets = sour == "hand" ? context.Hand : sour == "otherHand" ? context.HandOfPlayer((context.TrigerPlayer + 1) % 2) : sour == "deck" ? context.Deck : sour == "otherDeck" ? context.DeckOfPlayer((context.TrigerPlayer + 1) % 2) :
-                   sour == "field" ? context.Field : sour == "otherField" ? context.FieldOfPlayer((context.TrigerPlayer + 1) % 2) : new();
+            new();
+            if (sour == "field" || sour == "otherField")
+            {
+                switch (sour)
+                {
+                    case "field":
+                        for (int i = 0; i < context.Field.Length; i++)
+                        {
+                            for (int j = 0; j < context.Field[i].Count; j++)
+                            {
+                                targets.Add(context.Field[i][j]);
+                            }
+                        }
+                        break;
+                    case "otherField":
+                        for (int i = 0; i < context.FieldOfPlayer((context.TrigerPlayer + 1) % 2).Length; i++)
+                        {
+                            for (int j = 0; j < context.FieldOfPlayer((context.TrigerPlayer + 1) % 2)[i].Count; j++)
+                            {
+                                targets.Add(context.FieldOfPlayer((context.TrigerPlayer + 1) % 2)[i][j]);
+                            }
+                        }
+                        break;
+                    default:
+                        throw new Exception();
+                }
+            }
         }
         List<Card> cards = new();
         foreach (var item in targets)
         {
-            if ((bool)onActivation.Selector.Delegate.Invoke(item))
+            if ((bool)onActivation.Selector.Delegate.Invoke(item) && item.Type != "Golden")
             {
                 cards.Add(item);
             }
         }
+        Debug.Log("el count de targets es " + targets.Count);
         if (onActivation.Selector.single)
         {
             return cards.Count == 0 ? cards : new List<Card> { cards[0] };

@@ -48,11 +48,11 @@ public class BinaryExpression : IExpression
             case TokenType.LESSEQUALS:
                 return Convert.ToDouble(left.Evaluate()) <= Convert.ToDouble(right.Evaluate());
             case TokenType.EQUALS:
-                return Convert.ToDouble(left.Evaluate()) == Convert.ToDouble(right.Evaluate());
+                return left.Evaluate().Equals(right.Evaluate());
             case TokenType.CONCATWHITHOUTSPACE:
-                return (string)left.Evaluate() + (string)right.Evaluate();
+                return left.Evaluate().ToString() + right.Evaluate().ToString();
             case TokenType.CONCATWHITHSPACE:
-                return (string)left.Evaluate() + " " + (string)right.Evaluate();
+                return left.Evaluate().ToString() + " " + right.Evaluate().ToString();
             case TokenType.POTENCIATION:
                 return Math.Pow(Convert.ToDouble(left.Evaluate()), Convert.ToDouble(right.Evaluate()));
             case TokenType.ASIGNMENT:
@@ -68,17 +68,11 @@ public class BinaryExpression : IExpression
                 }
                 else
                 {
-                    throw new Exception("");
+                    throw new Exception($"Can't aply the operator '{Operator.Type}' on {left.GetType()}");
                 }
             default:
                 return null;
         }
-    }
-}
-public class Assignment : BinaryExpression
-{
-    public Assignment(IExpression Left, IExpression Right, Token Operator) : base(Left, Right, Operator)
-    {
     }
 }
 class UnaryExpression : IExpression
@@ -100,7 +94,7 @@ class UnaryExpression : IExpression
                     v.enviroment.SetValue(v.NameOfVariable, (int)expression.Evaluate() - 1);
                     return v.enviroment.GetValue(v.NameOfVariable);
                 }
-                throw new Exception("");
+                throw new Exception($"Can't aply the operator '--' on {expression.GetType()}");
             case TokenType.MINUS:
                 return -(int)expression.Evaluate();
             case TokenType.INCREMENT:
@@ -109,7 +103,7 @@ class UnaryExpression : IExpression
                     v2.enviroment.SetValue(v2.NameOfVariable, (double)expression.Evaluate() + 1);
                     return v2.enviroment.GetValue(v2.NameOfVariable);
                 }
-                throw new Exception();
+                throw new Exception($"Can't aply the operator '--' on {expression.GetType()}");
             default:
                 return null;
         }
@@ -179,22 +173,23 @@ public class PropertySet : IExpression
             var e = p.exp.Evaluate();
             if (e is UnitCard card)
             {
-                switch (p.NameOfPropery)
+                switch (p.NameOfProperty)
                 {
                     case "Power":
                         card.Score = Convert.ToInt32(value.Evaluate());
-                        return value.Evaluate();
+                        return value.Evaluate();   
+                    default: throw new Exception($"UnitCard does not contain a definition for {p.NameOfProperty}");
                 }
             }
             else if (e is List<object> list)
             {
-                switch (p.NameOfPropery)
+                switch (p.NameOfProperty)
                 {
                     case "Indexer":
                         list[int.Parse(p.args[0].Evaluate().ToString())] = value.Evaluate();
                         return value.Evaluate();
                     default:
-                        throw new Exception();
+                        throw new Exception($"List<object> does not contain a definition for {p.NameOfProperty}");
                 }
             }
             throw new Exception();
@@ -241,6 +236,17 @@ public class FunctionCall : IExpression
         {
             s = args[0].Evaluate();
         }
+        Debug.Log(x.GetType().ToString());
+        if (x is string k)
+        {
+            switch (NameOfMethod)
+            {
+                case "Contains":
+                    return k.Contains(((string)s)[0]);
+                default:
+                    throw new Exception();
+            }
+        }
         if (x is Context context)
         {
             switch (NameOfMethod)
@@ -250,42 +256,81 @@ public class FunctionCall : IExpression
                     {
                         return context.HandOfPlayer(Convert.ToInt32(s));
                     }
-                    throw new Exception();
+                    throw new Exception("HandOfPlayer must recive an int for argument");
                 case "DeckOfPlayer":
                     if (s != null)
                     {
                         return context.DeckOfPlayer(Convert.ToInt32(s));
                     }
-                    throw new Exception();
+                    throw new Exception("DeckOfPlayer must recive an int for argument");
                 case "GraveyardOfPlayer":
                     if (s != null)
                     {
                         return context.GraveyardOfPlayer(Convert.ToInt32(s));
                     }
-                    throw new Exception();
+                    throw new Exception("GraveyardOfPlayer must recive an int for argument");
                 case "FieldOfPlayer":
                     if (s != null)
                     {
                         return context.FieldOfPlayer(Convert.ToInt32(s));
                     }
-                    throw new Exception();
-                default: throw new Exception();
+                    throw new Exception("FieldOfPlayer must recive an int for argument");
+                default: throw new Exception($"Context does not contain a definition for {NameOfMethod}");
+            }
+        }
+        if (x is List<UnitCard>[] unitcards)
+        {
+            Debug.Log("entrando a array de listas");
+            switch (NameOfMethod)
+            {
+                case "Find":
+                    return typeof(void);
+                case "Remove":
+                    foreach (var item in unitcards)
+                    {
+                        if (item.Remove((UnitCard)args[0].Evaluate()))
+                            break;
+                    }
+                    return typeof(void);
+                default:
+                    throw new Exception($"List<UnitCard>[] does not contain a definition for {NameOfMethod}");
             }
         }
         if (x is List<Card> cards)
         {
+            Debug.Log("entrando a lista");
+
             switch (NameOfMethod)
             {
+                case "Push":
+                    cards.Insert(0, (Card)s);
+                    return typeof(void);
                 case "Shuffle":
                     Deck.Swap(cards);
                     return typeof(void);
                 case "Find":
                     return typeof(void);
+                case "Pop":
+                    Debug.Log(cards.Count + " Este es el count de la lista");
+                    var f = cards[cards.Count - 1];
+                    cards.RemoveAt(cards.Count - 1);
+                    return f;
+                case "Remove":
+                    cards.Remove((Card)s);
+                    return typeof(void);
+                case "SendButton":
+                    if (args.Count > 0)
+                        cards.Add((Card)s);
+                    return typeof(void);
+                default:
+                    throw new Exception($"List<Card> does not contain a definition for {NameOfMethod}");
 
             }
         }
         if (x is List<object> list)
         {
+            Debug.Log("entrando a lista de obj");
+
             switch (NameOfMethod)
             {
                 case "Push":
@@ -306,13 +351,15 @@ public class FunctionCall : IExpression
                 case "Remove":
                     list.Remove(args[0].Evaluate());
                     return typeof(void);
-                default: throw new Exception();
+                case "Contains":
+                    return list.Contains(args[0].Evaluate());
+                default: throw new Exception($"List<object> does not contain a definition for {NameOfMethod}");
             }
         }
-        throw new Exception();
+        throw new Exception(x.GetType().ToString());
     }
-
 }
+
 public class ActionExpression : IExpression
 {
     public List<Token> Identifiers { get; }
@@ -333,73 +380,102 @@ public class ActionExpression : IExpression
 public class GetProperties : IExpression
 {
     public IExpression exp;
-    public string NameOfPropery;
+    public string NameOfProperty;
     public List<IExpression> args;
     public GetProperties(IExpression left, string name, List<IExpression> args)
     {
         exp = left;
-        NameOfPropery = name;
+        NameOfProperty = name;
         this.args = args;
     }
     public object Evaluate()
     {
         var x = exp.Evaluate();
-        Debug.Log(x + x.GetType().ToString());
+        Debug.Log(x.GetType().ToString());
         if (x is Context context)
         {
-            switch (NameOfPropery)
+            switch (NameOfProperty)
             {
                 case "Hand":
                     return context.Hand;
+                case "otherHand":
+                    return context.HandOfPlayer((context.TrigerPlayer + 1) % 2);
                 case "Deck":
+                    Debug.Log("count de dec" + context.DeckOfPlayer(context.TrigerPlayer).Count);
                     return context.Deck;
+                case "otherDeck":
+                    Debug.Log("count de otherdec" + context.DeckOfPlayer((context.TrigerPlayer + 1) % 2).Count);
+                    return context.DeckOfPlayer((context.TrigerPlayer + 1) % 2);
                 case "Board":
                     return context.Board;
                 case "Graveyard":
                     return context.Graveyard;
                 case "Field":
+                    Debug.Log("Entrando a evaluar field");
                     return context.Field;
-                case "TrigerPlayer":
+                case "TriggerPlayer":
                     return context.TrigerPlayer;
-                default: throw new Exception();
+                default: throw new Exception($"Context does no contain a definitiion for {NameOfProperty}");
             }
         }
         else if (x is UnitCard card)
         {
-            switch (NameOfPropery)
+            switch (NameOfProperty)
             {
+                case "Name":
+                    return card.Name;
                 case "Power":
                     return card.Score;
                 case "Type":
                     return card.Type;
+                case "Row":
+                    return card.row;
                 default:
-                    throw new Exception();
+                    throw new Exception($"UnitCard does not contain a definition for {NameOfProperty}");
+            }
+        }
+        else if (x is Card special)
+        {
+            switch (NameOfProperty)
+            {
+                case "Name":
+                    return special.Name;
+                case "Type":
+                    return special.Type;
+                case "Row":
+                    return special.row;
+                default:
+                    throw new Exception($"Card does not contain a definition for {NameOfProperty}");
             }
         }
         else if (x is List<Card> cards)
         {
-            switch (NameOfPropery)
+            switch (NameOfProperty)
             {
                 case "Count":
                     return cards.Count;
                 case "Indexer":
                     return cards[int.Parse(args[0].Evaluate().ToString())];
-                default: throw new Exception();
+                default:
+                    throw new Exception($"List<Card> does not contain a definition for {NameOfProperty}");
             }
         }
         else if (x is List<object> list)
         {
-            switch (NameOfPropery)
+            switch (NameOfProperty)
             {
                 case "Count":
                     return list.Count;
                 case "Indexer":
                     return list[int.Parse(args[0].Evaluate().ToString())];
-                default: throw new Exception();
+                default: throw new Exception($"List<object> does not contain a definition for {NameOfProperty}");
             }
         }
         else
-            throw new Exception();
+        {
+            Debug.Log(x.GetType());
+            throw new Exception($"{x.GetType()} does not contain a definition for {NameOfProperty}");
+        }
     }
 }
 public class DelegateExpression : IExpression
@@ -457,13 +533,13 @@ public class EffectInfoExpression : IExpression
                 }
                 else
                 {
-                    throw new Exception("");
+                    throw new Exception($"{item.Name} is has not a correct type");
                 }
 
             }
             return new EffectInfo(s, keyValuePairs);
         }
-        throw new Exception("");
+        throw new Exception("Params and name are not writen correctly as part of an effect");
 
     }
 }
@@ -499,11 +575,11 @@ public class OnActivationObjectExpression : IExpression
                 }
                 else
                 {
-                    throw new Exception();
+                    throw new Exception("Postaction is not declared correctly. Remember that is an OnActivationObject");
                 }
             }
         }
-        throw new Exception();
+        throw new Exception("EffectInfo and Selector has not been declared correctly");
     }
 }
 public class SelectorExpression : IExpression
@@ -529,6 +605,6 @@ public class SelectorExpression : IExpression
             return new Selector(a, b, j);
 
         }
-        throw new Exception();
+        throw new Exception("Selector has not been declared correctly");
     }
 }

@@ -9,6 +9,8 @@ using Unity.VisualScripting;
 public class DropRow : MonoBehaviour, IDropHandler
 {
     public string NameOfRow;
+    [SerializeField] public HandScript Player1Hand;
+    [SerializeField] public HandScript Player2Hand;
     [SerializeField] public TextMeshProUGUI UIMessage;
 
     public void OnDrop(PointerEventData eventData)
@@ -22,7 +24,6 @@ public class DropRow : MonoBehaviour, IDropHandler
             Drag.DraggedCard.GetComponent<Drag>().enabled = false;
             if (this.transform.parent.name == "Player1")
             {
-                int count = GameManager.player1.Hand.ListOfCards.Count - 1;
                 if (NameOfRow == "M")
                     PlayCard(GameManager.player1, unitCard, 0);
 
@@ -32,21 +33,12 @@ public class DropRow : MonoBehaviour, IDropHandler
                 if (NameOfRow == "R")
                     PlayCard(GameManager.player1, unitCard, 1);
 
-                GameManager.player1.Hand.ListOfCards.Remove(unitCard);
-
-                if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw" && GameManager.player1.Hand.ListOfCards.Count > count)
-                {
-                    Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player1);
-                }
-
-                Board.UpdatePoints(GameManager.player1.boardPlayer);
-                Board.UpdatePoints(GameManager.player2.boardPlayer);
-                GameManager.gameManager.ActPointsInFronten();
+                Player1Hand.ActCardsInHand();
+                Player2Hand.ActCardsInHand();
             }
 
             if (this.transform.parent.name == "Player2")
             {
-                int count = GameManager.player2.Hand.ListOfCards.Count - 1;
                 if (NameOfRow == "M")
                     PlayCard(GameManager.player2, unitCard, 0);
 
@@ -56,41 +48,34 @@ public class DropRow : MonoBehaviour, IDropHandler
                 if (NameOfRow == "R")
                     PlayCard(GameManager.player2, unitCard, 1);
 
-                GameManager.player2.Hand.ListOfCards.Remove(unitCard);
-
-                if (Drag.DraggedCard.transform.GetComponent<CardVisual>().Card.Effect == "Draw" && GameManager.player2.Hand.ListOfCards.Count > count)
-                {
-                    Drag.OriginalParent.GetComponent<HandScript>().DrawACArd(GameManager.player2);
-                }
-
-                Board.UpdatePoints(GameManager.player1.boardPlayer);
-                Board.UpdatePoints(GameManager.player2.boardPlayer);
-                GameManager.gameManager.ActPointsInFronten();
+                Player1Hand.ActCardsInHand();
+                Player2Hand.ActCardsInHand();
+               
             }
-
             if (this.transform.parent.name == "Player1" && GameManager.player2.Pased == false)
             {
                 GameManager.player1.IsMyturn = false;
                 GameManager.player2.IsMyturn = true;
                 UIMessage.text = $"Turno de {GameManager.player2.Name}";
             }
-
             if (this.transform.parent.name == "Player2" && GameManager.player1.Pased == false)
             {
                 GameManager.player1.IsMyturn = true;
                 GameManager.player2.IsMyturn = false;
                 UIMessage.text = $"Turno de {GameManager.player1.Name}";
             }
-
         }
     }
-
     private static void PlayCard(Player player, UnitCard unitCard, int row)
     {
         player.boardPlayer.UnitCards[row].Add(unitCard);
-
+        player.Hand.ListOfCards.Remove(unitCard);
         Board.ActPointsInRow(GameManager.player1.boardPlayer, GameManager.player2.boardPlayer, row);
         Drag.DraggedCard.GetComponent<CardVisual>().Card.TakeEffect(GameManager.player1, GameManager.player2, Drag.DraggedCard.GetComponent<CardVisual>().Card);
         Board.ActPointsInRow(GameManager.player1.boardPlayer, GameManager.player2.boardPlayer, row);
+
+        Board.UpdatePoints(GameManager.player1.boardPlayer);
+        Board.UpdatePoints(GameManager.player2.boardPlayer);
+        GameManager.gameManager.ActPointsInFronten();
     }
 }
