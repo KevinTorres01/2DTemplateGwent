@@ -77,6 +77,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50a11402b29a979ddba38ea509a75b6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NameofSlot: 
+  Player1Hand: {fileID: 0}
+  Player2Hand: {fileID: 0}
+  WasDropped: 0
+  UIMessage: {fileID: 0}
 --- !u!222 &2131959369473322911
 CanvasRenderer:
   m_ObjectHideFlags: 0

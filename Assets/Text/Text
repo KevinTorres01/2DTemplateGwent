@@ -443,6 +443,45 @@ effect{
         }
  }
 }
+effect{
+ Name: "Effect Bonus M",
+ Action : (targets,context) =>
+ {
+        for target in targets
+        {
+           if(target.Type == "Silver" &&target.Row.Contains("M"))
+             {
+             target.Power= target.Power+2;
+             }
+        }
+ }
+}
+effect{
+ Name: "Effect Bonus R",
+ Action : (targets,context) =>
+ {
+        for target in targets
+        {
+           if(target.Type == "Silver" &&target.Row.Contains("R"))
+             {
+             target.Power= target.Power+2;
+             }
+        }
+ }
+}
+effect{
+ Name: "Effect Bonus S",
+ Action : (targets,context) =>
+ {
+        for target in targets
+        {
+           if(target.Type == "Silver" &&target.Row.Contains("S"))
+             {
+             target.Power= target.Power+2;
+             }
+        }
+ }
+}
 Card 
 {
  Name :"Clima M",
@@ -460,6 +499,72 @@ Card
  			Single: false,
  			Predicate : (unit) => true,
  			Source : "Board",
+ 		}
+ 	}
+ ]
+ 
+}
+Card 
+{
+ Name :"Aumento M",
+ Faction : "Sayayins",
+ Type : "Bonus",
+ Power : 6,
+ Range : "M",
+ OnActivation : [
+ 	{
+ 		Effect :{
+ 		 Name : "Effect Bonus M",
+ 		},
+ 		Selector :
+ 		{
+ 			Single: false,
+ 			Predicate : (unit) => true,
+ 			Source : "field",
+ 		}
+ 	}
+ ]
+ 
+}
+Card 
+{
+ Name :"Aumento R",
+ Faction : "Sayayins",
+ Type : "Bonus",
+ Power : 6,
+ Range : "R",
+ OnActivation : [
+ 	{
+ 		Effect :{
+ 		 Name : "Effect Bonus R",
+ 		},
+ 		Selector :
+ 		{
+ 			Single: false,
+ 			Predicate : (unit) => true,
+ 			Source : "field",
+ 		}
+ 	}
+ ]
+ 
+}
+Card 
+{
+ Name :"Aumento S",
+ Faction : "Sayayins",
+ Type : "Bonus",
+ Power : 6,
+ Range : "S",
+ OnActivation : [
+ 	{
+ 		Effect :{
+ 		 Name : "Effect Bonus S",
+ 		},
+ 		Selector :
+ 		{
+ 			Single: false,
+ 			Predicate : (unit) => true,
+ 			Source : "field",
  		}
  	}
  ]

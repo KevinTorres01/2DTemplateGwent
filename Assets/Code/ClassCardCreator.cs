@@ -32,7 +32,7 @@ public class CardCreator
         CardList.Add(Beerus_Planet);
         BonusCard Capsule_Corp = new BonusCard("Capsule corp", "BonusS","S");
         CardList.Add(Capsule_Corp);
-        Lider Beerus_Sama = new Lider("Beerus Sama", " ", "Universe 7","");
+        Lider Beerus_Sama = new Lider("Beerus Sama", "Average", "Universe 7","");
         CardList.Add(Beerus_Sama);
         GoldenCard Freeza = new GoldenCard("Freeza", "WeatherS", "Universe 7", "MR", 6);
         CardList.Add(Freeza);
